@@ -1,4 +1,5 @@
 import { DiagramModelBuilder } from "./../core/DiagramModelBuilder";
+import Clone_ from "./nodes/Clone_";
 import CreateGrid from "./nodes/CreateGrid";
 import CreateJSON from "./nodes/CreateJSON";
 import DownloadJSON from "./nodes/DownloadJSON";
@@ -10,8 +11,11 @@ import Map from "./nodes/Map";
 
 export const WorkingWithJSON = DiagramModelBuilder.begin()
 	.addNode(CreateJSON)
+	.addNode(Clone_)
 	.addNode(HTTPRequest)
-	.addNode(DownloadJSON)
+	.addNode(Inspect)
+	.addNode(Inspect)
+	.addNode(Inspect)		
 	.finish()
 
 
