@@ -15144,10 +15144,6 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
             store: _store_main__WEBPACK_IMPORTED_MODULE_9__.default
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_controls_RunControl__WEBPACK_IMPORTED_MODULE_5__.default, {
             store: _store_main__WEBPACK_IMPORTED_MODULE_9__.default
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_controls_TokensControl__WEBPACK_IMPORTED_MODULE_8__.default, {
-            store: _store_main__WEBPACK_IMPORTED_MODULE_9__.default
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_controls_LogControl__WEBPACK_IMPORTED_MODULE_6__.default, {
-            store: _store_main__WEBPACK_IMPORTED_MODULE_9__.default
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_controls_AddNodeControl__WEBPACK_IMPORTED_MODULE_7__.default, {
             store: _store_main__WEBPACK_IMPORTED_MODULE_9__.default
           }), this.renderInspectables()]

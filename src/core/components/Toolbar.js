@@ -26,8 +26,8 @@ export default observer(class Toolbar extends React.Component {
                     <OpenControl store={store} />
                     <SaveControl store={store} />
                     <RunControl store={store} />
-                    <TokensControl store={store} />
-                    <LogControl store={store} />                    
+                    {/* <TokensControl store={store} />
+                    <LogControl store={store} /> */}
                     <AddNodeControl store={store} />
                     {this.renderInspectables()}       
                 </div>

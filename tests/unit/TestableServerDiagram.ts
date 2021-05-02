@@ -69,7 +69,7 @@ export default class TestableServerDiagram {
 
         // Overwrite default parameters
         for (const [name, value] of Object.entries(this.parameters_)) {
-            let selected = this.node_.options.parameters.find(p => p.name == name)
+            let selected = this.node_.parameters.find(p => p.name == name)
             selected.value = value
         } 
 

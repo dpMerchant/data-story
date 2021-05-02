@@ -12,14 +12,12 @@ type ServerNodeOptions = {
 	outPorts?: string[],
 	name?: string,
 	id?: string,
-	options?: any,
 }
 
 export default abstract class ServerNode {
     public id: string
     public ports: any[]
     public diagram: ServerDiagram
-    public options: any
 
     public category: string = 'Custom'
     public editableInPorts: boolean = false
