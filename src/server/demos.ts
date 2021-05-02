@@ -11,8 +11,6 @@ import Map from "./nodes/Map";
 export const WorkingWithJSON = DiagramModelBuilder.begin()
 	.addNode(CreateJSON)
 	.addNode(HTTPRequest)
-	.addNode(Map)
-	.addNode(Flatten)
 	.addNode(DownloadJSON)
 	.finish()
 

@@ -4,6 +4,7 @@ import PortModel from './PortModel'
 import _ from 'lodash'
 import UID from './utils/UID'
 import NodeParameter from './NodeParameter';
+import { SerializedNodeModel } from './types/SerializedNodeModel';
 
 export interface NodeModelOptions extends BasePositionModelOptions {
     name: string,
@@ -71,7 +72,7 @@ export default class NodeModel extends DefaultNodeModel {
 
     }
 
-	serialize() {
+	serialize() : SerializedNodeModel {
 		return {
             ...super.serialize(),
 			parameters: this.parameters,
