@@ -10276,6 +10276,7 @@ var NodeParameter = /*#__PURE__*/function () {
   function NodeParameter(name) {
     _classCallCheck(this, NodeParameter);
 
+    this.description = '';
     this.fieldType = "String_";
     this.value = '';
     this.name = name;
@@ -10297,6 +10298,12 @@ var NodeParameter = /*#__PURE__*/function () {
     key: "withValue",
     value: function withValue(value) {
       this.value = value;
+      return this;
+    }
+  }, {
+    key: "withDescription",
+    value: function withDescription(description) {
+      this.description = description;
       return this;
     }
   }], [{
@@ -12578,6 +12585,7 @@ var __awaiter = undefined && undefined.__awaiter || function (thisArg, _argument
 
 
 
+var placeholder = "// You may use the feature api here ie,\n// feature.get('some_property')\n// feature.set('some_property', 123)";
 
 var Evaluate = /*#__PURE__*/function (_ServerNode) {
   _inherits(Evaluate, _ServerNode);
@@ -12622,7 +12630,7 @@ var Evaluate = /*#__PURE__*/function (_ServerNode) {
   }, {
     key: "getParameters",
     value: function getParameters() {
-      return [].concat(_toConsumableArray(_get(_getPrototypeOf(Evaluate.prototype), "getParameters", this).call(this)), [_core_NodeParameter__WEBPACK_IMPORTED_MODULE_2__.default.js('expression')]);
+      return [].concat(_toConsumableArray(_get(_getPrototypeOf(Evaluate.prototype), "getParameters", this).call(this)), [_core_NodeParameter__WEBPACK_IMPORTED_MODULE_2__.default.js('expression').withDescription("javascript code to execute on each feature").withValue(placeholder)]);
     }
   }]);
 
@@ -13001,7 +13009,7 @@ var HTTPRequest = /*#__PURE__*/function (_ServerNode) {
   }, {
     key: "getParameters",
     value: function getParameters() {
-      return [].concat(_toConsumableArray(_get(_getPrototypeOf(HTTPRequest.prototype), "getParameters", this).call(this)), [_core_NodeParameter__WEBPACK_IMPORTED_MODULE_4__.default.string('url').withValue('https://jsonplaceholder.cypress.io/{{ feature.resource }}'), _core_NodeParameter__WEBPACK_IMPORTED_MODULE_4__.default.string('verb').withValue('GET'), _core_NodeParameter__WEBPACK_IMPORTED_MODULE_4__.default.json('data').withValue('{}'), _core_NodeParameter__WEBPACK_IMPORTED_MODULE_4__.default.json('config').withValue('{}'), _core_NodeParameter__WEBPACK_IMPORTED_MODULE_4__.default.string('features_path').withValue('data')]);
+      return [].concat(_toConsumableArray(_get(_getPrototypeOf(HTTPRequest.prototype), "getParameters", this).call(this)), [_core_NodeParameter__WEBPACK_IMPORTED_MODULE_4__.default.string('url').withValue('https://jsonplaceholder.cypress.io/{{ feature.resource }}'), _core_NodeParameter__WEBPACK_IMPORTED_MODULE_4__.default.string('verb').withValue('GET'), _core_NodeParameter__WEBPACK_IMPORTED_MODULE_4__.default.json('data').withValue('{}'), _core_NodeParameter__WEBPACK_IMPORTED_MODULE_4__.default.json('config').withValue('{}'), _core_NodeParameter__WEBPACK_IMPORTED_MODULE_4__.default.string('features_path').withValue('data').withDescription('optional dot.notated.path to feature(s)')]);
     }
   }, {
     key: "request",
@@ -13238,20 +13246,22 @@ var Log = /*#__PURE__*/function (_ServerNode) {
     key: "run",
     value: function run() {
       return __awaiter(this, void 0, void 0, /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
+        var method;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
+                method = 'log';
                 console.group('DataStory Log Node: ' + this.id);
-                console.log(this.input().map(function (f) {
+                console[method](this.input().map(function (f) {
                   return f.original;
                 }));
-                console.log(JSON.stringify(this.input().map(function (f) {
+                console[method](JSON.stringify(this.input().map(function (f) {
                   return f.original;
                 })));
                 console.groupEnd();
 
-              case 4:
+              case 5:
               case "end":
                 return _context.stop();
             }
@@ -15554,10 +15564,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var mobx_react__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! mobx-react */ "./node_modules/mobx-react/dist/mobxreact.esm.js");
-/* harmony import */ var _BaseControl__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./BaseControl */ "./src/core/components/controls/BaseControl.js");
-/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
-/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var mobx_react__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! mobx-react */ "./node_modules/mobx-react/dist/mobxreact.esm.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_2__);
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 
@@ -15592,11 +15601,10 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 
 
 
-
 var Mousetrap = __webpack_require__(/*! mousetrap */ "./node_modules/mousetrap/mousetrap.js");
 
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,mobx_react__WEBPACK_IMPORTED_MODULE_4__.observer)( /*#__PURE__*/function (_React$Component) {
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,mobx_react__WEBPACK_IMPORTED_MODULE_3__.observer)( /*#__PURE__*/function (_React$Component) {
   _inherits(NodeSearch, _React$Component);
 
   var _super = _createSuper(NodeSearch);
@@ -15719,7 +15727,7 @@ var Mousetrap = __webpack_require__(/*! mousetrap */ "./node_modules/mousetrap/m
         return node.name == name;
       });
       this.props.store.addNode( // Ensure the parameters will not be shared between two nodes of same type
-      lodash__WEBPACK_IMPORTED_MODULE_3___default().cloneDeep(nodeData));
+      lodash__WEBPACK_IMPORTED_MODULE_2___default().cloneDeep(nodeData));
       this.props.onFinish();
     }
   }]);
@@ -16421,9 +16429,12 @@ var JS = /*#__PURE__*/function (_React$Component) {
 
       return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
         className: "flex flex-col my-4 justify-center align-middle text-gray-500 text-xs font-mono",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
           className: "my-2",
-          children: this.props.options.name
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
+            className: "",
+            children: [this.props.options.name, this.props.options.description ? ' (' + this.props.options.description + ')' : '']
+          })
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("textarea", {
           onChange: function onChange(e) {
             _this.props.handleChange(e, _this.props.options);
@@ -16502,7 +16513,10 @@ var JSON_ = /*#__PURE__*/function (_React$Component) {
         className: "flex flex-col my-4 justify-center align-middle text-gray-500 text-xs font-mono",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", {
           className: "my-2",
-          children: this.props.options.name
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
+            className: "",
+            children: [this.props.options.name, this.props.options.description ? ' (' + this.props.options.description + ')' : '']
+          })
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("textarea", {
           onChange: function onChange(e) {
             _this.props.handleChange(e, _this.props.options);
@@ -16581,7 +16595,10 @@ var String_ = /*#__PURE__*/function (_React$Component) {
         className: "flex flex-col my-4 justify-center align-middle text-gray-500 text-xs font-mono",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", {
           className: "my-2",
-          children: this.props.options.name
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
+            className: "",
+            children: [this.props.options.name, this.props.options.description ? ' (' + this.props.options.description + ')' : '']
+          })
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("input", {
           onChange: function onChange(e) {
             _this.props.handleChange(e, _this.props.options);
@@ -16661,7 +16678,12 @@ var String_ = /*#__PURE__*/function (_React$Component) {
         className: "flex flex-col my-4 justify-center align-middle text-gray-500 text-xs font-mono",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", {
           className: "my-2",
-          children: this.props.options.name
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
+            className: "",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", {
+              children: this.props.options.name
+            }), this.props.options.description ? ' (' + this.props.options.description + ')' : '']
+          })
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("input", {
           onChange: function onChange(e) {
             _this.props.handleChange(e, _this.props.options);
@@ -16873,7 +16895,7 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 
     _this = _super.call(this, props);
     _this.state = {
-      parameters: lodash__WEBPACK_IMPORTED_MODULE_4___default().cloneDeep(_this.props.node.options.parameters)
+      parameters: lodash__WEBPACK_IMPORTED_MODULE_4___default().cloneDeep(_this.props.node.parameters)
     };
     return _this;
   }
@@ -16899,7 +16921,7 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
   }, {
     key: "handleSave",
     value: function handleSave(event) {
-      this.props.node.options.parameters = this.state.parameters;
+      this.props.node.parameters = this.state.parameters;
       this.props.closeModal();
     }
   }, {

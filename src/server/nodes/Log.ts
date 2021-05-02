@@ -7,9 +7,12 @@ export default class Log extends ServerNode {
 	name = 'Log'
 
     async run() {
+		// do like this to help when searching for console.log littering
+		const method = 'log'
+
         console.group('DataStory Log Node: ' + this.id)
-        console.log(this.input().map(f => f.original));
-        console.log(JSON.stringify(this.input().map(f => f.original)))
+			console[method](this.input().map(f => f.original));
+			console[method](JSON.stringify(this.input().map(f => f.original)))
         console.groupEnd();
     }
 }

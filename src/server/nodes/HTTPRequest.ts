@@ -44,7 +44,7 @@ export default class HTTPRequest extends ServerNode {
             NodeParameter.string('verb').withValue('GET'),
             NodeParameter.json('data').withValue('{}'),
             NodeParameter.json('config').withValue('{}'),
-			NodeParameter.string('features_path').withValue('data'),
+			NodeParameter.string('features_path').withValue('data').withDescription('optional dot.notated.path to feature(s)'),
 		]
 	}	
 

@@ -1,6 +1,5 @@
 import React from 'react';
 import { observer } from "mobx-react"
-import BaseControl from './BaseControl'
 var Mousetrap = require('mousetrap');
 import _ from 'lodash';
 

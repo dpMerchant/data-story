@@ -17,7 +17,7 @@ export default observer(class NodeWidgetModal extends React.Component {
         super(props)
 
         this.state = {
-            parameters: _.cloneDeep(this.props.node.options.parameters)
+            parameters: _.cloneDeep(this.props.node.parameters)
         }
     }
 
@@ -40,7 +40,7 @@ export default observer(class NodeWidgetModal extends React.Component {
     }
     
     handleSave(event) {
-        this.props.node.options.parameters = this.state.parameters
+        this.props.node.parameters = this.state.parameters
         this.props.closeModal();
     }    
 

@@ -1,5 +1,6 @@
 export default class NodeParameter {
-    name: string                    
+    name: string
+	description: string = ''
     fieldType: string = "String_"
     placeholder?: string
     value: any = ''
@@ -42,4 +43,9 @@ export default class NodeParameter {
         this.value = value
         return this
     }
+
+	withDescription(description: string) {
+		this.description = description
+		return this
+	}
 }

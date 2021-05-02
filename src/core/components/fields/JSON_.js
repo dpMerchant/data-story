@@ -4,7 +4,12 @@ export default class JSON_ extends React.Component {
     render() {
         return (
             <div className="flex flex-col my-4 justify-center align-middle text-gray-500 text-xs font-mono">
-                <span className="my-2">{this.props.options.name}</span>
+                <span className="my-2">
+					<div className="">
+						{this.props.options.name}
+						{this.props.options.description ? ' (' + this.props.options.description + ')' : ''} 
+					</div>										
+				</span>
                 {/* REPLACE WITH SOME EDITOR! */}
                 <textarea
                     onChange={e => {this.props.handleChange(e, this.props.options)}}
