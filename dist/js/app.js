@@ -9669,9 +9669,7 @@ var DiagramModel = /*#__PURE__*/function (_DefaultDiagramModel) {
   }, {
     key: "hasNode",
     value: function hasNode(node) {
-      var _a;
-
-      return Boolean(((_a = node === null || node === void 0 ? void 0 : node.options) === null || _a === void 0 ? void 0 : _a.id) && this.getNode(node.options.id));
+      return Boolean(node.id && this.getNode(node.id));
     }
   }, {
     key: "executionOrder",
@@ -10046,26 +10044,42 @@ var NodeModel = /*#__PURE__*/function (_DefaultNodeModel) {
 
     _classCallCheck(this, NodeModel);
 
+    var _a;
+
+    var id = (_a = options.id) !== null && _a !== void 0 ? _a : "Node_".concat(options.name, "_").concat(options.serial, "_").concat((0,_utils_UID__WEBPACK_IMPORTED_MODULE_3__.default)());
     _this = _super.call(this, Object.assign(Object.assign({}, options), {
       type: 'NodeModel',
-      id: "Node_".concat(options.name, "_").concat(options.serial, "_").concat((0,_utils_UID__WEBPACK_IMPORTED_MODULE_3__.default)())
+      id: id
     }));
+    _this.id = id;
+    _this.category = options.category;
+    _this.summary = options.summary;
+    _this.editableInPorts = options.editableInPorts;
+    _this.editableOutPorts = options.editableOutPorts;
+    _this.name = options.name;
+    _this.nodeReact = options.nodeReact;
+    _this.parameters = options.parameters;
+    _this.serverNodeType = options.serverNodeType;
 
-    _this.options.inPorts.forEach(function (name) {
-      _this.addPort(new _PortModel__WEBPACK_IMPORTED_MODULE_1__.default({
-        "in": true,
-        name: name,
-        parent: _assertThisInitialized(_this)
-      }));
-    });
+    if (options.inPorts) {
+      options.inPorts.forEach(function (name) {
+        _this.addPort(new _PortModel__WEBPACK_IMPORTED_MODULE_1__.default({
+          "in": true,
+          name: name,
+          parent: _assertThisInitialized(_this)
+        }));
+      });
+    }
 
-    _this.options.outPorts.forEach(function (name) {
-      _this.addPort(new _PortModel__WEBPACK_IMPORTED_MODULE_1__.default({
-        "in": false,
-        name: name,
-        parent: _assertThisInitialized(_this)
-      }));
-    });
+    if (options.outPorts) {
+      options.outPorts.forEach(function (name) {
+        _this.addPort(new _PortModel__WEBPACK_IMPORTED_MODULE_1__.default({
+          "in": false,
+          name: name,
+          parent: _assertThisInitialized(_this)
+        }));
+      });
+    }
 
     return _this;
   }
@@ -10074,14 +10088,20 @@ var NodeModel = /*#__PURE__*/function (_DefaultNodeModel) {
     key: "serialize",
     value: function serialize() {
       return Object.assign(Object.assign({}, _get(_getPrototypeOf(NodeModel.prototype), "serialize", this).call(this)), {
-        options: this.options,
-        parameters: this.options.parameters
+        parameters: this.parameters,
+        category: this.category,
+        summary: this.summary,
+        editableInPorts: this.editableInPorts,
+        editableOutPorts: this.editableOutPorts,
+        name: this.name,
+        nodeReact: this.nodeReact,
+        serverNodeType: this.serverNodeType
       });
     }
   }, {
     key: "parameter",
     value: function parameter(name) {
-      return this.options.parameters.find(function (parameter) {
+      return this.parameters.find(function (parameter) {
         return parameter.name == name;
       });
     }
@@ -10112,7 +10132,7 @@ var NodeModel = /*#__PURE__*/function (_DefaultNodeModel) {
   }, {
     key: "dependencies",
     value: function dependencies() {
-      var cached = this.getDiagramModel().getCachedNodeDependencies(this.options.id);
+      var cached = this.getDiagramModel().getCachedNodeDependencies(this.id);
 
       if (cached !== null) {
         return cached;
@@ -10132,7 +10152,7 @@ var NodeModel = /*#__PURE__*/function (_DefaultNodeModel) {
         return d.dependencies();
       });
       var result = dependencies.concat(deepDependencies.flat());
-      this.getDiagramModel().setCachedNodeDependencies(this.options.id, result);
+      this.getDiagramModel().setCachedNodeDependencies(this.id, result);
       return result;
     }
   }, {
@@ -10215,7 +10235,7 @@ var NodeModelFactory = /*#__PURE__*/function (_AbstractReactFactory) {
   _createClass(NodeModelFactory, [{
     key: "generateModel",
     value: function generateModel(event) {
-      return new _core_NodeModel__WEBPACK_IMPORTED_MODULE_2__.default(event.initialConfig.options);
+      return new _core_NodeModel__WEBPACK_IMPORTED_MODULE_2__.default(event.initialConfig);
     }
   }, {
     key: "generateReactWidget",
@@ -11531,7 +11551,7 @@ var ServerNodeFactory = /*#__PURE__*/function () {
     key: "hydrate",
     value: function hydrate(node) {
       var diagram = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
-      var type = this.find(node.options.serverNodeType);
+      var type = this.find(node.serverNodeType);
       return new type(Object.assign(Object.assign({}, node), {
         diagram: diagram
       }));
@@ -14327,7 +14347,7 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
           booted: true
         });
       })["catch"](function (error) {
-        console.log('Boot error', error);
+        console.error('Boot error', error);
 
         _this2.showBootFailureToast();
       });
@@ -15894,7 +15914,7 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
       this.props.store.setRunning();
       this.props.store.metadata.client.run(this.props.store.diagram.engine.model).then(function (response) {
         // TRANSFER FEATURE AT NODES (INSPECTABLES)
-        console.log('Diagram ran', response.data.diagram);
+        console.info('Diagram ran', response.data.diagram);
         response.data.diagram.nodes.filter(function (phpNode) {
           return phpNode.features;
         }).forEach(function (phpNode) {
@@ -17256,7 +17276,7 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
         this.props.closeModal();
       } catch (e) {
         alert("Could not create engine for story ".concat(name, ". See console for details."));
-        console.log(e);
+        console.error(e);
       }
     }
   }, {

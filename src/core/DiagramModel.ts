@@ -42,10 +42,7 @@ export default class DiagramModel extends DefaultDiagramModel {
     }
 
     hasNode(node) {
-        return Boolean(
-            node?.options?.id &&
-            this.getNode(node.options.id)
-        )        
+        return Boolean(node.id && this.getNode(node.id))        
     }
 
     executionOrder() {

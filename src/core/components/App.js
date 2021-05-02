@@ -68,7 +68,7 @@ export default observer(class App extends React.Component {
             })
         })
         .catch(error => {
-            console.log('Boot error', error)
+            console.error('Boot error', error)
             this.showBootFailureToast()
         });
     }

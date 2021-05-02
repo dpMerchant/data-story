@@ -72,7 +72,7 @@ export default abstract class ServerNode {
             nodeReact: this.nodeReact,
             serverNodeType: this.name,
             parameters: this.getParameters(),
-            summary: this.summary,			
+            summary: this.summary,
 		}
 	}
 

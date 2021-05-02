@@ -10,7 +10,7 @@ export default class NodeModelFactory extends AbstractReactFactory {
 	}
 
 	generateModel(event) {
-		return new NodeModel(event.initialConfig.options);
+		return new NodeModel(event.initialConfig);
 	}
 
 	generateReactWidget(event) {

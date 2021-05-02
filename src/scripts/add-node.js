@@ -21,4 +21,4 @@ fs.writeFile(
     () => {}
 )
 
-console.log(nodeName + " NodeFile and test created. Remember to add your node in ServerNodeFactory.")
+console.info(nodeName + " NodeFile and test created. Remember to add your node in ServerNodeFactory.")

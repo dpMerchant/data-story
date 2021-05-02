@@ -77,8 +77,6 @@ export default class TestableServerDiagram {
 
         this.serverDiagram.executionOrder = [this.node_.id]
 
-        //await this.serverDiagram.run().then((ok) => {}, (bad) => { console.log('nooo', bad)})
-
         this.hasRun = true
     }
 }

@@ -25,5 +25,6 @@ export type SerializedNodeModel = {
 		}[],
         summary: string, // what?
         type: string // what?
-    }
+    },
+	serverNodeType: string
 }

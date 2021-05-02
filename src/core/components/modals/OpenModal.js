@@ -106,7 +106,6 @@ export default observer(class OpenModal extends React.Component {
 		try {
 			let engine = this.props.store.diagram.engine
 			let model = new DiagramModel();
-
 			model.deserializeModel(
 				Cookie.getObject(name), engine
 			);
@@ -114,7 +113,7 @@ export default observer(class OpenModal extends React.Component {
 			this.props.closeModal()
 		} catch(e) {
 			alert(`Could not create engine for story ${name}. See console for details.`)
-			console.log(e)
+			console.error(e)
 		}
     }
 

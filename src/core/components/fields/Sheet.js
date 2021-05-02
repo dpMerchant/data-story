@@ -25,7 +25,6 @@ export default class Sheet extends React.Component {
     }
 
     render() {
-        console.log(this.options)
         return (
             <div>
                 <div></div><br/><br/>
@@ -35,9 +34,7 @@ export default class Sheet extends React.Component {
     }
 
     componentWillUnmount() {
-        console.log(
-            this.el.getData()
-        )
+
     }
 }
 

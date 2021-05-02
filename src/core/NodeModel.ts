@@ -3,6 +3,7 @@ import { BasePositionModelOptions } from '@projectstorm/react-canvas-core';
 import PortModel from './PortModel'
 import _ from 'lodash'
 import UID from './utils/UID'
+import NodeParameter from './NodeParameter';
 
 export interface NodeModelOptions extends BasePositionModelOptions {
     name: string,
@@ -15,46 +16,77 @@ export default class NodeModel extends DefaultNodeModel {
     options: NodeModelOptions
     parent: any
     features: []
+	category: string
+	summary: string
+	editableInPorts: false
+	editableOutPorts: false
+	name: string
+	nodeReact: 'Node'
+	parameters: NodeParameter[]
+	serverNodeType: string
+	id: string
 
 	constructor(options) {
+		// Make id easier on humans
+		const id = options.id ?? `Node_${options.name}_${options.serial}_${UID()}`
 		super({
 			...options,
-            type: 'NodeModel',
-            // Make id easier on humans
-            id: `Node_${options.name}_${options.serial}_${UID()}`
+            type: 'NodeModel',            
+            id
         });
 
-        this.options.inPorts.forEach(name => {
-            this.addPort(
-                new PortModel({
-                    in: true,
-                    name: name,
-                    parent: this,
-                })
-            );  
-        })
+		this.id = id
+		this.category = options.category;
+		this.summary = options.summary
+		this.editableInPorts = options.editableInPorts
+		this.editableOutPorts = options.editableOutPorts
+		this.name = options.name
+		this.nodeReact = options.nodeReact
+		this.parameters = options.parameters
+		this.serverNodeType = options.serverNodeType
 
-        this.options.outPorts.forEach(name => {
-            this.addPort(
-                new PortModel({
-                    in: false,
-                    name: name,
-                    parent: this,                    
-                })
-            );  
-        })
+		if(options.inPorts) {
+			options.inPorts.forEach(name => {
+				this.addPort(
+					new PortModel({
+						in: true,
+						name: name,
+						parent: this,
+					})
+				);  
+			})
+		}
+
+		if(options.outPorts) {
+			options.outPorts.forEach(name => {
+				this.addPort(
+					new PortModel({
+						in: false,
+						name: name,
+						parent: this,                    
+					})
+				);  
+			})
+		}
+
     }
 
 	serialize() {
 		return {
             ...super.serialize(),
-            options: this.options,
-			parameters: this.options.parameters
+			parameters: this.parameters,
+			category: this.category,
+			summary: this.summary,
+			editableInPorts: this.editableInPorts,
+			editableOutPorts: this.editableOutPorts,
+			name: this.name,
+			nodeReact: this.nodeReact,
+			serverNodeType: this.serverNodeType,
 		};
     }
 
     parameter(name) {
-        return this.options.parameters.find((parameter) => {
+        return this.parameters.find((parameter) => {
             return parameter.name == name
         })
     }
@@ -80,7 +112,7 @@ export default class NodeModel extends DefaultNodeModel {
     }
     
     dependencies() {
-        let cached = this.getDiagramModel().getCachedNodeDependencies(this.options.id)
+        let cached = this.getDiagramModel().getCachedNodeDependencies(this.id)
         if(cached !== null) {
             return cached;
         }
@@ -95,7 +127,7 @@ export default class NodeModel extends DefaultNodeModel {
 
         let result = dependencies.concat(deepDependencies.flat())
 
-        this.getDiagramModel().setCachedNodeDependencies(this.options.id, result)
+        this.getDiagramModel().setCachedNodeDependencies(this.id, result)
 
         return result
     }
@@ -108,35 +140,3 @@ export default class NodeModel extends DefaultNodeModel {
         return Boolean(this.features)
     }
 }
-
-
-// type s = {
-// 	x: number;
-// 	y: number;	
-// }
-
-// type bad = {
-// 	o: number;
-// }
-
-// declare class Parent {
-//     serialize(): {
-//         x: number;
-//         y: number;
-//     };
-// }
-
-// class Child extends Parent {
-//     serialize(): TypeOf & {}
-// 	{
-// 		return {
-// 			x: 1,
-// 			y: 2,
-// 		}
-
-//         return {
-//             ...super.serialize(),
-//             something: 'extra'
-//         };      
-//     }
-// }
