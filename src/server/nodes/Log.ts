@@ -5,7 +5,7 @@ export default class Log extends ServerNode {
 		super({
 			// Defaults
 			name: 'Log',
-			summary: 'console.log(inputs)',
+			summary: 'log inputs to console',
 			category: 'Workflow',
 			defaultInPorts: ['Input'],
 			defaultOutPorts: [],			
@@ -15,7 +15,7 @@ export default class Log extends ServerNode {
 	}
 
     async run() {
-		// do like this to help when searching for console.log littering
+		// do like this to help when searching for console littering
 		const method = 'log'
 
         console.group('DataStory Log Node: ' + this.id)

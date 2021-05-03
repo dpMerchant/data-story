@@ -28,7 +28,6 @@ export class DiagramModelBuilder {
 
 	withParameters(parameters: object) {
 		for (const [name, value] of Object.entries(parameters)) {
-			console.log(this.currentNode)
 			let parameter = this.currentNode.parameters.find(p => p.name == name)
 			parameter.value = value
 		}

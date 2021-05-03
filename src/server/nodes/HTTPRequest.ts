@@ -19,10 +19,8 @@ export default class HTTPRequest extends ServerNode {
 
     async run() {
         for await (let feature of this.input()) {
-			console.log("running feature", feature)
             await this.request(feature)
 				.then((result) => {
-					console.log("result retrieved", result.status)
 					this.output([new Feature(result)], 'Response')
 
 					if(this.getParameterValue('features_path')) {

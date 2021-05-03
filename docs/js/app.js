@@ -9828,8 +9828,6 @@ var DiagramModelBuilder = /*#__PURE__*/function () {
             name = _Object$entries$_i[0],
             value = _Object$entries$_i[1];
 
-        console.log(_this.currentNode);
-
         var parameter = _this.currentNode.parameters.find(function (p) {
           return p.name == name;
         });
@@ -13132,16 +13130,13 @@ var HTTPRequest = /*#__PURE__*/function (_ServerNode) {
                 _c = _context.sent;
 
                 if (_c.done) {
-                  _context.next = 12;
+                  _context.next = 11;
                   break;
                 }
 
                 feature = _c.value;
-                console.log("running feature", feature);
-                _context.next = 10;
+                _context.next = 9;
                 return this.request(feature).then(function (result) {
-                  console.log("result retrieved", result.status);
-
                   _this.output([new _core_Feature__WEBPACK_IMPORTED_MODULE_3__.default(result)], 'Response');
 
                   if (_this.getParameterValue('features_path')) {
@@ -13162,55 +13157,55 @@ var HTTPRequest = /*#__PURE__*/function (_ServerNode) {
                   }
                 });
 
-              case 10:
+              case 9:
                 _context.next = 2;
                 break;
 
-              case 12:
-                _context.next = 17;
+              case 11:
+                _context.next = 16;
                 break;
 
-              case 14:
-                _context.prev = 14;
+              case 13:
+                _context.prev = 13;
                 _context.t0 = _context["catch"](0);
                 e_1 = {
                   error: _context.t0
                 };
 
-              case 17:
+              case 16:
+                _context.prev = 16;
                 _context.prev = 17;
-                _context.prev = 18;
 
                 if (!(_c && !_c.done && (_a = _b["return"]))) {
-                  _context.next = 22;
+                  _context.next = 21;
                   break;
                 }
 
-                _context.next = 22;
+                _context.next = 21;
                 return _a.call(_b);
 
-              case 22:
-                _context.prev = 22;
+              case 21:
+                _context.prev = 21;
 
                 if (!e_1) {
-                  _context.next = 25;
+                  _context.next = 24;
                   break;
                 }
 
                 throw e_1.error;
 
+              case 24:
+                return _context.finish(21);
+
               case 25:
-                return _context.finish(22);
+                return _context.finish(16);
 
               case 26:
-                return _context.finish(17);
-
-              case 27:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, this, [[0, 14, 17, 27], [18,, 22, 26]]);
+        }, _callee, this, [[0, 13, 16, 26], [17,, 21, 25]]);
       }));
     }
   }, {
@@ -13444,7 +13439,7 @@ var Log = /*#__PURE__*/function (_ServerNode) {
 
     return _super.call(this, Object.assign({
       name: 'Log',
-      summary: 'console.log(inputs)',
+      summary: 'log inputs to console',
       category: 'Workflow',
       defaultInPorts: ['Input'],
       defaultOutPorts: []
