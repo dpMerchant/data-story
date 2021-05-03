@@ -3,10 +3,18 @@ import {saveAs} from 'file-saver';
 import NodeParameter from "../../core/NodeParameter";
 
 export default class DownloadJSON extends ServerNode {
-    public category: string = 'Workflow'    
-    public summary = 'Download features as JSON'
-    defaultOutPorts = []
-	name = 'DownloadJSON'
+	constructor(options = {}) {
+		super({
+			// Defaults
+			name: 'DownloadJSON',
+			summary: 'Download features as JSON',
+			category: 'Workflow',
+			defaultInPorts: ['Input'],
+			defaultOutPorts: [],			
+			// Explicitly configured
+			...options,
+		})
+	}
 
     async run() {
         const filename = this.getParameterValue('filename')

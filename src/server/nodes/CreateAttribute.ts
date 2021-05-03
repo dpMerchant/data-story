@@ -2,9 +2,18 @@ import ServerNode from "../ServerNode";
 import NodeParameter from "../../core/NodeParameter";
 
 export default class CreateAttribute extends ServerNode {
-    category: string = 'Workflow'    
-    summary = 'Create a new attribute from an expression'    
-	name = 'CreateAttribute'
+	constructor(options = {}) {
+		super({
+			// Defaults
+			name: 'CreateAttribute',
+			summary: 'Create a new attribute from an expression',
+			category: 'Workflow',
+			defaultInPorts: ['Input'],
+			defaultOutPorts: ['Output'],			
+			// Explicitly configured
+			...options,
+		})
+	}
 
     async run() {
         let attribute = this.getParameterValue('attribute')

@@ -1,12 +1,21 @@
 import ServerNode from "../ServerNode";
 
 export default class Inspect extends ServerNode {
-    public category: string = 'Workflow'
     public features: any[]
-    public summary = 'Display features in a table'    
-    defaultOutPorts: string[] = []	
-	public name = 'Inspect'
 
+	constructor(options = {}) {
+		super({
+			// Defaults
+			name: 'Inspect',
+			summary: 'Display features in a table',
+			category: 'Workflow',
+			defaultInPorts: ['Input'],
+			defaultOutPorts: [],			
+			// Explicitly configured
+			...options,
+		})
+	}
+	
     async run() {
         this.features = this.input();
     }
