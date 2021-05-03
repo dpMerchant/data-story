@@ -17,30 +17,47 @@ export default class CreateGrid extends ServerNode {
 	}
 
     async run() {
-        let gridStartX = parseFloat(this.getParameterValue('grid_start_x'))
-        let gridStartY = parseFloat(this.getParameterValue('grid_start_y'))
-        let gridEndX = parseFloat(this.getParameterValue('grid_end_x'))
-        let gridEndY = parseFloat(this.getParameterValue('grid_end_y'))		
+		let type = this.getParameterValue('grid_type')
+        let gridMinX = parseFloat(this.getParameterValue('grid_min_x'))
+        let gridMinY = parseFloat(this.getParameterValue('grid_min_y'))
+        let gridMaxX = parseFloat(this.getParameterValue('grid_max_x'))
+        let gridMaxY = parseFloat(this.getParameterValue('grid_max_y'))		
         let gridSizeX = parseInt(this.getParameterValue('grid_size_x'))
         let gridSizeY = parseInt(this.getParameterValue('grid_size_y'))		
         let gridSpacingX = parseFloat(this.getParameterValue('grid_spacing_x'))
         let gridSpacingY = parseFloat(this.getParameterValue('grid_spacing_y'))
 
-		if(gridEndX && gridEndY) {
-			gridSizeX = Math.ceil((gridStartX + gridEndX)/gridSpacingX)
-			gridSizeY = Math.ceil((gridStartY + gridEndY)/gridSpacingY)
+		if(gridMaxX && gridMaxY) {
+			gridSizeX = Math.ceil((gridMaxX - gridMinX)/gridSpacingX)
+			gridSizeY = Math.ceil((gridMaxY - gridMinY)/gridSpacingY)
 		}
 
         let features = [];
 
         for(let x = 0; x < gridSizeX; x++) {
             for(let y = 0; y < gridSizeY; y++) {
-                features.push(
-                    new Feature({
-                        x: gridStartX + x * gridSpacingX,
-                        y: gridStartY + y * gridSpacingY,
-                    })
-                )
+				let point = {
+					x: gridMinX + x * gridSpacingX,
+					y: gridMinY + y * gridSpacingY,
+				}
+
+				if(type == 'points') {
+					features.push(
+						new Feature(point)
+					)
+				}
+
+				if(type == 'boxes') {
+					features.push(
+						new Feature({
+							x_min: point.x,
+							y_min: point.y,
+							x_max: point.x + gridSpacingX,
+							y_max: point.y + gridSpacingY,
+						})
+					)					
+				}
+
             }            
         }
 
@@ -50,12 +67,13 @@ export default class CreateGrid extends ServerNode {
 	getParameters() {
 		return [
 			...super.getParameters(),
-            NodeParameter.number('grid_start_x').withValue(0),
-            NodeParameter.number('grid_start_y').withValue(0),
-            NodeParameter.number('grid_end_x').withValue(100),
-            NodeParameter.number('grid_end_y').withValue(100),
-            NodeParameter.number('grid_size_x').withDescription('Ignored if grid_end_x is set'),
-            NodeParameter.number('grid_size_y').withDescription('Ignored if grid_end_y is set'),
+			NodeParameter.string('grid_type').withValue('points').withDescription('points | boxes'),
+            NodeParameter.number('grid_min_x').withValue(0),
+            NodeParameter.number('grid_min_y').withValue(0),
+            NodeParameter.number('grid_max_x').withValue(100),
+            NodeParameter.number('grid_max_y').withValue(100),
+            NodeParameter.number('grid_size_x').withDescription('Ignored if grid_max_x is set'),
+            NodeParameter.number('grid_size_y').withDescription('Ignored if grid_max_y is set'),
             NodeParameter.number('grid_spacing_x').withValue(1),
             NodeParameter.number('grid_spacing_y').withValue(1),             
 		]

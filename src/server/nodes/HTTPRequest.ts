@@ -56,6 +56,7 @@ export default class HTTPRequest extends ServerNode {
 	}	
 
     protected request(feature: Feature) {
+		console.info("Running HTTPRequest")
         if(this.getParameterValue('verb', feature) == 'GET') {
             return axios.get(
                 this.getParameterValue('url', feature),

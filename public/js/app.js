@@ -11658,10 +11658,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _nodes_CreateGrid__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./nodes/CreateGrid */ "./src/server/nodes/CreateGrid.ts");
 /* harmony import */ var _nodes_CreateJSON__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./nodes/CreateJSON */ "./src/server/nodes/CreateJSON.ts");
 /* harmony import */ var _nodes_DownloadJSON__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./nodes/DownloadJSON */ "./src/server/nodes/DownloadJSON.ts");
-/* harmony import */ var _nodes_Evaluate__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./nodes/Evaluate */ "./src/server/nodes/Evaluate.ts");
-/* harmony import */ var _nodes_HTTPRequest__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./nodes/HTTPRequest */ "./src/server/nodes/HTTPRequest.ts");
-/* harmony import */ var _nodes_Inspect__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./nodes/Inspect */ "./src/server/nodes/Inspect.ts");
-
+/* harmony import */ var _nodes_HTTPRequest__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./nodes/HTTPRequest */ "./src/server/nodes/HTTPRequest.ts");
+/* harmony import */ var _nodes_Inspect__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./nodes/Inspect */ "./src/server/nodes/Inspect.ts");
 
 
 
@@ -11672,26 +11670,25 @@ __webpack_require__.r(__webpack_exports__);
 
 var WithParameters = _core_DiagramModelBuilder__WEBPACK_IMPORTED_MODULE_0__.DiagramModelBuilder.begin().add(_nodes_Create__WEBPACK_IMPORTED_MODULE_2__.default).add(_nodes_Clone___WEBPACK_IMPORTED_MODULE_1__.default, {
   number_of_clones: 4
-}).add(_nodes_Inspect__WEBPACK_IMPORTED_MODULE_8__.default).finish();
+}).add(_nodes_Inspect__WEBPACK_IMPORTED_MODULE_7__.default).finish();
 var WorkingWithJSON = _core_DiagramModelBuilder__WEBPACK_IMPORTED_MODULE_0__.DiagramModelBuilder.begin().add(_nodes_CreateJSON__WEBPACK_IMPORTED_MODULE_4__.default).add(_nodes_Clone___WEBPACK_IMPORTED_MODULE_1__.default, {
   number_of_clones: 4
-}).add(_nodes_HTTPRequest__WEBPACK_IMPORTED_MODULE_7__.default).add(_nodes_Inspect__WEBPACK_IMPORTED_MODULE_8__.default).add(_nodes_Inspect__WEBPACK_IMPORTED_MODULE_8__.default).add(_nodes_Inspect__WEBPACK_IMPORTED_MODULE_8__.default).finish();
-var CleanupOldGithubRepos = _core_DiagramModelBuilder__WEBPACK_IMPORTED_MODULE_0__.DiagramModelBuilder.begin().add(_nodes_HTTPRequest__WEBPACK_IMPORTED_MODULE_7__.default).finish();
+}).add(_nodes_HTTPRequest__WEBPACK_IMPORTED_MODULE_6__.default).add(_nodes_Inspect__WEBPACK_IMPORTED_MODULE_7__.default).add(_nodes_Inspect__WEBPACK_IMPORTED_MODULE_7__.default).add(_nodes_Inspect__WEBPACK_IMPORTED_MODULE_7__.default).finish();
+var CleanupOldGithubRepos = _core_DiagramModelBuilder__WEBPACK_IMPORTED_MODULE_0__.DiagramModelBuilder.begin().add(_nodes_HTTPRequest__WEBPACK_IMPORTED_MODULE_6__.default).finish();
 var ScrapingAMapService = _core_DiagramModelBuilder__WEBPACK_IMPORTED_MODULE_0__.DiagramModelBuilder.begin().add(_nodes_CreateGrid__WEBPACK_IMPORTED_MODULE_3__.default, {
-  grid_start_x: 1,
-  grid_start_y: 1,
-  grid_end_x: 5,
-  grid_end_y: 5,
-  grid_size_x: 123,
-  grid_size_y: 123,
-  grid_spacing_x: 2,
-  grid_spacing_y: 2
-}).add(_nodes_Evaluate__WEBPACK_IMPORTED_MODULE_6__.default, {
-  expression: "feature.set('zoom', 17)\n\t\t\tlet d_x = 0.00437431579\n\t\t\tlet d_y = 0.00975251197\n\t\t\t\n\t\t\tfeature.set('x_min', feature.get('x'))\n\t\t\tfeature.set('y_min', feature.get('y'))\n\t\t\tfeature.set('x_max', feature.get('x') + d_x)\n\t\t\tfeature.set('y_max', feature.get('y') + d_y)\t\n\t\t".replace(/\t{3}/g, '')
-}).add(_nodes_HTTPRequest__WEBPACK_IMPORTED_MODULE_7__.default, {
-  url: 'https://layers.enirocdn.com/{{ feature.y_min }}/{{ feature.x_min }}/{{ feature.y_max }}/{{ feature.x_max }}/{{ feature.zoom }}/se_realestate.json',
+  grid_type: 'boxes',
+  grid_min_x: 18.01826477050781,
+  grid_min_y: 59.29674702504426,
+  grid_max_x: 18.116455078125,
+  grid_max_y: 59.32618430580267,
+  grid_spacing_x: 0.00437431579,
+  grid_spacing_y: 0.00975251197
+}).add(_nodes_HTTPRequest__WEBPACK_IMPORTED_MODULE_6__.default, {
+  url: 'https://layers.enirocdn.com/{{ feature.y_min }}/{{ feature.x_min }}/{{ feature.y_max }}/{{ feature.x_max }}/17/se_realestate.json',
   features_path: 'data.se_realestate'
-}).add(_nodes_DownloadJSON__WEBPACK_IMPORTED_MODULE_5__.default).finish();
+}).add(_nodes_DownloadJSON__WEBPACK_IMPORTED_MODULE_5__.default, {
+  filename: 'realestates_sthlm.json'
+}).finish();
 
 /***/ }),
 
@@ -12217,39 +12214,53 @@ var CreateGrid = /*#__PURE__*/function (_ServerNode) {
     key: "run",
     value: function run() {
       return __awaiter(this, void 0, void 0, /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
-        var gridStartX, gridStartY, gridEndX, gridEndY, gridSizeX, gridSizeY, gridSpacingX, gridSpacingY, features, x, y;
+        var type, gridMinX, gridMinY, gridMaxX, gridMaxY, gridSizeX, gridSizeY, gridSpacingX, gridSpacingY, features, x, y, point;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                gridStartX = parseFloat(this.getParameterValue('grid_start_x'));
-                gridStartY = parseFloat(this.getParameterValue('grid_start_y'));
-                gridEndX = parseFloat(this.getParameterValue('grid_end_x'));
-                gridEndY = parseFloat(this.getParameterValue('grid_end_y'));
+                type = this.getParameterValue('grid_type');
+                gridMinX = parseFloat(this.getParameterValue('grid_min_x'));
+                gridMinY = parseFloat(this.getParameterValue('grid_min_y'));
+                gridMaxX = parseFloat(this.getParameterValue('grid_max_x'));
+                gridMaxY = parseFloat(this.getParameterValue('grid_max_y'));
                 gridSizeX = parseInt(this.getParameterValue('grid_size_x'));
                 gridSizeY = parseInt(this.getParameterValue('grid_size_y'));
                 gridSpacingX = parseFloat(this.getParameterValue('grid_spacing_x'));
                 gridSpacingY = parseFloat(this.getParameterValue('grid_spacing_y'));
 
-                if (gridEndX && gridEndY) {
-                  gridSizeX = Math.ceil((gridStartX + gridEndX) / gridSpacingX);
-                  gridSizeY = Math.ceil((gridStartY + gridEndY) / gridSpacingY);
+                if (gridMaxX && gridMaxY) {
+                  gridSizeX = Math.ceil((gridMaxX - gridMinX) / gridSpacingX);
+                  gridSizeY = Math.ceil((gridMaxY - gridMinY) / gridSpacingY);
                 }
 
                 features = [];
 
                 for (x = 0; x < gridSizeX; x++) {
                   for (y = 0; y < gridSizeY; y++) {
-                    features.push(new _core_Feature__WEBPACK_IMPORTED_MODULE_1__.default({
-                      x: gridStartX + x * gridSpacingX,
-                      y: gridStartY + y * gridSpacingY
-                    }));
+                    point = {
+                      x: gridMinX + x * gridSpacingX,
+                      y: gridMinY + y * gridSpacingY
+                    };
+
+                    if (type == 'points') {
+                      features.push(new _core_Feature__WEBPACK_IMPORTED_MODULE_1__.default(point));
+                    }
+
+                    if (type == 'boxes') {
+                      features.push(new _core_Feature__WEBPACK_IMPORTED_MODULE_1__.default({
+                        x_min: point.x,
+                        y_min: point.y,
+                        x_max: point.x + gridSpacingX,
+                        y_max: point.y + gridSpacingY
+                      }));
+                    }
                   }
                 }
 
                 this.output(features);
 
-              case 12:
+              case 13:
               case "end":
                 return _context.stop();
             }
@@ -12260,7 +12271,7 @@ var CreateGrid = /*#__PURE__*/function (_ServerNode) {
   }, {
     key: "getParameters",
     value: function getParameters() {
-      return [].concat(_toConsumableArray(_get(_getPrototypeOf(CreateGrid.prototype), "getParameters", this).call(this)), [_core_NodeParameter__WEBPACK_IMPORTED_MODULE_3__.default.number('grid_start_x').withValue(0), _core_NodeParameter__WEBPACK_IMPORTED_MODULE_3__.default.number('grid_start_y').withValue(0), _core_NodeParameter__WEBPACK_IMPORTED_MODULE_3__.default.number('grid_end_x').withValue(100), _core_NodeParameter__WEBPACK_IMPORTED_MODULE_3__.default.number('grid_end_y').withValue(100), _core_NodeParameter__WEBPACK_IMPORTED_MODULE_3__.default.number('grid_size_x').withDescription('Ignored if grid_end_x is set'), _core_NodeParameter__WEBPACK_IMPORTED_MODULE_3__.default.number('grid_size_y').withDescription('Ignored if grid_end_y is set'), _core_NodeParameter__WEBPACK_IMPORTED_MODULE_3__.default.number('grid_spacing_x').withValue(1), _core_NodeParameter__WEBPACK_IMPORTED_MODULE_3__.default.number('grid_spacing_y').withValue(1)]);
+      return [].concat(_toConsumableArray(_get(_getPrototypeOf(CreateGrid.prototype), "getParameters", this).call(this)), [_core_NodeParameter__WEBPACK_IMPORTED_MODULE_3__.default.string('grid_type').withValue('points').withDescription('points | boxes'), _core_NodeParameter__WEBPACK_IMPORTED_MODULE_3__.default.number('grid_min_x').withValue(0), _core_NodeParameter__WEBPACK_IMPORTED_MODULE_3__.default.number('grid_min_y').withValue(0), _core_NodeParameter__WEBPACK_IMPORTED_MODULE_3__.default.number('grid_max_x').withValue(100), _core_NodeParameter__WEBPACK_IMPORTED_MODULE_3__.default.number('grid_max_y').withValue(100), _core_NodeParameter__WEBPACK_IMPORTED_MODULE_3__.default.number('grid_size_x').withDescription('Ignored if grid_max_x is set'), _core_NodeParameter__WEBPACK_IMPORTED_MODULE_3__.default.number('grid_size_y').withDescription('Ignored if grid_max_y is set'), _core_NodeParameter__WEBPACK_IMPORTED_MODULE_3__.default.number('grid_spacing_x').withValue(1), _core_NodeParameter__WEBPACK_IMPORTED_MODULE_3__.default.number('grid_spacing_y').withValue(1)]);
     }
   }]);
 
@@ -13240,6 +13251,8 @@ var HTTPRequest = /*#__PURE__*/function (_ServerNode) {
   }, {
     key: "request",
     value: function request(feature) {
+      console.info("Running HTTPRequest");
+
       if (this.getParameterValue('verb', feature) == 'GET') {
         return axios__WEBPACK_IMPORTED_MODULE_2___default().get(this.getParameterValue('url', feature), this.getParameterValue('config'));
       }
