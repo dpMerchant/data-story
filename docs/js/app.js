@@ -9728,12 +9728,8 @@ var DiagramModel = /*#__PURE__*/function (_DefaultDiagramModel) {
   }, {
     key: "getAutomatedLink",
     value: function getAutomatedLink(from, to) {
-      var _a;
-
       if (!this.canLink(from, to)) return;
-      var fromPort = (_a = Object.values(from.getOutPorts()).find(function (candidate) {
-        return Object.values(candidate.links).length === 0;
-      })) !== null && _a !== void 0 ? _a : Object.values(from.getOutPorts())[0];
+      var fromPort = this.getAutomatedFromPort(from);
       var toPort = Object.values(to.getInPorts())[0];
       var link = new _projectstorm_react_diagrams__WEBPACK_IMPORTED_MODULE_0__.DefaultLinkModel();
       link.setSourcePort(fromPort);
@@ -9741,6 +9737,15 @@ var DiagramModel = /*#__PURE__*/function (_DefaultDiagramModel) {
       fromPort.reportPosition();
       toPort.reportPosition();
       return link;
+    }
+  }, {
+    key: "getAutomatedFromPort",
+    value: function getAutomatedFromPort(fromNode) {
+      var _a;
+
+      return (_a = Object.values(fromNode.getOutPorts()).find(function (candidate) {
+        return Object.values(candidate.links).length === 0;
+      })) !== null && _a !== void 0 ? _a : Object.values(fromNode.getOutPorts())[0];
     }
   }, {
     key: "canLink",
@@ -9755,10 +9760,9 @@ var DiagramModel = /*#__PURE__*/function (_DefaultDiagramModel) {
   }, {
     key: "setLinkedNodePosition",
     value: function setLinkedNodePosition(latest, node) {
-      var _a;
-
-      var fromPort = (_a = Object.values(latest.getOutPorts())[0]) !== null && _a !== void 0 ? _a : false;
-      node.setPosition(latest.position.x + 200, latest.position.y + Object.keys(fromPort.links).length * 75);
+      var fromPort = this.getAutomatedFromPort(latest);
+      var position = Object.values(latest.getOutPorts()).indexOf(fromPort);
+      node.setPosition(latest.position.x + 200, latest.position.y + position * 75);
     }
   }]);
 

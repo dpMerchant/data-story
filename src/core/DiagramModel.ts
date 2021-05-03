@@ -118,9 +118,7 @@ export default class DiagramModel extends DefaultDiagramModel {
         if(!this.canLink(from, to)) return;
 
         // fromPort: prefer first unused outPort. Otherwise defaults to first
-        let fromPort: any = Object.values(from.getOutPorts()).find((candidate: any) => {
-            return Object.values(candidate.links).length === 0
-        }) ?? Object.values(from.getOutPorts())[0]
+        let fromPort: any = this.getAutomatedFromPort(from)
 
         // toPort: the first inPort
         let toPort: any = Object.values(to.getInPorts())[0];
@@ -140,6 +138,13 @@ export default class DiagramModel extends DefaultDiagramModel {
         return link
     }
 
+	getAutomatedFromPort(fromNode) {
+        // fromPort: prefer first unused outPort. Otherwise defaults to first
+        return Object.values(fromNode.getOutPorts()).find((candidate: any) => {
+            return Object.values(candidate.links).length === 0
+        }) ?? Object.values(fromNode.getOutPorts())[0]
+	}
+
     canLink(from, to)
     {
         // Has from node?
@@ -155,11 +160,12 @@ export default class DiagramModel extends DefaultDiagramModel {
 	
     setLinkedNodePosition(latest, node)
     {
-        let fromPort: any = Object.values(latest.getOutPorts())[0] ?? false;
+		let fromPort = this.getAutomatedFromPort(latest)
+		let position = Object.values(latest.getOutPorts()).indexOf(fromPort)
 
         node.setPosition(
             latest.position.x + 200,
-            latest.position.y + (Object.keys(fromPort.links).length) * 75
+            latest.position.y + position * 75
         );
     }  	
 }
