@@ -3,10 +3,18 @@ import ServerNode from "../ServerNode";
 import NodeParameter from "../../core/NodeParameter";
 
 export default class CreateSequence extends ServerNode {
-    public category: string = 'Reader'    
-    defaultInPorts: string[] = []
-    public summary = 'Create a sequence of objects'    
-	name = 'CreateSequence'
+	constructor(options = {}) {
+		super({
+			// Defaults
+			name: 'CreateSequence',
+			summary: 'Create a sequence of objects',
+			category: 'Reader',
+			defaultInPorts: [],
+			defaultOutPorts: ['Output'],			
+			// Explicitly configured
+			...options,
+		})
+	}
 
     async run() {
         let count = parseInt(this.getParameterValue('number_of_features_to_create'))

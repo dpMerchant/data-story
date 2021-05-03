@@ -3,10 +3,18 @@ import ServerNode from "../ServerNode";
 import NodeParameter from "../../core/NodeParameter";
 
 export default class CreateGrid extends ServerNode {
-    public category: string = 'Reader'    
-    defaultInPorts: string[] = []
-    public summary = 'Create a set of objects with coordinates x and y'    
-	public name = 'CreateGrid'
+	constructor(options = {}) {
+		super({
+			// Defaults
+			name: 'CreateGrid',
+			summary: 'Create a set of objects with coordinates x and y',
+			category: 'Reader',
+			defaultInPorts: [],
+			defaultOutPorts: ['Output'],			
+			// Explicitly configured
+			...options,
+		})
+	}
 
     async run() {
         let gridSizeX = parseInt(this.getParameterValue('grid_size_x'))

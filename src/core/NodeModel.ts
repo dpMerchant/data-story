@@ -8,8 +8,6 @@ import { SerializedNodeModel } from './types/SerializedNodeModel';
 
 export interface NodeModelOptions extends BasePositionModelOptions {
     name: string,
-    inPorts: any[],
-    outPorts: any[],
     parameters: any[],
 }
 
@@ -45,7 +43,7 @@ export default class NodeModel extends DefaultNodeModel {
 		this.nodeReact = options.nodeReact
 		this.parameters = options.parameters
 		this.serverNodeType = options.serverNodeType
-		
+
 		options.ports.forEach(port => {
 			this.addPort(
 				new PortModel({
@@ -55,31 +53,6 @@ export default class NodeModel extends DefaultNodeModel {
 				})
 			);  
 		})
-
-		// if(options.inPorts) {
-		// 	options.inPorts.forEach(name => {
-		// 		this.addPort(
-		// 			new PortModel({
-		// 				in: true,
-		// 				name: name,
-		// 				parent: this,
-		// 			})
-		// 		);  
-		// 	})
-		// }
-
-		// if(options.outPorts) {
-		// 	options.outPorts.forEach(name => {
-		// 		this.addPort(
-		// 			new PortModel({
-		// 				in: false,
-		// 				name: name,
-		// 				parent: this,                    
-		// 			})
-		// 		);  
-		// 	})
-		// }
-
     }
 
 	serialize() : SerializedNodeModel {

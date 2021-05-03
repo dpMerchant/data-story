@@ -11291,7 +11291,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _core_utils_UID__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../core/utils/UID */ "./src/core/utils/UID.ts");
 /* harmony import */ var _core_NodeParameter__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../core/NodeParameter */ "./src/core/NodeParameter.ts");
-function _createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
+function _createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e2) { throw _e2; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e3) { didErr = true; err = _e3; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
 
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
 
@@ -11321,7 +11321,7 @@ var ServerNode = /*#__PURE__*/function () {
 
     _classCallCheck(this, ServerNode);
 
-    var _a, _b, _c;
+    var _a, _b, _c, _d, _e;
 
     this.category = 'Custom';
     this.editableInPorts = false;
@@ -11331,7 +11331,9 @@ var ServerNode = /*#__PURE__*/function () {
     this.summary = 'No summary provided.';
     this.diagram = options.diagram;
     this.id = (_a = options.id) !== null && _a !== void 0 ? _a : (0,_core_utils_UID__WEBPACK_IMPORTED_MODULE_1__.default)();
-    this.name = options.name, this.summary = options.summary, this.category = options.category, this.defaultInPorts = (_b = options.defaultInPorts) !== null && _b !== void 0 ? _b : ['Input'], this.defaultOutPorts = (_c = options.defaultOutPorts) !== null && _c !== void 0 ? _c : ['Output'], this.parameters = options.parameters ? options.parameters : [];
+    this.name = options.name, this.summary = options.summary, this.category = options.category, this.defaultInPorts = (_b = options.defaultInPorts) !== null && _b !== void 0 ? _b : ['Input'], this.defaultOutPorts = (_c = options.defaultOutPorts) !== null && _c !== void 0 ? _c : ['Output'], this.editableInPorts = (_d = options.editableInPorts) !== null && _d !== void 0 ? _d : false;
+    this.editableOutPorts = (_e = options.editableOutPorts) !== null && _e !== void 0 ? _e : false;
+    this.parameters = options.parameters ? options.parameters : [];
     this.ports = this.createPorts(options);
   }
 
@@ -11736,15 +11738,17 @@ var Clone_ = /*#__PURE__*/function (_ServerNode) {
   var _super = _createSuper(Clone_);
 
   function Clone_() {
-    var _this;
+    var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
 
     _classCallCheck(this, Clone_);
 
-    _this = _super.apply(this, arguments);
-    _this.category = 'Workflow';
-    _this.summary = 'Make a set of clones';
-    _this.name = 'Clone_';
-    return _this;
+    return _super.call(this, Object.assign({
+      name: 'Clone_',
+      summary: 'Make a set of clones',
+      category: 'Workflow',
+      defaultInPorts: ['Input'],
+      defaultOutPorts: ['Output']
+    }, options));
   }
 
   _createClass(Clone_, [{
@@ -11995,15 +11999,17 @@ var CreateAttribute = /*#__PURE__*/function (_ServerNode) {
   var _super = _createSuper(CreateAttribute);
 
   function CreateAttribute() {
-    var _this;
+    var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
 
     _classCallCheck(this, CreateAttribute);
 
-    _this = _super.apply(this, arguments);
-    _this.category = 'Workflow';
-    _this.summary = 'Create a new attribute from an expression';
-    _this.name = 'CreateAttribute';
-    return _this;
+    return _super.call(this, Object.assign({
+      name: 'CreateAttribute',
+      summary: 'Create a new attribute from an expression',
+      category: 'Workflow',
+      defaultInPorts: ['Input'],
+      defaultOutPorts: ['Output']
+    }, options));
   }
 
   _createClass(CreateAttribute, [{
@@ -12141,16 +12147,17 @@ var CreateGrid = /*#__PURE__*/function (_ServerNode) {
   var _super = _createSuper(CreateGrid);
 
   function CreateGrid() {
-    var _this;
+    var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
 
     _classCallCheck(this, CreateGrid);
 
-    _this = _super.apply(this, arguments);
-    _this.category = 'Reader';
-    _this.defaultInPorts = [];
-    _this.summary = 'Create a set of objects with coordinates x and y';
-    _this.name = 'CreateGrid';
-    return _this;
+    return _super.call(this, Object.assign({
+      name: 'CreateGrid',
+      summary: 'Create a set of objects with coordinates x and y',
+      category: 'Reader',
+      defaultInPorts: [],
+      defaultOutPorts: ['Output']
+    }, options));
   }
 
   _createClass(CreateGrid, [{
@@ -12301,16 +12308,17 @@ var CreateJSON = /*#__PURE__*/function (_ServerNode) {
   var _super = _createSuper(CreateJSON);
 
   function CreateJSON() {
-    var _this;
+    var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
 
     _classCallCheck(this, CreateJSON);
 
-    _this = _super.apply(this, arguments);
-    _this.category = 'Reader';
-    _this.defaultInPorts = [];
-    _this.summary = 'Create features from JSON';
-    _this.name = 'CreateJSON';
-    return _this;
+    return _super.call(this, Object.assign({
+      name: 'CreateJSON',
+      summary: 'Create features from JSON',
+      category: 'Reader',
+      defaultInPorts: [],
+      defaultOutPorts: ['Output']
+    }, options));
   }
 
   _createClass(CreateJSON, [{
@@ -12445,16 +12453,17 @@ var CreateSequence = /*#__PURE__*/function (_ServerNode) {
   var _super = _createSuper(CreateSequence);
 
   function CreateSequence() {
-    var _this;
+    var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
 
     _classCallCheck(this, CreateSequence);
 
-    _this = _super.apply(this, arguments);
-    _this.category = 'Reader';
-    _this.defaultInPorts = [];
-    _this.summary = 'Create a sequence of objects';
-    _this.name = 'CreateSequence';
-    return _this;
+    return _super.call(this, Object.assign({
+      name: 'CreateSequence',
+      summary: 'Create a sequence of objects',
+      category: 'Reader',
+      defaultInPorts: [],
+      defaultOutPorts: ['Output']
+    }, options));
   }
 
   _createClass(CreateSequence, [{
@@ -12594,16 +12603,17 @@ var DownloadJSON = /*#__PURE__*/function (_ServerNode) {
   var _super = _createSuper(DownloadJSON);
 
   function DownloadJSON() {
-    var _this;
+    var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
 
     _classCallCheck(this, DownloadJSON);
 
-    _this = _super.apply(this, arguments);
-    _this.category = 'Workflow';
-    _this.summary = 'Download features as JSON';
-    _this.defaultOutPorts = [];
-    _this.name = 'DownloadJSON';
-    return _this;
+    return _super.call(this, Object.assign({
+      name: 'DownloadJSON',
+      summary: 'Download features as JSON',
+      category: 'Workflow',
+      defaultInPorts: ['Input'],
+      defaultOutPorts: []
+    }, options));
   }
 
   _createClass(DownloadJSON, [{
@@ -12744,15 +12754,17 @@ var Evaluate = /*#__PURE__*/function (_ServerNode) {
   var _super = _createSuper(Evaluate);
 
   function Evaluate() {
-    var _this;
+    var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
 
     _classCallCheck(this, Evaluate);
 
-    _this = _super.apply(this, arguments);
-    _this.category = 'Workflow';
-    _this.summary = "Evaluate javascript";
-    _this.name = 'Evaluate';
-    return _this;
+    return _super.call(this, Object.assign({
+      name: 'Evaluate',
+      summary: 'Evaluate javascript',
+      category: 'Workflow',
+      defaultInPorts: ['Input'],
+      defaultOutPorts: ['Output']
+    }, options));
   }
 
   _createClass(Evaluate, [{
@@ -12872,15 +12884,17 @@ var Flatten = /*#__PURE__*/function (_ServerNode) {
   var _super = _createSuper(Flatten);
 
   function Flatten() {
-    var _this;
+    var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
 
     _classCallCheck(this, Flatten);
 
-    _this = _super.apply(this, arguments);
-    _this.category = 'Workflow';
-    _this.summary = 'Flatten arrays';
-    _this.name = 'Flatten';
-    return _this;
+    return _super.call(this, Object.assign({
+      name: 'Flatten',
+      summary: 'Flatten arrays',
+      category: 'Workflow',
+      defaultInPorts: ['Input'],
+      defaultOutPorts: ['Output']
+    }, options));
   }
 
   _createClass(Flatten, [{
@@ -13041,17 +13055,17 @@ var HTTPRequest = /*#__PURE__*/function (_ServerNode) {
   var _super = _createSuper(HTTPRequest);
 
   function HTTPRequest() {
-    var _this;
+    var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
 
     _classCallCheck(this, HTTPRequest);
 
-    _this = _super.apply(this, arguments);
-    _this.category = 'Reader';
-    _this.inPorts = ['Input'];
-    _this.outPorts = ['Features', 'Response', 'Failed'];
-    _this.summary = 'Make a HTTP request';
-    _this.name = 'HTTPRequest';
-    return _this;
+    return _super.call(this, Object.assign({
+      name: 'HTTPRequest',
+      summary: 'Make a HTTP request',
+      category: 'Workflow',
+      defaultInPorts: ['Input'],
+      defaultOutPorts: ['Features', 'Response', 'Failed']
+    }, options));
   }
 
   _createClass(HTTPRequest, [{
@@ -13060,7 +13074,7 @@ var HTTPRequest = /*#__PURE__*/function (_ServerNode) {
       var e_1, _a;
 
       return __awaiter(this, void 0, void 0, /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
-        var _this2 = this;
+        var _this = this;
 
         var _b, _c, feature;
 
@@ -13089,23 +13103,23 @@ var HTTPRequest = /*#__PURE__*/function (_ServerNode) {
                 return this.request(feature).then(function (result) {
                   console.log("result retrieved", result.status);
 
-                  _this2.output([new _core_Feature__WEBPACK_IMPORTED_MODULE_3__.default(result)], 'Response');
+                  _this.output([new _core_Feature__WEBPACK_IMPORTED_MODULE_3__.default(result)], 'Response');
 
-                  if (_this2.getParameterValue('features_path')) {
-                    var features_path = _this2.getParameterValue('features_path');
+                  if (_this.getParameterValue('features_path')) {
+                    var features_path = _this.getParameterValue('features_path');
 
                     var raw = features_path.split('.').reduce(function (traversed, part) {
                       return traversed[part];
                     }, result);
                     var wrapped = [raw].flat();
 
-                    _this2.output(wrapped.map(function (r) {
+                    _this.output(wrapped.map(function (r) {
                       return new _core_Feature__WEBPACK_IMPORTED_MODULE_3__.default(r);
                     }), 'Features');
                   }
                 })["catch"](function (reason) {
                   if (reason) {
-                    _this2.output([new _core_Feature__WEBPACK_IMPORTED_MODULE_3__.default(JSON.parse(JSON.stringify(reason)))], 'Failed');
+                    _this.output([new _core_Feature__WEBPACK_IMPORTED_MODULE_3__.default(JSON.parse(JSON.stringify(reason)))], 'Failed');
                   }
                 });
 
@@ -13267,16 +13281,17 @@ var Inspect = /*#__PURE__*/function (_ServerNode) {
   var _super = _createSuper(Inspect);
 
   function Inspect() {
-    var _this;
+    var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
 
     _classCallCheck(this, Inspect);
 
-    _this = _super.apply(this, arguments);
-    _this.category = 'Workflow';
-    _this.summary = 'Display features in a table';
-    _this.defaultOutPorts = [];
-    _this.name = 'Inspect';
-    return _this;
+    return _super.call(this, Object.assign({
+      name: 'Inspect',
+      summary: 'Display features in a table',
+      category: 'Workflow',
+      defaultInPorts: ['Input'],
+      defaultOutPorts: []
+    }, options));
   }
 
   _createClass(Inspect, [{
@@ -13384,16 +13399,17 @@ var Log = /*#__PURE__*/function (_ServerNode) {
   var _super = _createSuper(Log);
 
   function Log() {
-    var _this;
+    var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
 
     _classCallCheck(this, Log);
 
-    _this = _super.apply(this, arguments);
-    _this.category = 'Workflow';
-    _this.summary = 'console.log(inputs)';
-    _this.outPorts = [];
-    _this.name = 'Log';
-    return _this;
+    return _super.call(this, Object.assign({
+      name: 'Log',
+      summary: 'console.log(inputs)',
+      category: 'Workflow',
+      defaultInPorts: ['Input'],
+      defaultOutPorts: []
+    }, options));
   }
 
   _createClass(Log, [{
@@ -13530,15 +13546,17 @@ var Map = /*#__PURE__*/function (_ServerNode) {
   var _super = _createSuper(Map);
 
   function Map() {
-    var _this;
+    var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
 
     _classCallCheck(this, Map);
 
-    _this = _super.apply(this, arguments);
-    _this.category = 'Workflow';
-    _this.summary = 'Map into a property';
-    _this.name = 'Map';
-    return _this;
+    return _super.call(this, Object.assign({
+      name: 'Map',
+      summary: 'Map into a property',
+      category: 'Workflow',
+      defaultInPorts: ['Input'],
+      defaultOutPorts: ['Output']
+    }, options));
   }
 
   _createClass(Map, [{
@@ -13681,18 +13699,18 @@ var OutputProvider = /*#__PURE__*/function (_ServerNode) {
   var _super = _createSuper(OutputProvider);
 
   function OutputProvider() {
-    var _this;
+    var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
 
     _classCallCheck(this, OutputProvider);
 
-    _this = _super.apply(this, arguments);
-    _this.category = 'Workflow';
-    _this.summary = 'Provides output ports from JSON';
-    _this.inPorts = [];
-    _this.outPorts = [];
-    _this.editableOutPorts = true;
-    _this.name = 'OutputProvider';
-    return _this;
+    return _super.call(this, Object.assign({
+      name: 'OutputProvider',
+      summary: 'Provides output ports from JSON',
+      category: 'Workflow',
+      defaultInPorts: [],
+      defaultOutPorts: [],
+      editableOutPorts: true
+    }, options));
   }
 
   _createClass(OutputProvider, [{
@@ -13845,16 +13863,17 @@ var RegExpFilter = /*#__PURE__*/function (_ServerNode) {
   var _super = _createSuper(RegExpFilter);
 
   function RegExpFilter() {
-    var _this;
+    var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
 
     _classCallCheck(this, RegExpFilter);
 
-    _this = _super.apply(this, arguments);
-    _this.category = 'Workflow';
-    _this.summary = 'Filter features matching an attribute regular expression';
-    _this.outPorts = ['Passed', 'Failed'];
-    _this.name = 'RegExpFilter';
-    return _this;
+    return _super.call(this, Object.assign({
+      name: 'RegExpFilter',
+      summary: 'Filter features matching an attribute regular expression',
+      category: 'Workflow',
+      defaultInPorts: ['Input'],
+      defaultOutPorts: ['Passed', 'Failed']
+    }, options));
   }
 
   _createClass(RegExpFilter, [{
@@ -13902,13 +13921,13 @@ var RegExpFilter = /*#__PURE__*/function (_ServerNode) {
   }, {
     key: "filterByRegExp",
     value: function filterByRegExp(features) {
-      var _this2 = this;
+      var _this = this;
 
       var returnFailed = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
       return features.filter(function (feature) {
-        var expression = _this2.getExpression();
+        var expression = _this.getExpression();
 
-        var column = _this2.getParameterValue('attribute');
+        var column = _this.getParameterValue('attribute');
 
         return returnFailed ? !expression.test(feature.original[column]) : expression.test(feature.original[column]);
       });
@@ -14025,22 +14044,24 @@ var Sleep = /*#__PURE__*/function (_ServerNode) {
   var _super = _createSuper(Sleep);
 
   function Sleep() {
-    var _this;
+    var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
 
     _classCallCheck(this, Sleep);
 
-    _this = _super.apply(this, arguments);
-    _this.category = 'Workflow';
-    _this.summary = 'Sleep x seconds';
-    _this.name = 'Sleep';
-    return _this;
+    return _super.call(this, Object.assign({
+      name: 'Sleep',
+      summary: 'Sleep x seconds',
+      category: 'Workflow',
+      defaultInPorts: ['Input'],
+      defaultOutPorts: ['Output']
+    }, options));
   }
 
   _createClass(Sleep, [{
     key: "run",
     value: function run() {
       return __awaiter(this, void 0, void 0, /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
-        var _this2 = this;
+        var _this = this;
 
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
           while (1) {
@@ -14054,7 +14075,7 @@ var Sleep = /*#__PURE__*/function (_ServerNode) {
                     }
 
                     resolve('Node complete');
-                  }, parseInt(_this2.getParameterValue('seconds_to_sleep')) * 1000);
+                  }, parseInt(_this.getParameterValue('seconds_to_sleep')) * 1000);
                 }));
 
               case 2:
@@ -14175,16 +14196,17 @@ var ThrowError = /*#__PURE__*/function (_ServerNode) {
   var _super = _createSuper(ThrowError);
 
   function ThrowError() {
-    var _this;
+    var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
 
     _classCallCheck(this, ThrowError);
 
-    _this = _super.apply(this, arguments);
-    _this.category = 'Workflow';
-    _this.summary = 'Throws an error';
-    _this.outPorts = [];
-    _this.name = 'ThrowError';
-    return _this;
+    return _super.call(this, Object.assign({
+      name: 'ThrowError',
+      summary: 'Throws an error',
+      category: 'Workflow',
+      defaultInPorts: ['Input'],
+      defaultOutPorts: []
+    }, options));
   }
 
   _createClass(ThrowError, [{
@@ -14270,15 +14292,17 @@ var DeleteRepositories = /*#__PURE__*/function (_HTTPRequest) {
   var _super = _createSuper(DeleteRepositories);
 
   function DeleteRepositories() {
-    var _this;
+    var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
 
     _classCallCheck(this, DeleteRepositories);
 
-    _this = _super.apply(this, arguments);
-    _this.category = 'Github';
-    _this.summary = 'Delete github repositores';
-    _this.name = 'DeleteRepositories';
-    return _this;
+    return _super.call(this, Object.assign({
+      name: 'DeleteRepositories',
+      summary: 'Delete github repositores',
+      category: 'Github',
+      defaultInPorts: ['Input'],
+      defaultOutPorts: ['Output']
+    }, options));
   }
 
   _createClass(DeleteRepositories, [{
@@ -14355,15 +14379,17 @@ var Repositories = /*#__PURE__*/function (_HTTPRequest) {
   var _super = _createSuper(Repositories);
 
   function Repositories() {
-    var _this;
+    var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
 
     _classCallCheck(this, Repositories);
 
-    _this = _super.apply(this, arguments);
-    _this.category = 'Github';
-    _this.summary = 'Fetch github repositores';
-    _this.name = 'Repositories';
-    return _this;
+    return _super.call(this, Object.assign({
+      name: 'Repositories',
+      summary: 'Fetch github repositores',
+      category: 'Github',
+      defaultInPorts: ['Input'],
+      defaultOutPorts: ['Output']
+    }, options));
   }
 
   _createClass(Repositories, [{

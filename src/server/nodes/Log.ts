@@ -1,10 +1,18 @@
 import ServerNode from "../ServerNode";
 
 export default class Log extends ServerNode {
-    category: string = 'Workflow'    
-    summary = 'console.log(inputs)'
-    outPorts = []
-	name = 'Log'
+	constructor(options = {}) {
+		super({
+			// Defaults
+			name: 'Log',
+			summary: 'console.log(inputs)',
+			category: 'Workflow',
+			defaultInPorts: ['Input'],
+			defaultOutPorts: [],			
+			// Explicitly configured
+			...options,
+		})
+	}
 
     async run() {
 		// do like this to help when searching for console.log littering

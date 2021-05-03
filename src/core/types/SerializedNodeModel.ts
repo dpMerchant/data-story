@@ -9,8 +9,6 @@ export type SerializedNodeModel = {
 	category: string,
 	editableInPorts: boolean,
 	editableOutPorts: boolean,
-	inPorts?: string[],
-	outPorts?: string[],
 	key?: string, // what?
 	name: string,
 	nodeReact: string, // what?

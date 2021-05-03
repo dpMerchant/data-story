@@ -2,9 +2,18 @@ import ServerNodeInterface from "../../ServerNodeInterface";
 import HTTPRequest from "../HTTPRequest";
 
 export default class Repositories extends HTTPRequest implements ServerNodeInterface {
-    category: string = 'Github'
-    summary = 'Fetch github repositores'
-	name = 'Repositories'
+	constructor(options = {}) {
+		super({
+			// Defaults
+			name: 'Repositories',
+			summary: 'Fetch github repositores',
+			category: 'Github',
+			defaultInPorts: ['Input'],
+			defaultOutPorts: ['Output'],			
+			// Explicitly configured
+			...options,
+		})
+	}
 
     serialize() {
         let description = super.serialize()

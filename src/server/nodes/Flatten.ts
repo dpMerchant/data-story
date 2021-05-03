@@ -2,9 +2,18 @@ import Feature from "../../core/Feature";
 import ServerNode from "../ServerNode";
 
 export default class Flatten extends ServerNode {
-    category: string = 'Workflow'    
-    summary = 'Flatten arrays'
-	name = 'Flatten'
+	constructor(options = {}) {
+		super({
+			// Defaults
+			name: 'Flatten',
+			summary: 'Flatten arrays',
+			category: 'Workflow',
+			defaultInPorts: ['Input'],
+			defaultOutPorts: ['Output'],			
+			// Explicitly configured
+			...options,
+		})
+	}
 
     async run() {
         this.output(

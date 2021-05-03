@@ -4,10 +4,18 @@ import _ from 'lodash'
 import NodeParameter from "../../core/NodeParameter";
 
 export default class RegExpFilter extends ServerNode {
-    category: string = 'Workflow'    
-    summary = 'Filter features matching an attribute regular expression'
-    outPorts = ['Passed', 'Failed']
-	name = 'RegExpFilter'
+	constructor(options = {}) {
+		super({
+			// Defaults
+			name: 'RegExpFilter',
+			summary: 'Filter features matching an attribute regular expression',
+			category: 'Workflow',
+			defaultInPorts: ['Input'],
+			defaultOutPorts: ['Passed', 'Failed'],
+			// Explicitly configured
+			...options,
+		})
+	}
 
     serialize() {
         let description = super.serialize()

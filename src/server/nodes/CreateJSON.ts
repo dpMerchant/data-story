@@ -3,10 +3,18 @@ import ServerNode from "../ServerNode";
 import NodeParameter from "../../core/NodeParameter";
 
 export default class CreateJSON extends ServerNode {
-    public category: string = 'Reader'    
-    defaultInPorts: string[] = []
-    public summary = 'Create features from JSON'    
-	public name = 'CreateJSON'
+	constructor(options = {}) {
+		super({
+			// Defaults
+			name: 'CreateJSON',
+			summary: 'Create features from JSON',
+			category: 'Reader',
+			defaultInPorts: [],
+			defaultOutPorts: ['Output'],			
+			// Explicitly configured
+			...options,
+		})
+	}
 
     async run() {
         this.output(

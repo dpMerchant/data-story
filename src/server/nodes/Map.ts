@@ -3,9 +3,18 @@ import ServerNode from "../ServerNode";
 import NodeParameter from "../../core/NodeParameter";
 
 export default class Map extends ServerNode {
-    category: string = 'Workflow'    
-    summary = 'Map into a property'
-	name = 'Map'    
+	constructor(options = {}) {
+		super({
+			// Defaults
+			name: 'Map',
+			summary: 'Map into a property',
+			category: 'Workflow',
+			defaultInPorts: ['Input'],
+			defaultOutPorts: ['Output'],			
+			// Explicitly configured
+			...options,
+		})
+	}    
 
     async run() {
         const property = this.getParameterValue('property');

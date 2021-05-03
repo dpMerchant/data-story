@@ -10,6 +10,8 @@ type ServerNodeOptions = {
 	parameters?: object[],
 	defaultInPorts?: string[],
 	defaultOutPorts?: string[],
+	editableInPorts?: boolean,
+	editableOutPorts?: boolean,
 	name?: string,
 	summary?: string,
 	category?: string,
@@ -44,7 +46,8 @@ export default abstract class ServerNode {
 		this.category = options.category,
 		this.defaultInPorts = options.defaultInPorts ?? ['Input'],
 		this.defaultOutPorts = options.defaultOutPorts ?? ['Output'],					
-
+		this.editableInPorts = options.editableInPorts ?? false
+		this.editableOutPorts = options.editableOutPorts ?? false
         this.parameters = options.parameters ? options.parameters : []
         this.ports = this.createPorts(options)
     }
@@ -79,8 +82,6 @@ export default abstract class ServerNode {
             category: this.category,
             editableInPorts: this.editableInPorts,
             editableOutPorts: this.editableOutPorts,
-            // inPorts: [...this.inPorts],
-            // outPorts: [...this.outPorts],
 			ports: this.ports,
             key: this.key,
             name: this.name,

@@ -2,10 +2,18 @@ import NodeParameter from "../../core/NodeParameter";
 import ServerNode from "../ServerNode";
 
 export default class ThrowError extends ServerNode {
-    category: string = 'Workflow'    
-    summary = 'Throws an error'
-	outPorts = []
-	name = 'ThrowError'
+	constructor(options = {}) {
+		super({
+			// Defaults
+			name: 'ThrowError',
+			summary: 'Throws an error',
+			category: 'Workflow',
+			defaultInPorts: ['Input'],
+			defaultOutPorts: [],
+			// Explicitly configured
+			...options,
+		})
+	}
 
     async run() {
         if(this.input().length) throw Error(

@@ -3,12 +3,19 @@ import NodeParameter from "../../core/NodeParameter";
 import Feature from "../../core/Feature";
 
 export default class OutputProvider extends ServerNode {
-    category: string = 'Workflow'    
-    summary = 'Provides output ports from JSON'
-	inPorts = []
-	outPorts = []	
-	editableOutPorts = true;
-	name = 'OutputProvider'
+	constructor(options = {}) {
+		super({
+			// Defaults
+			name: 'OutputProvider',
+			summary: 'Provides output ports from JSON',
+			category: 'Workflow',
+			defaultInPorts: [],
+			defaultOutPorts: [],
+			editableOutPorts: true,
+			// Explicitly configured
+			...options,
+		})
+	}
 
     async run() {
         const outputs = this.getParameterValue('outputs')

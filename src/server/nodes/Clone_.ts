@@ -2,9 +2,18 @@ import NodeParameter from "../../core/NodeParameter";
 import ServerNode from "../ServerNode";
 
 export default class Clone_ extends ServerNode {
-    category: string = 'Workflow'    
-    summary = 'Make a set of clones'
-	name = 'Clone_'
+	constructor(options = {}) {
+		super({
+			// Defaults
+			name: 'Clone_',
+			summary: 'Make a set of clones',
+			category: 'Workflow',
+			defaultInPorts: ['Input'],
+			defaultOutPorts: ['Output'],			
+			// Explicitly configured
+			...options,
+		})
+	}
 
     async run() {
         this.output(

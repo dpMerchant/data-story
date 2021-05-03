@@ -7,9 +7,18 @@ const placeholder =
 // feature.set('some_property', 123)`
 
 export default class Evaluate extends ServerNode {
-    category: string = 'Workflow'    
-    summary = "Evaluate javascript"
-	name = 'Evaluate'
+	constructor(options = {}) {
+		super({
+			// Defaults
+			name: 'Evaluate',
+			summary: 'Evaluate javascript',
+			category: 'Workflow',
+			defaultInPorts: ['Input'],
+			defaultOutPorts: ['Output'],			
+			// Explicitly configured
+			...options,
+		})
+	}
 
     async run() {
         const expression = this.getParameterValue('expression');

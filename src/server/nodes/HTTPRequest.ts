@@ -4,11 +4,18 @@ import Feature from "../../core/Feature";
 import NodeParameter from "../../core/NodeParameter";
 
 export default class HTTPRequest extends ServerNode {
-    category: string = 'Reader'
-    inPorts: string[] = ['Input']
-    outPorts: string[] = ['Features', 'Response', 'Failed'];
-    summary = 'Make a HTTP request'
-	name = 'HTTPRequest'
+	constructor(options = {}) {
+		super({
+			// Defaults
+			name: 'HTTPRequest',
+			summary: 'Make a HTTP request',
+			category: 'Workflow',
+			defaultInPorts: ['Input'],
+			defaultOutPorts: ['Features', 'Response', 'Failed'],			
+			// Explicitly configured
+			...options,
+		})
+	}
 
     async run() {
         for await (let feature of this.input()) {

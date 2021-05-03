@@ -2,9 +2,18 @@ import ServerNodeInterface from "../../ServerNodeInterface";
 import HTTPRequest from "../HTTPRequest";
 
 export default class DeleteRepositories extends HTTPRequest implements ServerNodeInterface {
-    category: string = 'Github'
-    summary = 'Delete github repositores'
-	name = 'DeleteRepositories'
+	constructor(options = {}) {
+		super({
+			// Defaults
+			name: 'DeleteRepositories',
+			summary: 'Delete github repositores',
+			category: 'Github',
+			defaultInPorts: ['Input'],
+			defaultOutPorts: ['Output'],			
+			// Explicitly configured
+			...options,
+		})
+	}
 
     serialize() {
         let description = super.serialize()
