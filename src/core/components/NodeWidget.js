@@ -22,7 +22,7 @@ export default class NodeWidget extends React.Component {
 
 	render() {
 		return (
-            <div className={"flex font-mono text-xxs text-gray-200"}>
+            <div className={"flex font-mono text-xxs text-gray-200"} onDoubleClick={this.open.bind(this)}>
                 <div className="flex-grow-0 max-w-md">
                     {this.renderHeading()}
                     {this.renderInPorts()}                  
@@ -40,7 +40,6 @@ export default class NodeWidget extends React.Component {
             <div
                 className={"flex justify-between items-center pr-2 py-1 border border-gray-900 font-bold rounded-lg bg-gray-700 "
                     + (this.props.node.isSelected() ? 'bg-malibu-900' : '')}
-                onDoubleClick={this.open.bind(this)}
             >
                 <span className="mx-4">{this.props.node.getDisplayName()}</span>
                 <i className="fas fa-cog"></i>

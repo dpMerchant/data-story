@@ -15181,6 +15181,7 @@ var NodeWidget = /*#__PURE__*/function (_React$Component) {
     value: function render() {
       return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
         className: "flex font-mono text-xxs text-gray-200",
+        onDoubleClick: this.open.bind(this),
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
           className: "flex-grow-0 max-w-md",
           children: [this.renderHeading(), this.renderInPorts(), this.renderOutPorts(), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
@@ -15194,7 +15195,6 @@ var NodeWidget = /*#__PURE__*/function (_React$Component) {
     value: function renderHeading() {
       return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
         className: "flex justify-between items-center pr-2 py-1 border border-gray-900 font-bold rounded-lg bg-gray-700 " + (this.props.node.isSelected() ? 'bg-malibu-900' : ''),
-        onDoubleClick: this.open.bind(this),
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", {
           className: "mx-4",
           children: this.props.node.getDisplayName()
