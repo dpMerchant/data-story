@@ -2,7 +2,6 @@ import DiagramModel from "./DiagramModel"
 import NodeModel from "./NodeModel"
 
 export class DiagramModelBuilder {
-
 	currentNode?: NodeModel
 	diagram?: DiagramModel
 

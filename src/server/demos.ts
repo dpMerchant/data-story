@@ -10,26 +10,20 @@ import HTTPRequest from "./nodes/HTTPRequest";
 import Inspect from "./nodes/Inspect";
 import Map from "./nodes/Map";
 
-export const WithParameters = DiagramModelBuilder.begin()
-	.add(Create)
-	.add(Clone_, {number_of_clones: 4})
-	.add(Inspect)
-	.finish()
-
-export const WorkingWithJSON = DiagramModelBuilder.begin()
+export const working_with_json = DiagramModelBuilder.begin()
 	.add(CreateJSON)
-	.add(Clone_, {number_of_clones: 4})
+	.add(Clone_, {number_of_clones: 3})
 	.add(HTTPRequest)
 	.add(Inspect)
 	.add(Inspect)
 	.add(Inspect)		
 	.finish()
 
-export const CleanupOldGithubRepos = DiagramModelBuilder.begin()
+export const cleanup_old_github_repos = DiagramModelBuilder.begin()
 	.add(HTTPRequest)
 	.finish()
 
-export const ScrapingAMapService = DiagramModelBuilder.begin()
+export const scraping_a_map_service = DiagramModelBuilder.begin()
 	.add(CreateGrid, {
 		grid_type: 'boxes',
 		// Södermalm

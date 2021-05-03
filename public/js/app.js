@@ -11647,19 +11647,17 @@ ServerNodeFactory.nodes = {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "WithParameters": () => (/* binding */ WithParameters),
-/* harmony export */   "WorkingWithJSON": () => (/* binding */ WorkingWithJSON),
-/* harmony export */   "CleanupOldGithubRepos": () => (/* binding */ CleanupOldGithubRepos),
-/* harmony export */   "ScrapingAMapService": () => (/* binding */ ScrapingAMapService)
+/* harmony export */   "working_with_json": () => (/* binding */ working_with_json),
+/* harmony export */   "cleanup_old_github_repos": () => (/* binding */ cleanup_old_github_repos),
+/* harmony export */   "scraping_a_map_service": () => (/* binding */ scraping_a_map_service)
 /* harmony export */ });
 /* harmony import */ var _core_DiagramModelBuilder__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../core/DiagramModelBuilder */ "./src/core/DiagramModelBuilder.ts");
 /* harmony import */ var _nodes_Clone___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./nodes/Clone_ */ "./src/server/nodes/Clone_.ts");
-/* harmony import */ var _nodes_Create__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./nodes/Create */ "./src/server/nodes/Create.ts");
-/* harmony import */ var _nodes_CreateGrid__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./nodes/CreateGrid */ "./src/server/nodes/CreateGrid.ts");
-/* harmony import */ var _nodes_CreateJSON__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./nodes/CreateJSON */ "./src/server/nodes/CreateJSON.ts");
-/* harmony import */ var _nodes_DownloadJSON__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./nodes/DownloadJSON */ "./src/server/nodes/DownloadJSON.ts");
-/* harmony import */ var _nodes_HTTPRequest__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./nodes/HTTPRequest */ "./src/server/nodes/HTTPRequest.ts");
-/* harmony import */ var _nodes_Inspect__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./nodes/Inspect */ "./src/server/nodes/Inspect.ts");
+/* harmony import */ var _nodes_CreateGrid__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./nodes/CreateGrid */ "./src/server/nodes/CreateGrid.ts");
+/* harmony import */ var _nodes_CreateJSON__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./nodes/CreateJSON */ "./src/server/nodes/CreateJSON.ts");
+/* harmony import */ var _nodes_DownloadJSON__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./nodes/DownloadJSON */ "./src/server/nodes/DownloadJSON.ts");
+/* harmony import */ var _nodes_HTTPRequest__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./nodes/HTTPRequest */ "./src/server/nodes/HTTPRequest.ts");
+/* harmony import */ var _nodes_Inspect__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./nodes/Inspect */ "./src/server/nodes/Inspect.ts");
 
 
 
@@ -11667,15 +11665,11 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
-var WithParameters = _core_DiagramModelBuilder__WEBPACK_IMPORTED_MODULE_0__.DiagramModelBuilder.begin().add(_nodes_Create__WEBPACK_IMPORTED_MODULE_2__.default).add(_nodes_Clone___WEBPACK_IMPORTED_MODULE_1__.default, {
-  number_of_clones: 4
-}).add(_nodes_Inspect__WEBPACK_IMPORTED_MODULE_7__.default).finish();
-var WorkingWithJSON = _core_DiagramModelBuilder__WEBPACK_IMPORTED_MODULE_0__.DiagramModelBuilder.begin().add(_nodes_CreateJSON__WEBPACK_IMPORTED_MODULE_4__.default).add(_nodes_Clone___WEBPACK_IMPORTED_MODULE_1__.default, {
-  number_of_clones: 4
-}).add(_nodes_HTTPRequest__WEBPACK_IMPORTED_MODULE_6__.default).add(_nodes_Inspect__WEBPACK_IMPORTED_MODULE_7__.default).add(_nodes_Inspect__WEBPACK_IMPORTED_MODULE_7__.default).add(_nodes_Inspect__WEBPACK_IMPORTED_MODULE_7__.default).finish();
-var CleanupOldGithubRepos = _core_DiagramModelBuilder__WEBPACK_IMPORTED_MODULE_0__.DiagramModelBuilder.begin().add(_nodes_HTTPRequest__WEBPACK_IMPORTED_MODULE_6__.default).finish();
-var ScrapingAMapService = _core_DiagramModelBuilder__WEBPACK_IMPORTED_MODULE_0__.DiagramModelBuilder.begin().add(_nodes_CreateGrid__WEBPACK_IMPORTED_MODULE_3__.default, {
+var working_with_json = _core_DiagramModelBuilder__WEBPACK_IMPORTED_MODULE_0__.DiagramModelBuilder.begin().add(_nodes_CreateJSON__WEBPACK_IMPORTED_MODULE_3__.default).add(_nodes_Clone___WEBPACK_IMPORTED_MODULE_1__.default, {
+  number_of_clones: 3
+}).add(_nodes_HTTPRequest__WEBPACK_IMPORTED_MODULE_5__.default).add(_nodes_Inspect__WEBPACK_IMPORTED_MODULE_6__.default).add(_nodes_Inspect__WEBPACK_IMPORTED_MODULE_6__.default).add(_nodes_Inspect__WEBPACK_IMPORTED_MODULE_6__.default).finish();
+var cleanup_old_github_repos = _core_DiagramModelBuilder__WEBPACK_IMPORTED_MODULE_0__.DiagramModelBuilder.begin().add(_nodes_HTTPRequest__WEBPACK_IMPORTED_MODULE_5__.default).finish();
+var scraping_a_map_service = _core_DiagramModelBuilder__WEBPACK_IMPORTED_MODULE_0__.DiagramModelBuilder.begin().add(_nodes_CreateGrid__WEBPACK_IMPORTED_MODULE_2__.default, {
   grid_type: 'boxes',
   grid_min_x: 18.01826477050781,
   grid_min_y: 59.29674702504426,
@@ -11683,10 +11677,10 @@ var ScrapingAMapService = _core_DiagramModelBuilder__WEBPACK_IMPORTED_MODULE_0__
   grid_max_y: 59.32618430580267,
   grid_spacing_x: 0.00437431579,
   grid_spacing_y: 0.00975251197
-}).add(_nodes_HTTPRequest__WEBPACK_IMPORTED_MODULE_6__.default, {
+}).add(_nodes_HTTPRequest__WEBPACK_IMPORTED_MODULE_5__.default, {
   url: 'https://layers.enirocdn.com/{{ feature.y_min }}/{{ feature.x_min }}/{{ feature.y_max }}/{{ feature.x_max }}/17/se_realestate.json',
   features_path: 'data.se_realestate'
-}).add(_nodes_DownloadJSON__WEBPACK_IMPORTED_MODULE_5__.default, {
+}).add(_nodes_DownloadJSON__WEBPACK_IMPORTED_MODULE_4__.default, {
   filename: 'realestates_sthlm.json'
 }).finish();
 
@@ -14616,10 +14610,14 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
   }, {
     key: "bootDemos",
     value: function bootDemos() {
-      this.props.store.metadata.client.save('With parameters', _server_demos_ts__WEBPACK_IMPORTED_MODULE_9__.WithParameters);
-      this.props.store.metadata.client.save('Working with json', _server_demos_ts__WEBPACK_IMPORTED_MODULE_9__.WorkingWithJSON);
-      this.props.store.metadata.client.save('Scraping a map service', _server_demos_ts__WEBPACK_IMPORTED_MODULE_9__.ScrapingAMapService);
-      this.props.store.metadata.client.save('Cleanup old github repos', _server_demos_ts__WEBPACK_IMPORTED_MODULE_9__.CleanupOldGithubRepos);
+      for (var _i = 0, _Object$keys = Object.keys(_server_demos_ts__WEBPACK_IMPORTED_MODULE_9__); _i < _Object$keys.length; _i++) {
+        var name = _Object$keys[_i];
+        this.props.store.metadata.client.save(name, _server_demos_ts__WEBPACK_IMPORTED_MODULE_9__[name]);
+      } // this.props.store.metadata.client.save('With parameters', demos.WithParameters)
+      // this.props.store.metadata.client.save('Working with json', demos.WorkingWithJSON)
+      // this.props.store.metadata.client.save('Scraping a map service', demos.ScrapingAMapService)
+      // this.props.store.metadata.client.save('Cleanup old github repos', demos.CleanupOldGithubRepos)
+
     }
   }, {
     key: "registerKeybindings",
