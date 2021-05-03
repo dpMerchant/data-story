@@ -4,7 +4,7 @@ import NodeParameter from "../../core/NodeParameter";
 
 export default class CreateJSON extends ServerNode {
     public category: string = 'Reader'    
-    public inPorts: string[] = []
+    defaultInPorts: string[] = []
     public summary = 'Create features from JSON'    
 	public name = 'CreateJSON'
 

@@ -4,7 +4,7 @@ import NodeParameter from "../../core/NodeParameter";
 
 export default class CreateGrid extends ServerNode {
     public category: string = 'Reader'    
-    public inPorts: string[] = []
+    defaultInPorts: string[] = []
     public summary = 'Create a set of objects with coordinates x and y'    
 	public name = 'CreateGrid'
 

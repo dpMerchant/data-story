@@ -4,7 +4,7 @@ export default class Inspect extends ServerNode {
     public category: string = 'Workflow'
     public features: any[]
     public summary = 'Display features in a table'    
-    public outPorts: string[] = []	
+    defaultOutPorts: string[] = []	
 	public name = 'Inspect'
 
     async run() {

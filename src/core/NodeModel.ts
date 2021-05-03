@@ -45,30 +45,40 @@ export default class NodeModel extends DefaultNodeModel {
 		this.nodeReact = options.nodeReact
 		this.parameters = options.parameters
 		this.serverNodeType = options.serverNodeType
+		
+		options.ports.forEach(port => {
+			this.addPort(
+				new PortModel({
+					in: port.in,
+					name: port.name,
+					parent: this,
+				})
+			);  
+		})
 
-		if(options.inPorts) {
-			options.inPorts.forEach(name => {
-				this.addPort(
-					new PortModel({
-						in: true,
-						name: name,
-						parent: this,
-					})
-				);  
-			})
-		}
+		// if(options.inPorts) {
+		// 	options.inPorts.forEach(name => {
+		// 		this.addPort(
+		// 			new PortModel({
+		// 				in: true,
+		// 				name: name,
+		// 				parent: this,
+		// 			})
+		// 		);  
+		// 	})
+		// }
 
-		if(options.outPorts) {
-			options.outPorts.forEach(name => {
-				this.addPort(
-					new PortModel({
-						in: false,
-						name: name,
-						parent: this,                    
-					})
-				);  
-			})
-		}
+		// if(options.outPorts) {
+		// 	options.outPorts.forEach(name => {
+		// 		this.addPort(
+		// 			new PortModel({
+		// 				in: false,
+		// 				name: name,
+		// 				parent: this,                    
+		// 			})
+		// 		);  
+		// 	})
+		// }
 
     }
 

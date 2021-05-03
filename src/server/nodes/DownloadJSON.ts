@@ -5,7 +5,7 @@ import NodeParameter from "../../core/NodeParameter";
 export default class DownloadJSON extends ServerNode {
     public category: string = 'Workflow'    
     public summary = 'Download features as JSON'
-    public outPorts = []
+    defaultOutPorts = []
 	name = 'DownloadJSON'
 
     async run() {

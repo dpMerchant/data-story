@@ -4,7 +4,7 @@ import NodeParameter from "../../core/NodeParameter";
 
 export default class CreateSequence extends ServerNode {
     public category: string = 'Reader'    
-    public inPorts: string[] = []
+    defaultInPorts: string[] = []
     public summary = 'Create a sequence of objects'    
 	name = 'CreateSequence'
 

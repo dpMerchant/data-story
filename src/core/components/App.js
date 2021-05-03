@@ -52,7 +52,6 @@ export default observer(class App extends React.Component {
             )
 
 			this.bootDemos()
-			
 
             this.props.store.setAvailableNodes(
                 response.data.availableNodes

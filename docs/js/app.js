@@ -10060,27 +10060,13 @@ var NodeModel = /*#__PURE__*/function (_DefaultNodeModel) {
     _this.nodeReact = options.nodeReact;
     _this.parameters = options.parameters;
     _this.serverNodeType = options.serverNodeType;
-
-    if (options.inPorts) {
-      options.inPorts.forEach(function (name) {
-        _this.addPort(new _PortModel__WEBPACK_IMPORTED_MODULE_1__.default({
-          "in": true,
-          name: name,
-          parent: _assertThisInitialized(_this)
-        }));
-      });
-    }
-
-    if (options.outPorts) {
-      options.outPorts.forEach(function (name) {
-        _this.addPort(new _PortModel__WEBPACK_IMPORTED_MODULE_1__.default({
-          "in": false,
-          name: name,
-          parent: _assertThisInitialized(_this)
-        }));
-      });
-    }
-
+    options.ports.forEach(function (port) {
+      _this.addPort(new _PortModel__WEBPACK_IMPORTED_MODULE_1__.default({
+        "in": port["in"],
+        name: port.name,
+        parent: _assertThisInitialized(_this)
+      }));
+    });
     return _this;
   }
 
@@ -11335,38 +11321,46 @@ var ServerNode = /*#__PURE__*/function () {
 
     _classCallCheck(this, ServerNode);
 
-    var _a;
+    var _a, _b, _c;
 
     this.category = 'Custom';
     this.editableInPorts = false;
     this.editableOutPorts = false;
-    this.inPorts = ['Input'];
-    this.outPorts = ['Output'];
     this.key = 'test-key';
     this.nodeReact = 'Node';
     this.summary = 'No summary provided.';
     this.diagram = options.diagram;
     this.id = (_a = options.id) !== null && _a !== void 0 ? _a : (0,_core_utils_UID__WEBPACK_IMPORTED_MODULE_1__.default)();
-    this.parameters = options.parameters ? options.parameters : [];
+    this.name = options.name, this.summary = options.summary, this.category = options.category, this.defaultInPorts = (_b = options.defaultInPorts) !== null && _b !== void 0 ? _b : ['Input'], this.defaultOutPorts = (_c = options.defaultOutPorts) !== null && _c !== void 0 ? _c : ['Output'], this.parameters = options.parameters ? options.parameters : [];
     this.ports = this.createPorts(options);
   }
 
   _createClass(ServerNode, [{
     key: "createPorts",
     value: function createPorts(options) {
-      var _a, _b, _c;
+      var _a;
 
-      return (_a = options.ports) !== null && _a !== void 0 ? _a : [].concat(_toConsumableArray(((_b = options.inPorts) !== null && _b !== void 0 ? _b : []).map(function (portName) {
+      return (_a = options.ports) !== null && _a !== void 0 ? _a : [].concat(_toConsumableArray(this.getDefaultInPorts()), _toConsumableArray(this.getDefaultOutPorts()));
+    }
+  }, {
+    key: "getDefaultInPorts",
+    value: function getDefaultInPorts() {
+      return this.defaultInPorts.map(function (name) {
         return {
-          name: portName,
+          name: name,
           "in": true
         };
-      })), _toConsumableArray(((_c = options.outPorts) !== null && _c !== void 0 ? _c : []).map(function (portName) {
+      });
+    }
+  }, {
+    key: "getDefaultOutPorts",
+    value: function getDefaultOutPorts() {
+      return this.defaultOutPorts.map(function (name) {
         return {
-          name: portName,
+          name: name,
           "in": false
         };
-      })));
+      });
     }
   }, {
     key: "serialize",
@@ -11375,8 +11369,7 @@ var ServerNode = /*#__PURE__*/function () {
         category: this.category,
         editableInPorts: this.editableInPorts,
         editableOutPorts: this.editableOutPorts,
-        inPorts: _toConsumableArray(this.inPorts),
-        outPorts: _toConsumableArray(this.outPorts),
+        ports: this.ports,
         key: this.key,
         name: this.name,
         nodeReact: this.nodeReact,
@@ -11477,6 +11470,19 @@ var ServerNode = /*#__PURE__*/function () {
 }();
 
 
+
+var X = /*#__PURE__*/function () {
+  function X() {
+    _classCallCheck(this, X);
+  }
+
+  _createClass(X, [{
+    key: "getPorts",
+    value: function getPorts() {}
+  }]);
+
+  return X;
+}();
 
 /***/ }),
 
@@ -11853,16 +11859,17 @@ var Create = /*#__PURE__*/function (_ServerNode) {
   var _super = _createSuper(Create);
 
   function Create() {
-    var _this;
+    var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
 
     _classCallCheck(this, Create);
 
-    _this = _super.apply(this, arguments);
-    _this.category = 'Workflow';
-    _this.summary = 'Create a null feature';
-    _this.inPorts = [];
-    _this.name = 'Create';
-    return _this;
+    return _super.call(this, Object.assign({
+      name: 'Create',
+      summary: 'Create a null feature',
+      category: 'Workflow',
+      defaultInPorts: [],
+      defaultOutPorts: ['Output']
+    }, options));
   }
 
   _createClass(Create, [{
@@ -12140,7 +12147,7 @@ var CreateGrid = /*#__PURE__*/function (_ServerNode) {
 
     _this = _super.apply(this, arguments);
     _this.category = 'Reader';
-    _this.inPorts = [];
+    _this.defaultInPorts = [];
     _this.summary = 'Create a set of objects with coordinates x and y';
     _this.name = 'CreateGrid';
     return _this;
@@ -12300,7 +12307,7 @@ var CreateJSON = /*#__PURE__*/function (_ServerNode) {
 
     _this = _super.apply(this, arguments);
     _this.category = 'Reader';
-    _this.inPorts = [];
+    _this.defaultInPorts = [];
     _this.summary = 'Create features from JSON';
     _this.name = 'CreateJSON';
     return _this;
@@ -12444,7 +12451,7 @@ var CreateSequence = /*#__PURE__*/function (_ServerNode) {
 
     _this = _super.apply(this, arguments);
     _this.category = 'Reader';
-    _this.inPorts = [];
+    _this.defaultInPorts = [];
     _this.summary = 'Create a sequence of objects';
     _this.name = 'CreateSequence';
     return _this;
@@ -12594,7 +12601,7 @@ var DownloadJSON = /*#__PURE__*/function (_ServerNode) {
     _this = _super.apply(this, arguments);
     _this.category = 'Workflow';
     _this.summary = 'Download features as JSON';
-    _this.outPorts = [];
+    _this.defaultOutPorts = [];
     _this.name = 'DownloadJSON';
     return _this;
   }
@@ -13267,7 +13274,7 @@ var Inspect = /*#__PURE__*/function (_ServerNode) {
     _this = _super.apply(this, arguments);
     _this.category = 'Workflow';
     _this.summary = 'Display features in a table';
-    _this.outPorts = [];
+    _this.defaultOutPorts = [];
     _this.name = 'Inspect';
     return _this;
   }
