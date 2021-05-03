@@ -11659,12 +11659,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _nodes_CreateJSON__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./nodes/CreateJSON */ "./src/server/nodes/CreateJSON.ts");
 /* harmony import */ var _nodes_DownloadJSON__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./nodes/DownloadJSON */ "./src/server/nodes/DownloadJSON.ts");
 /* harmony import */ var _nodes_Evaluate__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./nodes/Evaluate */ "./src/server/nodes/Evaluate.ts");
-/* harmony import */ var _nodes_Flatten__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./nodes/Flatten */ "./src/server/nodes/Flatten.ts");
-/* harmony import */ var _nodes_HTTPRequest__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./nodes/HTTPRequest */ "./src/server/nodes/HTTPRequest.ts");
-/* harmony import */ var _nodes_Inspect__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./nodes/Inspect */ "./src/server/nodes/Inspect.ts");
-/* harmony import */ var _nodes_Map__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./nodes/Map */ "./src/server/nodes/Map.ts");
-
-
+/* harmony import */ var _nodes_HTTPRequest__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./nodes/HTTPRequest */ "./src/server/nodes/HTTPRequest.ts");
+/* harmony import */ var _nodes_Inspect__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./nodes/Inspect */ "./src/server/nodes/Inspect.ts");
 
 
 
@@ -11676,10 +11672,24 @@ __webpack_require__.r(__webpack_exports__);
 
 var WithParameters = _core_DiagramModelBuilder__WEBPACK_IMPORTED_MODULE_0__.DiagramModelBuilder.begin().add(_nodes_Create__WEBPACK_IMPORTED_MODULE_2__.default).add(_nodes_Clone___WEBPACK_IMPORTED_MODULE_1__.default, {
   number_of_clones: 4
-}).add(_nodes_Inspect__WEBPACK_IMPORTED_MODULE_9__.default).finish();
-var WorkingWithJSON = _core_DiagramModelBuilder__WEBPACK_IMPORTED_MODULE_0__.DiagramModelBuilder.begin().add(_nodes_CreateJSON__WEBPACK_IMPORTED_MODULE_4__.default).add(_nodes_Clone___WEBPACK_IMPORTED_MODULE_1__.default).add(_nodes_HTTPRequest__WEBPACK_IMPORTED_MODULE_8__.default).add(_nodes_Inspect__WEBPACK_IMPORTED_MODULE_9__.default).add(_nodes_Inspect__WEBPACK_IMPORTED_MODULE_9__.default).add(_nodes_Inspect__WEBPACK_IMPORTED_MODULE_9__.default).finish();
-var CleanupOldGithubRepos = _core_DiagramModelBuilder__WEBPACK_IMPORTED_MODULE_0__.DiagramModelBuilder.begin().add(_nodes_HTTPRequest__WEBPACK_IMPORTED_MODULE_8__.default).finish();
-var ScrapingAMapService = _core_DiagramModelBuilder__WEBPACK_IMPORTED_MODULE_0__.DiagramModelBuilder.begin().add(_nodes_CreateGrid__WEBPACK_IMPORTED_MODULE_3__.default).add(_nodes_Evaluate__WEBPACK_IMPORTED_MODULE_6__.default).add(_nodes_HTTPRequest__WEBPACK_IMPORTED_MODULE_8__.default).add(_nodes_Map__WEBPACK_IMPORTED_MODULE_10__.default).add(_nodes_Flatten__WEBPACK_IMPORTED_MODULE_7__.default).add(_nodes_DownloadJSON__WEBPACK_IMPORTED_MODULE_5__.default).add(_nodes_Inspect__WEBPACK_IMPORTED_MODULE_9__.default).finish();
+}).add(_nodes_Inspect__WEBPACK_IMPORTED_MODULE_8__.default).finish();
+var WorkingWithJSON = _core_DiagramModelBuilder__WEBPACK_IMPORTED_MODULE_0__.DiagramModelBuilder.begin().add(_nodes_CreateJSON__WEBPACK_IMPORTED_MODULE_4__.default).add(_nodes_Clone___WEBPACK_IMPORTED_MODULE_1__.default, {
+  number_of_clones: 4
+}).add(_nodes_HTTPRequest__WEBPACK_IMPORTED_MODULE_7__.default).add(_nodes_Inspect__WEBPACK_IMPORTED_MODULE_8__.default).add(_nodes_Inspect__WEBPACK_IMPORTED_MODULE_8__.default).add(_nodes_Inspect__WEBPACK_IMPORTED_MODULE_8__.default).finish();
+var CleanupOldGithubRepos = _core_DiagramModelBuilder__WEBPACK_IMPORTED_MODULE_0__.DiagramModelBuilder.begin().add(_nodes_HTTPRequest__WEBPACK_IMPORTED_MODULE_7__.default).finish();
+var ScrapingAMapService = _core_DiagramModelBuilder__WEBPACK_IMPORTED_MODULE_0__.DiagramModelBuilder.begin().add(_nodes_CreateGrid__WEBPACK_IMPORTED_MODULE_3__.default, {
+  grid_size_x: 10,
+  grid_size_y: 10,
+  grid_start_x: 10,
+  grid_start_y: 10,
+  grid_spacing_x: 10,
+  grid_spacing_y: 10
+}).add(_nodes_Evaluate__WEBPACK_IMPORTED_MODULE_6__.default, {
+  expression: "feature.set('zoom', 17)\n\t\t\tlet d_x = 0.00437431579\n\t\t\tlet d_y = 0.00975251197\n\t\t\t\n\t\t\tfeature.set('x_min', feature.get('x'))\n\t\t\tfeature.set('y_min', feature.get('y'))\n\t\t\tfeature.set('x_max', feature.get('x') + d_x)\n\t\t\tfeature.set('y_max', feature.get('y') + d_y)\t\n\t\t".replace(/\t{3}/g, '')
+}).add(_nodes_HTTPRequest__WEBPACK_IMPORTED_MODULE_7__.default, {
+  url: 'https://layers.enirocdn.com/{{ feature.y_min }}/{{ feature.x_min }}/{{ feature.y_max }}/{{ feature.x_max }}/{{ feature.zoom }}/se_realestate.json',
+  features_path: 'data.se_realestate'
+}).add(_nodes_DownloadJSON__WEBPACK_IMPORTED_MODULE_5__.default).finish();
 
 /***/ }),
 

@@ -18,7 +18,7 @@ export const WithParameters = DiagramModelBuilder.begin()
 
 export const WorkingWithJSON = DiagramModelBuilder.begin()
 	.add(CreateJSON)
-	.add(Clone_)
+	.add(Clone_, {number_of_clones: 4})
 	.add(HTTPRequest)
 	.add(Inspect)
 	.add(Inspect)
@@ -30,13 +30,31 @@ export const CleanupOldGithubRepos = DiagramModelBuilder.begin()
 	.finish()
 
 export const ScrapingAMapService = DiagramModelBuilder.begin()
-	.add(CreateGrid)			
-	.add(Evaluate)
-	.add(HTTPRequest)
-	.add(Map)
-	.add(Flatten)
+	.add(CreateGrid, {
+		grid_size_x: 10,
+		grid_size_y: 10,
+		grid_start_x: 10,
+		grid_start_y: 10,
+		grid_spacing_x: 10,
+		grid_spacing_y: 10,
+	})			
+	.add(Evaluate, {
+		expression: 
+			`feature.set('zoom', 17)
+			let d_x = 0.00437431579
+			let d_y = 0.00975251197
+			
+			feature.set('x_min', feature.get('x'))
+			feature.set('y_min', feature.get('y'))
+			feature.set('x_max', feature.get('x') + d_x)
+			feature.set('y_max', feature.get('y') + d_y)	
+		`.replace(/\t{3}/g, '')
+	})
+	.add(HTTPRequest, {
+		url: 'https://layers.enirocdn.com/{{ feature.y_min }}/{{ feature.x_min }}/{{ feature.y_max }}/{{ feature.x_max }}/{{ feature.zoom }}/se_realestate.json',
+		features_path: 'data.se_realestate'
+	})
 	.add(DownloadJSON)
-	.add(Inspect)
 	.finish()
 
 	// SÖDERMALM [0], STORSTOCKHOLM [1]
