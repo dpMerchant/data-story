@@ -31,12 +31,14 @@ export const CleanupOldGithubRepos = DiagramModelBuilder.begin()
 
 export const ScrapingAMapService = DiagramModelBuilder.begin()
 	.add(CreateGrid, {
-		grid_size_x: 10,
-		grid_size_y: 10,
-		grid_start_x: 10,
-		grid_start_y: 10,
-		grid_spacing_x: 10,
-		grid_spacing_y: 10,
+		grid_start_x: 1,
+		grid_start_y: 1,
+		grid_end_x: 5,
+		grid_end_y: 5,
+		grid_size_x: 123,
+		grid_size_y: 123,		
+		grid_spacing_x: 2,
+		grid_spacing_y: 2,
 	})			
 	.add(Evaluate, {
 		expression: 

@@ -11678,12 +11678,14 @@ var WorkingWithJSON = _core_DiagramModelBuilder__WEBPACK_IMPORTED_MODULE_0__.Dia
 }).add(_nodes_HTTPRequest__WEBPACK_IMPORTED_MODULE_7__.default).add(_nodes_Inspect__WEBPACK_IMPORTED_MODULE_8__.default).add(_nodes_Inspect__WEBPACK_IMPORTED_MODULE_8__.default).add(_nodes_Inspect__WEBPACK_IMPORTED_MODULE_8__.default).finish();
 var CleanupOldGithubRepos = _core_DiagramModelBuilder__WEBPACK_IMPORTED_MODULE_0__.DiagramModelBuilder.begin().add(_nodes_HTTPRequest__WEBPACK_IMPORTED_MODULE_7__.default).finish();
 var ScrapingAMapService = _core_DiagramModelBuilder__WEBPACK_IMPORTED_MODULE_0__.DiagramModelBuilder.begin().add(_nodes_CreateGrid__WEBPACK_IMPORTED_MODULE_3__.default, {
-  grid_size_x: 10,
-  grid_size_y: 10,
-  grid_start_x: 10,
-  grid_start_y: 10,
-  grid_spacing_x: 10,
-  grid_spacing_y: 10
+  grid_start_x: 1,
+  grid_start_y: 1,
+  grid_end_x: 5,
+  grid_end_y: 5,
+  grid_size_x: 123,
+  grid_size_y: 123,
+  grid_spacing_x: 2,
+  grid_spacing_y: 2
 }).add(_nodes_Evaluate__WEBPACK_IMPORTED_MODULE_6__.default, {
   expression: "feature.set('zoom', 17)\n\t\t\tlet d_x = 0.00437431579\n\t\t\tlet d_y = 0.00975251197\n\t\t\t\n\t\t\tfeature.set('x_min', feature.get('x'))\n\t\t\tfeature.set('y_min', feature.get('y'))\n\t\t\tfeature.set('x_max', feature.get('x') + d_x)\n\t\t\tfeature.set('y_max', feature.get('y') + d_y)\t\n\t\t".replace(/\t{3}/g, '')
 }).add(_nodes_HTTPRequest__WEBPACK_IMPORTED_MODULE_7__.default, {
@@ -12215,17 +12217,25 @@ var CreateGrid = /*#__PURE__*/function (_ServerNode) {
     key: "run",
     value: function run() {
       return __awaiter(this, void 0, void 0, /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
-        var gridSizeX, gridSizeY, gridStartX, gridStartY, gridSpacingX, gridSpacingY, features, x, y;
+        var gridStartX, gridStartY, gridEndX, gridEndY, gridSizeX, gridSizeY, gridSpacingX, gridSpacingY, features, x, y;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                gridSizeX = parseInt(this.getParameterValue('grid_size_x'));
-                gridSizeY = parseInt(this.getParameterValue('grid_size_y'));
                 gridStartX = parseFloat(this.getParameterValue('grid_start_x'));
                 gridStartY = parseFloat(this.getParameterValue('grid_start_y'));
+                gridEndX = parseFloat(this.getParameterValue('grid_end_x'));
+                gridEndY = parseFloat(this.getParameterValue('grid_end_y'));
+                gridSizeX = parseInt(this.getParameterValue('grid_size_x'));
+                gridSizeY = parseInt(this.getParameterValue('grid_size_y'));
                 gridSpacingX = parseFloat(this.getParameterValue('grid_spacing_x'));
                 gridSpacingY = parseFloat(this.getParameterValue('grid_spacing_y'));
+
+                if (gridEndX && gridEndY) {
+                  gridSizeX = Math.ceil((gridStartX + gridEndX) / gridSpacingX);
+                  gridSizeY = Math.ceil((gridStartY + gridEndY) / gridSpacingY);
+                }
+
                 features = [];
 
                 for (x = 0; x < gridSizeX; x++) {
@@ -12239,7 +12249,7 @@ var CreateGrid = /*#__PURE__*/function (_ServerNode) {
 
                 this.output(features);
 
-              case 9:
+              case 12:
               case "end":
                 return _context.stop();
             }
@@ -12250,7 +12260,7 @@ var CreateGrid = /*#__PURE__*/function (_ServerNode) {
   }, {
     key: "getParameters",
     value: function getParameters() {
-      return [].concat(_toConsumableArray(_get(_getPrototypeOf(CreateGrid.prototype), "getParameters", this).call(this)), [_core_NodeParameter__WEBPACK_IMPORTED_MODULE_3__.default.number('grid_size_x').withValue(10), _core_NodeParameter__WEBPACK_IMPORTED_MODULE_3__.default.number('grid_size_y').withValue(10), _core_NodeParameter__WEBPACK_IMPORTED_MODULE_3__.default.number('grid_start_x').withValue(0), _core_NodeParameter__WEBPACK_IMPORTED_MODULE_3__.default.number('grid_start_y').withValue(0), _core_NodeParameter__WEBPACK_IMPORTED_MODULE_3__.default.number('grid_spacing_x').withValue(1), _core_NodeParameter__WEBPACK_IMPORTED_MODULE_3__.default.number('grid_spacing_y').withValue(1)]);
+      return [].concat(_toConsumableArray(_get(_getPrototypeOf(CreateGrid.prototype), "getParameters", this).call(this)), [_core_NodeParameter__WEBPACK_IMPORTED_MODULE_3__.default.number('grid_start_x').withValue(0), _core_NodeParameter__WEBPACK_IMPORTED_MODULE_3__.default.number('grid_start_y').withValue(0), _core_NodeParameter__WEBPACK_IMPORTED_MODULE_3__.default.number('grid_end_x').withValue(100), _core_NodeParameter__WEBPACK_IMPORTED_MODULE_3__.default.number('grid_end_y').withValue(100), _core_NodeParameter__WEBPACK_IMPORTED_MODULE_3__.default.number('grid_size_x').withDescription('Ignored if grid_end_x is set'), _core_NodeParameter__WEBPACK_IMPORTED_MODULE_3__.default.number('grid_size_y').withDescription('Ignored if grid_end_y is set'), _core_NodeParameter__WEBPACK_IMPORTED_MODULE_3__.default.number('grid_spacing_x').withValue(1), _core_NodeParameter__WEBPACK_IMPORTED_MODULE_3__.default.number('grid_spacing_y').withValue(1)]);
     }
   }]);
 
