@@ -10,7 +10,7 @@ export class DiagramModelBuilder {
 		return new this
 	}
 
-	addNode(nodeClass) {
+	add(nodeClass, parameterKeyValues = {}) {
 		let diagram = this.getDiagram()
 
 		let node = new NodeModel(
@@ -23,11 +23,17 @@ export class DiagramModelBuilder {
 
 		this.currentNode = node
 
-		return this
+		return this.withParameters(parameterKeyValues)
 	}
 
-	alsoAdd(nodeClass) {
-		return this.addNode(nodeClass)
+	withParameters(parameters: object) {
+		for (const [name, value] of Object.entries(parameters)) {
+			console.log(this.currentNode)
+			let parameter = this.currentNode.parameters.find(p => p.name == name)
+			parameter.value = value
+		}
+
+		return this
 	}
 
 	then() {

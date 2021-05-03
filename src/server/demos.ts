@@ -1,5 +1,6 @@
 import { DiagramModelBuilder } from "./../core/DiagramModelBuilder";
 import Clone_ from "./nodes/Clone_";
+import Create from "./nodes/Create";
 import CreateGrid from "./nodes/CreateGrid";
 import CreateJSON from "./nodes/CreateJSON";
 import DownloadJSON from "./nodes/DownloadJSON";
@@ -9,28 +10,33 @@ import HTTPRequest from "./nodes/HTTPRequest";
 import Inspect from "./nodes/Inspect";
 import Map from "./nodes/Map";
 
-export const WorkingWithJSON = DiagramModelBuilder.begin()
-	.addNode(CreateJSON)
-	.addNode(Clone_)
-	.addNode(HTTPRequest)
-	.addNode(Inspect)
-	.addNode(Inspect)
-	.addNode(Inspect)		
+export const WithParameters = DiagramModelBuilder.begin()
+	.add(Create)
+	.add(Clone_, {number_of_clones: 4})
+	.add(Inspect)
 	.finish()
 
-
+export const WorkingWithJSON = DiagramModelBuilder.begin()
+	.add(CreateJSON)
+	.add(Clone_)
+	.add(HTTPRequest)
+	.add(Inspect)
+	.add(Inspect)
+	.add(Inspect)		
+	.finish()
 
 export const CleanupOldGithubRepos = DiagramModelBuilder.begin()
-	.addNode(HTTPRequest)
+	.add(HTTPRequest)
 	.finish()
 
 export const ScrapingAMapService = DiagramModelBuilder.begin()
-	.addNode(CreateGrid)			
-	.addNode(Evaluate)
-	.addNode(HTTPRequest)
-	.addNode(Map)
-	.addNode(Flatten)
-	.addNode(DownloadJSON).alsoAdd(Inspect)
+	.add(CreateGrid)			
+	.add(Evaluate)
+	.add(HTTPRequest)
+	.add(Map)
+	.add(Flatten)
+	.add(DownloadJSON)
+	.add(Inspect)
 	.finish()
 
 	// SÖDERMALM [0], STORSTOCKHOLM [1]

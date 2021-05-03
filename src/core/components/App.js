@@ -73,6 +73,7 @@ export default observer(class App extends React.Component {
     }
 
 	bootDemos() {
+		this.props.store.metadata.client.save('With parameters', demos.WithParameters)
 		this.props.store.metadata.client.save('Working with json', demos.WorkingWithJSON)
 		this.props.store.metadata.client.save('Scraping a map service', demos.ScrapingAMapService)
 		this.props.store.metadata.client.save('Cleanup old github repos', demos.CleanupOldGithubRepos)

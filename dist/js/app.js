@@ -9782,6 +9782,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _DiagramModel__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./DiagramModel */ "./src/core/DiagramModel.ts");
 /* harmony import */ var _NodeModel__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./NodeModel */ "./src/core/NodeModel.ts");
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
@@ -9796,19 +9808,40 @@ var DiagramModelBuilder = /*#__PURE__*/function () {
   }
 
   _createClass(DiagramModelBuilder, [{
-    key: "addNode",
-    value: function addNode(nodeClass) {
+    key: "add",
+    value: function add(nodeClass) {
+      var parameterKeyValues = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
       var diagram = this.getDiagram();
       var node = new _NodeModel__WEBPACK_IMPORTED_MODULE_1__.default(new nodeClass().serialize());
       diagram.addNode(node);
       this.diagram = diagram;
       this.currentNode = node;
-      return this;
+      return this.withParameters(parameterKeyValues);
     }
   }, {
-    key: "alsoAdd",
-    value: function alsoAdd(nodeClass) {
-      return this.addNode(nodeClass);
+    key: "withParameters",
+    value: function withParameters(parameters) {
+      var _this = this;
+
+      var _loop = function _loop() {
+        var _Object$entries$_i = _slicedToArray(_Object$entries[_i], 2),
+            name = _Object$entries$_i[0],
+            value = _Object$entries$_i[1];
+
+        console.log(_this.currentNode);
+
+        var parameter = _this.currentNode.parameters.find(function (p) {
+          return p.name == name;
+        });
+
+        parameter.value = value;
+      };
+
+      for (var _i = 0, _Object$entries = Object.entries(parameters); _i < _Object$entries.length; _i++) {
+        _loop();
+      }
+
+      return this;
     }
   }, {
     key: "then",
@@ -11612,20 +11645,22 @@ ServerNodeFactory.nodes = {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "WithParameters": () => (/* binding */ WithParameters),
 /* harmony export */   "WorkingWithJSON": () => (/* binding */ WorkingWithJSON),
 /* harmony export */   "CleanupOldGithubRepos": () => (/* binding */ CleanupOldGithubRepos),
 /* harmony export */   "ScrapingAMapService": () => (/* binding */ ScrapingAMapService)
 /* harmony export */ });
 /* harmony import */ var _core_DiagramModelBuilder__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../core/DiagramModelBuilder */ "./src/core/DiagramModelBuilder.ts");
 /* harmony import */ var _nodes_Clone___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./nodes/Clone_ */ "./src/server/nodes/Clone_.ts");
-/* harmony import */ var _nodes_CreateGrid__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./nodes/CreateGrid */ "./src/server/nodes/CreateGrid.ts");
-/* harmony import */ var _nodes_CreateJSON__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./nodes/CreateJSON */ "./src/server/nodes/CreateJSON.ts");
-/* harmony import */ var _nodes_DownloadJSON__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./nodes/DownloadJSON */ "./src/server/nodes/DownloadJSON.ts");
-/* harmony import */ var _nodes_Evaluate__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./nodes/Evaluate */ "./src/server/nodes/Evaluate.ts");
-/* harmony import */ var _nodes_Flatten__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./nodes/Flatten */ "./src/server/nodes/Flatten.ts");
-/* harmony import */ var _nodes_HTTPRequest__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./nodes/HTTPRequest */ "./src/server/nodes/HTTPRequest.ts");
-/* harmony import */ var _nodes_Inspect__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./nodes/Inspect */ "./src/server/nodes/Inspect.ts");
-/* harmony import */ var _nodes_Map__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./nodes/Map */ "./src/server/nodes/Map.ts");
+/* harmony import */ var _nodes_Create__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./nodes/Create */ "./src/server/nodes/Create.ts");
+/* harmony import */ var _nodes_CreateGrid__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./nodes/CreateGrid */ "./src/server/nodes/CreateGrid.ts");
+/* harmony import */ var _nodes_CreateJSON__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./nodes/CreateJSON */ "./src/server/nodes/CreateJSON.ts");
+/* harmony import */ var _nodes_DownloadJSON__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./nodes/DownloadJSON */ "./src/server/nodes/DownloadJSON.ts");
+/* harmony import */ var _nodes_Evaluate__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./nodes/Evaluate */ "./src/server/nodes/Evaluate.ts");
+/* harmony import */ var _nodes_Flatten__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./nodes/Flatten */ "./src/server/nodes/Flatten.ts");
+/* harmony import */ var _nodes_HTTPRequest__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./nodes/HTTPRequest */ "./src/server/nodes/HTTPRequest.ts");
+/* harmony import */ var _nodes_Inspect__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./nodes/Inspect */ "./src/server/nodes/Inspect.ts");
+/* harmony import */ var _nodes_Map__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./nodes/Map */ "./src/server/nodes/Map.ts");
 
 
 
@@ -11636,9 +11671,13 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var WorkingWithJSON = _core_DiagramModelBuilder__WEBPACK_IMPORTED_MODULE_0__.DiagramModelBuilder.begin().addNode(_nodes_CreateJSON__WEBPACK_IMPORTED_MODULE_3__.default).addNode(_nodes_Clone___WEBPACK_IMPORTED_MODULE_1__.default).addNode(_nodes_HTTPRequest__WEBPACK_IMPORTED_MODULE_7__.default).addNode(_nodes_Inspect__WEBPACK_IMPORTED_MODULE_8__.default).addNode(_nodes_Inspect__WEBPACK_IMPORTED_MODULE_8__.default).addNode(_nodes_Inspect__WEBPACK_IMPORTED_MODULE_8__.default).finish();
-var CleanupOldGithubRepos = _core_DiagramModelBuilder__WEBPACK_IMPORTED_MODULE_0__.DiagramModelBuilder.begin().addNode(_nodes_HTTPRequest__WEBPACK_IMPORTED_MODULE_7__.default).finish();
-var ScrapingAMapService = _core_DiagramModelBuilder__WEBPACK_IMPORTED_MODULE_0__.DiagramModelBuilder.begin().addNode(_nodes_CreateGrid__WEBPACK_IMPORTED_MODULE_2__.default).addNode(_nodes_Evaluate__WEBPACK_IMPORTED_MODULE_5__.default).addNode(_nodes_HTTPRequest__WEBPACK_IMPORTED_MODULE_7__.default).addNode(_nodes_Map__WEBPACK_IMPORTED_MODULE_9__.default).addNode(_nodes_Flatten__WEBPACK_IMPORTED_MODULE_6__.default).addNode(_nodes_DownloadJSON__WEBPACK_IMPORTED_MODULE_4__.default).alsoAdd(_nodes_Inspect__WEBPACK_IMPORTED_MODULE_8__.default).finish();
+
+var WithParameters = _core_DiagramModelBuilder__WEBPACK_IMPORTED_MODULE_0__.DiagramModelBuilder.begin().add(_nodes_Create__WEBPACK_IMPORTED_MODULE_2__.default).add(_nodes_Clone___WEBPACK_IMPORTED_MODULE_1__.default, {
+  number_of_clones: 4
+}).add(_nodes_Inspect__WEBPACK_IMPORTED_MODULE_9__.default).finish();
+var WorkingWithJSON = _core_DiagramModelBuilder__WEBPACK_IMPORTED_MODULE_0__.DiagramModelBuilder.begin().add(_nodes_CreateJSON__WEBPACK_IMPORTED_MODULE_4__.default).add(_nodes_Clone___WEBPACK_IMPORTED_MODULE_1__.default).add(_nodes_HTTPRequest__WEBPACK_IMPORTED_MODULE_8__.default).add(_nodes_Inspect__WEBPACK_IMPORTED_MODULE_9__.default).add(_nodes_Inspect__WEBPACK_IMPORTED_MODULE_9__.default).add(_nodes_Inspect__WEBPACK_IMPORTED_MODULE_9__.default).finish();
+var CleanupOldGithubRepos = _core_DiagramModelBuilder__WEBPACK_IMPORTED_MODULE_0__.DiagramModelBuilder.begin().add(_nodes_HTTPRequest__WEBPACK_IMPORTED_MODULE_8__.default).finish();
+var ScrapingAMapService = _core_DiagramModelBuilder__WEBPACK_IMPORTED_MODULE_0__.DiagramModelBuilder.begin().add(_nodes_CreateGrid__WEBPACK_IMPORTED_MODULE_3__.default).add(_nodes_Evaluate__WEBPACK_IMPORTED_MODULE_6__.default).add(_nodes_HTTPRequest__WEBPACK_IMPORTED_MODULE_8__.default).add(_nodes_Map__WEBPACK_IMPORTED_MODULE_10__.default).add(_nodes_Flatten__WEBPACK_IMPORTED_MODULE_7__.default).add(_nodes_DownloadJSON__WEBPACK_IMPORTED_MODULE_5__.default).add(_nodes_Inspect__WEBPACK_IMPORTED_MODULE_9__.default).finish();
 
 /***/ }),
 
@@ -14545,6 +14584,7 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
   }, {
     key: "bootDemos",
     value: function bootDemos() {
+      this.props.store.metadata.client.save('With parameters', _server_demos_ts__WEBPACK_IMPORTED_MODULE_9__.WithParameters);
       this.props.store.metadata.client.save('Working with json', _server_demos_ts__WEBPACK_IMPORTED_MODULE_9__.WorkingWithJSON);
       this.props.store.metadata.client.save('Scraping a map service', _server_demos_ts__WEBPACK_IMPORTED_MODULE_9__.ScrapingAMapService);
       this.props.store.metadata.client.save('Cleanup old github repos', _server_demos_ts__WEBPACK_IMPORTED_MODULE_9__.CleanupOldGithubRepos);
