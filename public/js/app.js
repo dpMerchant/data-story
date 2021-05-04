@@ -11859,15 +11859,32 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _ServerNode__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../ServerNode */ "./src/server/ServerNode.ts");
 /* harmony import */ var _core_Feature__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../core/Feature */ "./src/core/Feature.ts");
+/* harmony import */ var _core_NodeParameter__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../core/NodeParameter */ "./src/core/NodeParameter.ts");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 
+
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _get(target, property, receiver) { if (typeof Reflect !== "undefined" && Reflect.get) { _get = Reflect.get; } else { _get = function _get(target, property, receiver) { var base = _superPropBase(target, property); if (!base) return; var desc = Object.getOwnPropertyDescriptor(base, property); if (desc.get) { return desc.get.call(receiver); } return desc.value; }; } return _get(target, property, receiver || target); }
+
+function _superPropBase(object, property) { while (!Object.prototype.hasOwnProperty.call(object, property)) { object = _getPrototypeOf(object); if (object === null) break; } return object; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
@@ -11918,6 +11935,7 @@ var __awaiter = undefined && undefined.__awaiter || function (thisArg, _argument
 
 
 
+
 var Create = /*#__PURE__*/function (_ServerNode) {
   _inherits(Create, _ServerNode);
 
@@ -11941,19 +11959,46 @@ var Create = /*#__PURE__*/function (_ServerNode) {
     key: "run",
     value: function run() {
       return __awaiter(this, void 0, void 0, /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
+        var featurType, contents;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                this.output([new _core_Feature__WEBPACK_IMPORTED_MODULE_2__.default()]);
+                featurType = this.getParameterValue('feature_type');
+                contents = this.getParameterValue('contents');
 
-              case 1:
+                if (featurType == 'object') {
+                  this.output([new _core_Feature__WEBPACK_IMPORTED_MODULE_2__.default(JSON.parse(contents))]);
+                }
+
+                if (featurType == 'null') {
+                  this.output([new _core_Feature__WEBPACK_IMPORTED_MODULE_2__.default()]);
+                }
+
+                if (featurType == 'float') {
+                  this.output([new _core_Feature__WEBPACK_IMPORTED_MODULE_2__.default(parseFloat(contents))]);
+                }
+
+                if (featurType == 'integer') {
+                  this.output([new _core_Feature__WEBPACK_IMPORTED_MODULE_2__.default(parseInt(contents))]);
+                }
+
+                if (featurType == 'string') {
+                  this.output([new _core_Feature__WEBPACK_IMPORTED_MODULE_2__.default(contents)]);
+                }
+
+              case 7:
               case "end":
                 return _context.stop();
             }
           }
         }, _callee, this);
       }));
+    }
+  }, {
+    key: "getParameters",
+    value: function getParameters() {
+      return [].concat(_toConsumableArray(_get(_getPrototypeOf(Create.prototype), "getParameters", this).call(this)), [_core_NodeParameter__WEBPACK_IMPORTED_MODULE_3__.default.select('feature_type').withOptions(['object', 'null', 'float', 'integer', 'string']).withValue('object'), _core_NodeParameter__WEBPACK_IMPORTED_MODULE_3__.default.json('contents')]);
     }
   }]);
 
