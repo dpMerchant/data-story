@@ -8,6 +8,7 @@ import CreateJSON from './nodes/CreateJSON'
 import CreateSequence from './nodes/CreateSequence'
 import DownloadJSON from './nodes/DownloadJSON'
 import Evaluate from './nodes/Evaluate'
+import FilterDuplicates from './nodes/FilterDuplicates'
 import Flatten from './nodes/Flatten'
 import HTTPRequest from './nodes/HTTPRequest'
 import Inspect from './nodes/Inspect'
@@ -36,6 +37,7 @@ export default class ServerNodeFactory {
         DeleteRepositories,
         DownloadJSON,
         Evaluate,
+		FilterDuplicates,
         Flatten,
         HTTPRequest,
         Inspect,

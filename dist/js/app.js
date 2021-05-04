@@ -11556,22 +11556,24 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _nodes_CreateSequence__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./nodes/CreateSequence */ "./src/server/nodes/CreateSequence.ts");
 /* harmony import */ var _nodes_DownloadJSON__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./nodes/DownloadJSON */ "./src/server/nodes/DownloadJSON.ts");
 /* harmony import */ var _nodes_Evaluate__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./nodes/Evaluate */ "./src/server/nodes/Evaluate.ts");
-/* harmony import */ var _nodes_Flatten__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./nodes/Flatten */ "./src/server/nodes/Flatten.ts");
-/* harmony import */ var _nodes_HTTPRequest__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./nodes/HTTPRequest */ "./src/server/nodes/HTTPRequest.ts");
-/* harmony import */ var _nodes_Inspect__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./nodes/Inspect */ "./src/server/nodes/Inspect.ts");
-/* harmony import */ var _nodes_Log__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./nodes/Log */ "./src/server/nodes/Log.ts");
-/* harmony import */ var _nodes_Map__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./nodes/Map */ "./src/server/nodes/Map.ts");
-/* harmony import */ var _nodes_OutputProvider__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./nodes/OutputProvider */ "./src/server/nodes/OutputProvider.ts");
-/* harmony import */ var _nodes_RegExpFilter__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./nodes/RegExpFilter */ "./src/server/nodes/RegExpFilter.ts");
-/* harmony import */ var _nodes_github_DeleteRepositories__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./nodes/github/DeleteRepositories */ "./src/server/nodes/github/DeleteRepositories.ts");
-/* harmony import */ var _nodes_github_Repositories__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./nodes/github/Repositories */ "./src/server/nodes/github/Repositories.ts");
-/* harmony import */ var _nodes_Sleep__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./nodes/Sleep */ "./src/server/nodes/Sleep.ts");
-/* harmony import */ var _nodes_ThrowError__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./nodes/ThrowError */ "./src/server/nodes/ThrowError.ts");
+/* harmony import */ var _nodes_FilterDuplicates__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./nodes/FilterDuplicates */ "./src/server/nodes/FilterDuplicates.ts");
+/* harmony import */ var _nodes_Flatten__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./nodes/Flatten */ "./src/server/nodes/Flatten.ts");
+/* harmony import */ var _nodes_HTTPRequest__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./nodes/HTTPRequest */ "./src/server/nodes/HTTPRequest.ts");
+/* harmony import */ var _nodes_Inspect__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./nodes/Inspect */ "./src/server/nodes/Inspect.ts");
+/* harmony import */ var _nodes_Log__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./nodes/Log */ "./src/server/nodes/Log.ts");
+/* harmony import */ var _nodes_Map__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./nodes/Map */ "./src/server/nodes/Map.ts");
+/* harmony import */ var _nodes_OutputProvider__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./nodes/OutputProvider */ "./src/server/nodes/OutputProvider.ts");
+/* harmony import */ var _nodes_RegExpFilter__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./nodes/RegExpFilter */ "./src/server/nodes/RegExpFilter.ts");
+/* harmony import */ var _nodes_github_DeleteRepositories__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./nodes/github/DeleteRepositories */ "./src/server/nodes/github/DeleteRepositories.ts");
+/* harmony import */ var _nodes_github_Repositories__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./nodes/github/Repositories */ "./src/server/nodes/github/Repositories.ts");
+/* harmony import */ var _nodes_Sleep__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./nodes/Sleep */ "./src/server/nodes/Sleep.ts");
+/* harmony import */ var _nodes_ThrowError__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./nodes/ThrowError */ "./src/server/nodes/ThrowError.ts");
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
 
 
 
@@ -11635,19 +11637,20 @@ ServerNodeFactory.nodes = {
   CreateGrid: _nodes_CreateGrid__WEBPACK_IMPORTED_MODULE_2__.default,
   CreateJSON: _nodes_CreateJSON__WEBPACK_IMPORTED_MODULE_4__.default,
   CreateSequence: _nodes_CreateSequence__WEBPACK_IMPORTED_MODULE_5__.default,
-  DeleteRepositories: _nodes_github_DeleteRepositories__WEBPACK_IMPORTED_MODULE_15__.default,
+  DeleteRepositories: _nodes_github_DeleteRepositories__WEBPACK_IMPORTED_MODULE_16__.default,
   DownloadJSON: _nodes_DownloadJSON__WEBPACK_IMPORTED_MODULE_6__.default,
   Evaluate: _nodes_Evaluate__WEBPACK_IMPORTED_MODULE_7__.default,
-  Flatten: _nodes_Flatten__WEBPACK_IMPORTED_MODULE_8__.default,
-  HTTPRequest: _nodes_HTTPRequest__WEBPACK_IMPORTED_MODULE_9__.default,
-  Inspect: _nodes_Inspect__WEBPACK_IMPORTED_MODULE_10__.default,
-  Log: _nodes_Log__WEBPACK_IMPORTED_MODULE_11__.default,
-  Map: _nodes_Map__WEBPACK_IMPORTED_MODULE_12__.default,
-  OutputProvider: _nodes_OutputProvider__WEBPACK_IMPORTED_MODULE_13__.default,
-  RegExpFilter: _nodes_RegExpFilter__WEBPACK_IMPORTED_MODULE_14__.default,
-  Repositories: _nodes_github_Repositories__WEBPACK_IMPORTED_MODULE_16__.default,
-  Sleep: _nodes_Sleep__WEBPACK_IMPORTED_MODULE_17__.default,
-  ThrowError: _nodes_ThrowError__WEBPACK_IMPORTED_MODULE_18__.default
+  FilterDuplicates: _nodes_FilterDuplicates__WEBPACK_IMPORTED_MODULE_8__.default,
+  Flatten: _nodes_Flatten__WEBPACK_IMPORTED_MODULE_9__.default,
+  HTTPRequest: _nodes_HTTPRequest__WEBPACK_IMPORTED_MODULE_10__.default,
+  Inspect: _nodes_Inspect__WEBPACK_IMPORTED_MODULE_11__.default,
+  Log: _nodes_Log__WEBPACK_IMPORTED_MODULE_12__.default,
+  Map: _nodes_Map__WEBPACK_IMPORTED_MODULE_13__.default,
+  OutputProvider: _nodes_OutputProvider__WEBPACK_IMPORTED_MODULE_14__.default,
+  RegExpFilter: _nodes_RegExpFilter__WEBPACK_IMPORTED_MODULE_15__.default,
+  Repositories: _nodes_github_Repositories__WEBPACK_IMPORTED_MODULE_17__.default,
+  Sleep: _nodes_Sleep__WEBPACK_IMPORTED_MODULE_18__.default,
+  ThrowError: _nodes_ThrowError__WEBPACK_IMPORTED_MODULE_19__.default
 };
 
 /***/ }),
@@ -12878,6 +12881,170 @@ var Evaluate = /*#__PURE__*/function (_ServerNode) {
   }]);
 
   return Evaluate;
+}(_ServerNode__WEBPACK_IMPORTED_MODULE_1__.default);
+
+
+
+/***/ }),
+
+/***/ "./src/server/nodes/FilterDuplicates.ts":
+/*!**********************************************!*\
+  !*** ./src/server/nodes/FilterDuplicates.ts ***!
+  \**********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ FilterDuplicates)
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _ServerNode__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../ServerNode */ "./src/server/ServerNode.ts");
+/* harmony import */ var _core_NodeParameter__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../core/NodeParameter */ "./src/core/NodeParameter.ts");
+/* harmony import */ var _core_Feature__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../core/Feature */ "./src/core/Feature.ts");
+
+
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _get(target, property, receiver) { if (typeof Reflect !== "undefined" && Reflect.get) { _get = Reflect.get; } else { _get = function _get(target, property, receiver) { var base = _superPropBase(target, property); if (!base) return; var desc = Object.getOwnPropertyDescriptor(base, property); if (desc.get) { return desc.get.call(receiver); } return desc.value; }; } return _get(target, property, receiver || target); }
+
+function _superPropBase(object, property) { while (!Object.prototype.hasOwnProperty.call(object, property)) { object = _getPrototypeOf(object); if (object === null) break; } return object; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+var __awaiter = undefined && undefined.__awaiter || function (thisArg, _arguments, P, generator) {
+  function adopt(value) {
+    return value instanceof P ? value : new P(function (resolve) {
+      resolve(value);
+    });
+  }
+
+  return new (P || (P = Promise))(function (resolve, reject) {
+    function fulfilled(value) {
+      try {
+        step(generator.next(value));
+      } catch (e) {
+        reject(e);
+      }
+    }
+
+    function rejected(value) {
+      try {
+        step(generator["throw"](value));
+      } catch (e) {
+        reject(e);
+      }
+    }
+
+    function step(result) {
+      result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
+    }
+
+    step((generator = generator.apply(thisArg, _arguments || [])).next());
+  });
+};
+
+
+
+
+
+var FilterDuplicates = /*#__PURE__*/function (_ServerNode) {
+  _inherits(FilterDuplicates, _ServerNode);
+
+  var _super = _createSuper(FilterDuplicates);
+
+  function FilterDuplicates() {
+    var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+
+    _classCallCheck(this, FilterDuplicates);
+
+    return _super.call(this, Object.assign({
+      name: 'FilterDuplicates',
+      summary: 'Remove duplicates',
+      category: 'Workflow',
+      defaultInPorts: ['Input'],
+      defaultOutPorts: ['Output']
+    }, options));
+  }
+
+  _createClass(FilterDuplicates, [{
+    key: "run",
+    value: function run() {
+      return __awaiter(this, void 0, void 0, /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
+        var attribute;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                attribute = this.getParameterValue('attribute');
+                this.output(this.unique(this.input().map(function (feature) {
+                  return feature.get(attribute);
+                })).map(function (u) {
+                  return new _core_Feature__WEBPACK_IMPORTED_MODULE_3__.default(u);
+                }));
+
+              case 2:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee, this);
+      }));
+    }
+  }, {
+    key: "getParameters",
+    value: function getParameters() {
+      return [].concat(_toConsumableArray(_get(_getPrototypeOf(FilterDuplicates.prototype), "getParameters", this).call(this)), [_core_NodeParameter__WEBPACK_IMPORTED_MODULE_2__.default.string('attribute').withDescription("attribute to filter on")]);
+    }
+  }, {
+    key: "unique",
+    value: function unique(a) {
+      var prims = {
+        "boolean": {},
+        "number": {},
+        "string": {}
+      },
+          objs = [];
+      return a.filter(function (item) {
+        var type = _typeof(item);
+
+        if (type in prims) return prims[type].hasOwnProperty(item) ? false : prims[type][item] = true;else return objs.indexOf(item) >= 0 ? false : objs.push(item);
+      });
+    }
+  }]);
+
+  return FilterDuplicates;
 }(_ServerNode__WEBPACK_IMPORTED_MODULE_1__.default);
 
 
