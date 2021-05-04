@@ -15103,9 +15103,17 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
   _createClass(CommentNodeWidget, [{
     key: "render",
     value: function render() {
+      var _this2 = this;
+
       return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
         className: "flex font-mono text-xxs text-gray-200 p-2 border border-gray-500 overflow-auto",
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("textarea", {
+          onFocus: function onFocus() {
+            return _this2.props.node.setLocked(true);
+          },
+          onBlur: function onBlur() {
+            return _this2.props.node.setLocked(false);
+          },
           rows: this.state.rows,
           className: "w-full bg-transparent resize-x overflow-auto",
           value: this.state.comment.value,

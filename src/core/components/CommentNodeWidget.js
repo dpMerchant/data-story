@@ -16,6 +16,8 @@ export default observer(class CommentNodeWidget extends React.Component {
 		return (
             <div className={"flex font-mono text-xxs text-gray-200 p-2 border border-gray-500 overflow-auto"}>
                 <textarea
+					onFocus={() => this.props.node.setLocked(true)}
+					onBlur={() => this.props.node.setLocked(false)}				
 					rows={this.state.rows}
 					className={"w-full bg-transparent resize-x overflow-auto"}
 					value={this.state.comment.value}
@@ -26,6 +28,7 @@ export default observer(class CommentNodeWidget extends React.Component {
     }
 
 	updateComment(event) {
+
 		let comment = this.state.comment
 		comment.value = event.target.value
 
