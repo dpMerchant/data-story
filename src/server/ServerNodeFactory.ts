@@ -1,6 +1,6 @@
 // import Alert from './nodes/Alert'
 import Clone_ from './nodes/Clone_'
-// import Comment from './nodes/Comment'
+import Comment from './nodes/Comment'
 import Create from './nodes/Create'
 import CreateGrid from './nodes/CreateGrid'
 import CreateAttribute from './nodes/CreateAttribute'
@@ -27,7 +27,7 @@ export default class ServerNodeFactory {
     protected static nodes = {
 		// Alert,
 		Clone_,
-        // Comment,
+        Comment,
         Create,
         CreateAttribute,
         CreateGrid,

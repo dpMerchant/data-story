@@ -20,14 +20,14 @@ export default class Create extends ServerNode {
 		const featurType = this.getParameterValue('feature_type')
 		const contents = this.getParameterValue('contents')
 
+		if(featurType == 'null') {
+			this.output([new Feature()])
+		}
+
 		if(featurType == 'object') {
 			this.output([new Feature(JSON.parse(contents))])
 		}		
 
-		if(featurType == 'null') {
-			this.output([new Feature()])
-		}
-		
 		if(featurType == 'float') {
 			this.output([new Feature(parseFloat(contents))])
 		}
@@ -44,7 +44,7 @@ export default class Create extends ServerNode {
 	getParameters() {
 		return [
 			...super.getParameters(),
-			NodeParameter.select('feature_type').withOptions(['object', 'null', 'float', 'integer', 'string']).withValue('object'),
+			NodeParameter.select('feature_type').withOptions(['null', 'object', 'float', 'integer', 'string']).withValue('object'),
 			NodeParameter.json('contents'),
 		]
 	}	
