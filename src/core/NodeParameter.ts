@@ -4,6 +4,7 @@ export default class NodeParameter {
     fieldType: string = "String_"
     placeholder?: string
     value: any = ''
+	options?: string[]
 
     constructor(name: string) {
         this.name = name;
@@ -21,6 +22,10 @@ export default class NodeParameter {
 		return this.make(name).withFieldType('Number')
 	}
 
+	static select(name: string) {
+		return this.make(name).withFieldType('Select')
+	}	
+
 	static string(name: string) {
 		return this.make(name).withFieldType('String_')
 	}
@@ -33,6 +38,11 @@ export default class NodeParameter {
         this.fieldType = type
         return this
     }
+
+	withOptions(options: string[]) {
+		this.options = options
+		return this
+	}
 
     withPlaceholder(placeholder: string) {
         this.placeholder = placeholder

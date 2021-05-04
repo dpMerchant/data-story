@@ -67,11 +67,11 @@ export default class CreateGrid extends ServerNode {
 	getParameters() {
 		return [
 			...super.getParameters(),
-			NodeParameter.string('grid_type').withValue('points').withDescription('points | boxes'),
+			NodeParameter.select('grid_type').withOptions(['points', 'boxes']).withValue('points'),
             NodeParameter.number('grid_min_x').withValue(0),
             NodeParameter.number('grid_min_y').withValue(0),
-            NodeParameter.number('grid_max_x').withValue(100),
-            NodeParameter.number('grid_max_y').withValue(100),
+            NodeParameter.number('grid_max_x').withValue(10),
+            NodeParameter.number('grid_max_y').withValue(10),
             NodeParameter.number('grid_size_x').withDescription('Ignored if grid_max_x is set'),
             NodeParameter.number('grid_size_y').withDescription('Ignored if grid_max_y is set'),
             NodeParameter.number('grid_spacing_x').withValue(1),
