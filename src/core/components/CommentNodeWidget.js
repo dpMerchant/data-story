@@ -14,7 +14,7 @@ export default observer(class CommentNodeWidget extends React.Component {
 
 	render() {
 		return (
-            <div className={"flex font-mono text-xxs text-gray-200 p-2 border overflow-auto"}>
+            <div className={"flex font-mono text-xxs text-gray-200 p-2 border border-gray-500 overflow-auto"}>
                 <textarea
 					rows={this.state.rows}
 					className={"w-full bg-transparent resize-x overflow-auto"}

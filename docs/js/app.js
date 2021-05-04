@@ -15104,7 +15104,7 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
     key: "render",
     value: function render() {
       return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
-        className: "flex font-mono text-xxs text-gray-200 p-2 border overflow-auto",
+        className: "flex font-mono text-xxs text-gray-200 p-2 border border-gray-500 overflow-auto",
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("textarea", {
           rows: this.state.rows,
           className: "w-full bg-transparent resize-x overflow-auto",
