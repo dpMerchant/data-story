@@ -11703,8 +11703,10 @@ var scraping_a_map_service = _core_DiagramModelBuilder__WEBPACK_IMPORTED_MODULE_
   grid_type: 'boxes',
   grid_min_x: 18.01826477050781,
   grid_min_y: 59.29674702504426,
-  grid_max_x: 18.116455078125,
-  grid_max_y: 59.32618430580267,
+  grid_max_x: null,
+  grid_max_y: null,
+  grid_size_x: 2,
+  grid_size_y: 2,
   grid_spacing_x: 0.00437431579,
   grid_spacing_y: 0.00975251197
 }).add(_nodes_HTTPRequest__WEBPACK_IMPORTED_MODULE_5__.default, {

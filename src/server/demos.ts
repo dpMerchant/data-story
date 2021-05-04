@@ -29,8 +29,12 @@ export const scraping_a_map_service = DiagramModelBuilder.begin()
 		// Södermalm
 		grid_min_x: 18.01826477050781,
 		grid_min_y: 59.29674702504426,
-		grid_max_x: 18.116455078125,
-		grid_max_y: 59.32618430580267,
+		// grid_max_x: 18.116455078125,
+		// grid_max_y: 59.32618430580267,
+		grid_max_x: null,
+		grid_max_y: null,		
+		grid_size_x: 2,
+		grid_size_y: 2,
 
 		// // Greater Stockholm area
 		// grid_min_x: 17.782745361328125,

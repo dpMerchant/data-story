@@ -10,7 +10,7 @@ import VERSION from './utils/version'
 export default class DiagramModel extends DefaultDiagramModel {
 	latestNodes: NodeModel[] = []
 
-	addNode(node) { 
+	addNode(node) {
 		this.attemptLinkToLatest(node)
 		this.smartInspectorNames(node)		 
 		this.latestNodes.unshift(node);
