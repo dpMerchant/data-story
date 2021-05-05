@@ -4,6 +4,7 @@ import Create from "./nodes/Create";
 import CreateGrid from "./nodes/CreateGrid";
 import CreateJSON from "./nodes/CreateJSON";
 import DownloadJSON from "./nodes/DownloadJSON";
+import DownloadGeoJSON from "./nodes/DownloadGeoJSON";
 import Evaluate from "./nodes/Evaluate";
 import Flatten from "./nodes/Flatten";
 import HTTPRequest from "./nodes/HTTPRequest";
@@ -50,5 +51,5 @@ export const scraping_a_map_service = DiagramModelBuilder.begin()
 		url: 'https://layers.enirocdn.com/{{ feature.y_min }}/{{ feature.x_min }}/{{ feature.y_max }}/{{ feature.x_max }}/17/se_realestate.json',
 		features_path: 'data.se_realestate'
 	})
-	.add(DownloadJSON, { filename: 'realestates_sthlm.json'})
+	.add(DownloadGeoJSON, { filename: 'realestates_sthlm.json'})
 	.finish()

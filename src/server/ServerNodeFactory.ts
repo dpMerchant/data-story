@@ -7,6 +7,7 @@ import CreateAttribute from './nodes/CreateAttribute'
 import CreateJSON from './nodes/CreateJSON'
 import CreateSequence from './nodes/CreateSequence'
 import DownloadJSON from './nodes/DownloadJSON'
+import DownloadGeoJSON from './nodes/DownloadGeoJSON'
 import Evaluate from './nodes/Evaluate'
 import FilterDuplicates from './nodes/FilterDuplicates'
 import Flatten from './nodes/Flatten'
@@ -33,9 +34,9 @@ export default class ServerNodeFactory {
         CreateGrid,
 		CreateJSON,
         CreateSequence,
-        
         DeleteRepositories,
         DownloadJSON,
+		DownloadGeoJSON,
         Evaluate,
 		FilterDuplicates,
         Flatten,
