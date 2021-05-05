@@ -7,8 +7,7 @@
 
 DataStory provides a workbench for designing data flow diagrams.
 
-
-![image](https://user-images.githubusercontent.com/3457668/105969887-07a56d00-6089-11eb-978f-d829d1ce1d1c.png)
+![image](https://user-images.githubusercontent.com/3457668/117117786-3d48a900-ad90-11eb-91eb-520f7919d7fa.png)
 
 ## Live Demo
 Deployed at https://ajthinking.github.io/data-story/
