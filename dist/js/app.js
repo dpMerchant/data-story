@@ -14938,7 +14938,7 @@ var DeleteRepositories = /*#__PURE__*/function (_HTTPRequest) {
       var configParam = description.parameters.find(function (p) {
         return p.name == 'config';
       });
-      configParam.value = '{"headers": {"Authorization": "token 6e4a621b77aed8d79849c0fbc32362cf326e8a97"}}';
+      configParam.value = '{"headers": {"Authorization": "token TOKEN_GOES_HERE"}}';
       return description;
     }
   }]);
