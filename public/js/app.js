@@ -11680,17 +11680,18 @@ ServerNodeFactory.nodes = {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "working_with_json": () => (/* binding */ working_with_json),
-/* harmony export */   "cleanup_old_github_repos": () => (/* binding */ cleanup_old_github_repos),
+/* harmony export */   "playing_with_json": () => (/* binding */ playing_with_json),
 /* harmony export */   "scraping_a_map_service": () => (/* binding */ scraping_a_map_service)
 /* harmony export */ });
 /* harmony import */ var _core_DiagramModelBuilder__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../core/DiagramModelBuilder */ "./src/core/DiagramModelBuilder.ts");
-/* harmony import */ var _nodes_Clone___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./nodes/Clone_ */ "./src/server/nodes/Clone_.ts");
-/* harmony import */ var _nodes_CreateGrid__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./nodes/CreateGrid */ "./src/server/nodes/CreateGrid.ts");
-/* harmony import */ var _nodes_CreateJSON__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./nodes/CreateJSON */ "./src/server/nodes/CreateJSON.ts");
-/* harmony import */ var _nodes_DownloadGeoJSON__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./nodes/DownloadGeoJSON */ "./src/server/nodes/DownloadGeoJSON.ts");
-/* harmony import */ var _nodes_HTTPRequest__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./nodes/HTTPRequest */ "./src/server/nodes/HTTPRequest.ts");
-/* harmony import */ var _nodes_Inspect__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./nodes/Inspect */ "./src/server/nodes/Inspect.ts");
+/* harmony import */ var _nodes_CreateAttribute__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./nodes/CreateAttribute */ "./src/server/nodes/CreateAttribute.ts");
+/* harmony import */ var _nodes_Clone___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./nodes/Clone_ */ "./src/server/nodes/Clone_.ts");
+/* harmony import */ var _nodes_Create__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./nodes/Create */ "./src/server/nodes/Create.ts");
+/* harmony import */ var _nodes_CreateGrid__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./nodes/CreateGrid */ "./src/server/nodes/CreateGrid.ts");
+/* harmony import */ var _nodes_DownloadGeoJSON__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./nodes/DownloadGeoJSON */ "./src/server/nodes/DownloadGeoJSON.ts");
+/* harmony import */ var _nodes_HTTPRequest__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./nodes/HTTPRequest */ "./src/server/nodes/HTTPRequest.ts");
+/* harmony import */ var _nodes_Inspect__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./nodes/Inspect */ "./src/server/nodes/Inspect.ts");
+/* harmony import */ var _nodes_FilterDuplicates__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./nodes/FilterDuplicates */ "./src/server/nodes/FilterDuplicates.ts");
 
 
 
@@ -11698,24 +11699,33 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var working_with_json = _core_DiagramModelBuilder__WEBPACK_IMPORTED_MODULE_0__.DiagramModelBuilder.begin().add(_nodes_CreateJSON__WEBPACK_IMPORTED_MODULE_3__.default).add(_nodes_Clone___WEBPACK_IMPORTED_MODULE_1__.default, {
+
+
+var playing_with_json = _core_DiagramModelBuilder__WEBPACK_IMPORTED_MODULE_0__.DiagramModelBuilder.begin().add(_nodes_Create__WEBPACK_IMPORTED_MODULE_3__.default, {
+  feature_type: 'object',
+  contents: '{}'
+}).add(_nodes_CreateAttribute__WEBPACK_IMPORTED_MODULE_1__.default, {
+  attribute: 'resource',
+  value: 'todos'
+}).add(_nodes_Clone___WEBPACK_IMPORTED_MODULE_2__.default, {
   number_of_clones: 3
-}).add(_nodes_HTTPRequest__WEBPACK_IMPORTED_MODULE_5__.default).add(_nodes_Inspect__WEBPACK_IMPORTED_MODULE_6__.default).add(_nodes_Inspect__WEBPACK_IMPORTED_MODULE_6__.default).add(_nodes_Inspect__WEBPACK_IMPORTED_MODULE_6__.default).finish();
-var cleanup_old_github_repos = _core_DiagramModelBuilder__WEBPACK_IMPORTED_MODULE_0__.DiagramModelBuilder.begin().add(_nodes_HTTPRequest__WEBPACK_IMPORTED_MODULE_5__.default).finish();
-var scraping_a_map_service = _core_DiagramModelBuilder__WEBPACK_IMPORTED_MODULE_0__.DiagramModelBuilder.begin().add(_nodes_CreateGrid__WEBPACK_IMPORTED_MODULE_2__.default, {
+}).add(_nodes_HTTPRequest__WEBPACK_IMPORTED_MODULE_6__.default).add(_nodes_Inspect__WEBPACK_IMPORTED_MODULE_7__.default).add(_nodes_Inspect__WEBPACK_IMPORTED_MODULE_7__.default).add(_nodes_Inspect__WEBPACK_IMPORTED_MODULE_7__.default).finish();
+var scraping_a_map_service = _core_DiagramModelBuilder__WEBPACK_IMPORTED_MODULE_0__.DiagramModelBuilder.begin().add(_nodes_CreateGrid__WEBPACK_IMPORTED_MODULE_4__.default, {
   grid_type: 'boxes',
   grid_min_x: 18.01826477050781,
   grid_min_y: 59.29674702504426,
-  grid_max_x: null,
-  grid_max_y: null,
+  grid_max_x: '',
+  grid_max_y: '',
   grid_size_x: 2,
   grid_size_y: 2,
   grid_spacing_x: 0.00437431579,
   grid_spacing_y: 0.00975251197
-}).add(_nodes_HTTPRequest__WEBPACK_IMPORTED_MODULE_5__.default, {
+}).add(_nodes_HTTPRequest__WEBPACK_IMPORTED_MODULE_6__.default, {
   url: 'https://layers.enirocdn.com/{{ feature.y_min }}/{{ feature.x_min }}/{{ feature.y_max }}/{{ feature.x_max }}/17/se_realestate.json',
   features_path: 'data.se_realestate'
-}).add(_nodes_DownloadGeoJSON__WEBPACK_IMPORTED_MODULE_4__.default, {
+}).add(_nodes_FilterDuplicates__WEBPACK_IMPORTED_MODULE_8__.default, {
+  attribute: 'properties.gid'
+}).add(_nodes_DownloadGeoJSON__WEBPACK_IMPORTED_MODULE_5__.default, {
   filename: 'realestates_sthlm.json'
 }).finish();
 
@@ -13359,19 +13369,23 @@ var FilterDuplicates = /*#__PURE__*/function (_ServerNode) {
     key: "run",
     value: function run() {
       return __awaiter(this, void 0, void 0, /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
-        var attribute;
+        var attribute, compareValues;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
                 attribute = this.getParameterValue('attribute');
-                this.output(this.unique(this.input().map(function (feature) {
-                  return feature.get(attribute);
-                })).map(function (u) {
+                compareValues = this.input().map(function (feature) {
+                  return attribute.split('.').reduce(function (traversed, part) {
+                    return traversed[part];
+                  }, feature.original);
+                });
+                console.log();
+                this.output(this.unique(compareValues).map(function (u) {
                   return new _core_Feature__WEBPACK_IMPORTED_MODULE_3__.default(u);
                 }));
 
-              case 2:
+              case 4:
               case "end":
                 return _context.stop();
             }
@@ -13382,7 +13396,7 @@ var FilterDuplicates = /*#__PURE__*/function (_ServerNode) {
   }, {
     key: "getParameters",
     value: function getParameters() {
-      return [].concat(_toConsumableArray(_get(_getPrototypeOf(FilterDuplicates.prototype), "getParameters", this).call(this)), [_core_NodeParameter__WEBPACK_IMPORTED_MODULE_2__.default.string('attribute').withDescription("attribute to filter on")]);
+      return [].concat(_toConsumableArray(_get(_getPrototypeOf(FilterDuplicates.prototype), "getParameters", this).call(this)), [_core_NodeParameter__WEBPACK_IMPORTED_MODULE_2__.default.string('attribute').withDescription("attribute to filter on, may use dot notation")]);
     }
   }, {
     key: "unique",

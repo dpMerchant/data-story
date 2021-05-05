@@ -1,4 +1,5 @@
 import { DiagramModelBuilder } from "./../core/DiagramModelBuilder";
+import CreateAttribute from "./nodes/CreateAttribute";
 import Clone_ from "./nodes/Clone_";
 import Create from "./nodes/Create";
 import CreateGrid from "./nodes/CreateGrid";
@@ -10,9 +11,12 @@ import Flatten from "./nodes/Flatten";
 import HTTPRequest from "./nodes/HTTPRequest";
 import Inspect from "./nodes/Inspect";
 import Map from "./nodes/Map";
+import Log from "./nodes/Log";
+import FilterDuplicates from "./nodes/FilterDuplicates";
 
-export const working_with_json = DiagramModelBuilder.begin()
-	.add(CreateJSON)
+export const playing_with_json = DiagramModelBuilder.begin()
+	.add(Create, {feature_type: 'object', contents: '{}'})
+	.add(CreateAttribute, {attribute: 'resource', value: 'todos'})
 	.add(Clone_, {number_of_clones: 3})
 	.add(HTTPRequest)
 	.add(Inspect)
@@ -20,9 +24,9 @@ export const working_with_json = DiagramModelBuilder.begin()
 	.add(Inspect)		
 	.finish()
 
-export const cleanup_old_github_repos = DiagramModelBuilder.begin()
-	.add(HTTPRequest)
-	.finish()
+// export const cleanup_old_github_repos = DiagramModelBuilder.begin()
+// 	.add(HTTPRequest)
+// 	.finish()
 
 export const scraping_a_map_service = DiagramModelBuilder.begin()
 	.add(CreateGrid, {
@@ -32,8 +36,8 @@ export const scraping_a_map_service = DiagramModelBuilder.begin()
 		grid_min_y: 59.29674702504426,
 		// grid_max_x: 18.116455078125,
 		// grid_max_y: 59.32618430580267,
-		grid_max_x: null,
-		grid_max_y: null,		
+		grid_max_x: '',
+		grid_max_y: '',		
 		grid_size_x: 2,
 		grid_size_y: 2,
 
@@ -51,5 +55,8 @@ export const scraping_a_map_service = DiagramModelBuilder.begin()
 		url: 'https://layers.enirocdn.com/{{ feature.y_min }}/{{ feature.x_min }}/{{ feature.y_max }}/{{ feature.x_max }}/17/se_realestate.json',
 		features_path: 'data.se_realestate'
 	})
+	.add(FilterDuplicates, { attribute: 'properties.gid'})
 	.add(DownloadGeoJSON, { filename: 'realestates_sthlm.json'})
+	// .add(Inspect)
+	// .add(Log)
 	.finish()
