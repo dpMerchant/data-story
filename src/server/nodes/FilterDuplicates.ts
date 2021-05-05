@@ -18,16 +18,24 @@ export default class FilterDuplicates extends ServerNode {
 
     async run() {
         const attribute = this.getParameterValue('attribute');
-        this.output(
-            this.unique(this.input().map(feature => feature.get(attribute)))
-				.map(u => new Feature(u))
-        );
+
+		const compareValues = this.input().map(feature => {
+			return attribute.split('.').reduce((traversed, part) => {
+				return traversed[part]
+			}, feature.original)
+		})
+
+		console.log()
+
+		this.output(
+			this.unique(compareValues).map(u => new Feature(u))
+		);
     }
 	
 	getParameters() {
 		return [
 			...super.getParameters(),
-            NodeParameter.string('attribute').withDescription("attribute to filter on")
+            NodeParameter.string('attribute').withDescription("attribute to filter on, may use dot notation")
 		]
 	}
 
