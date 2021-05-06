@@ -1,17 +1,12 @@
-//import { DiagramModelBuilder } from '../../../src/core/DiagramModelBuilder'
-//import DiagramModel from '../../../src/core/DiagramModel'
-//import { DefaultLinkModel, DiagramModel, DiagramModelGenerics, NodeModelGenerics } from '@projectstorm/react-diagrams'
+import DiagramModel from '../../../src/core/DiagramModel';
+import { DiagramModelBuilder } from '../../../src/core/DiagramModelBuilder'
+import Create from '../../../src/server/nodes/Create';
+import Inspect from '../../../src/server/nodes/Inspect';
 
-test.skip('a Feature can hold attributes', () => {
-    expect(true).toBe(true)
-
-	// let x = DiagramModel
+it('can build diagrams programatically', () => {	
+	expect(DiagramModelBuilder.begin()
+		.add(Create)
+		.add(Inspect)
+		.finish()
+	).toBeInstanceOf(DiagramModel)
 });
-
-/*
-TestableServerDiagram
-Feature ServerDiagram ServerNode
-
-DiagramModelBuilder
-DiagramModel NodeModel
-*/
