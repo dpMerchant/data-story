@@ -162,12 +162,3 @@ export default abstract class ServerNode {
         return this.ports.find(port => port.name == name)
     }
 }
-
-// WHAT I WANT
-// SIMPLE PROCESS TO CREATE PORTS [INPUT, OUTPUT, ETC]
-
-class X {
-	getPorts() {
-		
-	}
-}

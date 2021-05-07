@@ -11542,19 +11542,6 @@ var ServerNode = /*#__PURE__*/function () {
 
 
 
-var X = /*#__PURE__*/function () {
-  function X() {
-    _classCallCheck(this, X);
-  }
-
-  _createClass(X, [{
-    key: "getPorts",
-    value: function getPorts() {}
-  }]);
-
-  return X;
-}();
-
 /***/ }),
 
 /***/ "./src/server/ServerNodeFactory.ts":
@@ -14254,11 +14241,17 @@ function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && Symbol.it
 
 function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
 
-function _createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
 
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -14326,47 +14319,55 @@ var OutputProvider = /*#__PURE__*/function (_ServerNode) {
   var _super = _createSuper(OutputProvider);
 
   function OutputProvider() {
+    var _this;
+
     var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
 
     _classCallCheck(this, OutputProvider);
 
-    return _super.call(this, Object.assign({
+    _this = _super.call(this, Object.assign({
       name: 'OutputProvider',
       summary: 'Provides output ports from JSON',
       category: 'Workflow',
-      defaultInPorts: [],
-      defaultOutPorts: [],
       editableOutPorts: true
     }, options));
+    _this.ports = [];
+    var outputs = [];
+
+    for (var _i = 0, _Object$entries = Object.entries(outputs); _i < _Object$entries.length; _i++) {
+      var _Object$entries$_i = _slicedToArray(_Object$entries[_i], 2),
+          key = _Object$entries$_i[0],
+          value = _Object$entries$_i[1];
+
+      _this.ports.push({
+        name: key,
+        "in": false
+      });
+    }
+
+    return _this;
   }
 
   _createClass(OutputProvider, [{
     key: "run",
     value: function run() {
       return __awaiter(this, void 0, void 0, /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
-        var outputs, _iterator, _step, _step$value, key, value;
+        var outputs, _i2, _Object$entries2, _Object$entries2$_i, key, value;
 
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
                 outputs = this.getParameterValue('outputs');
-                _iterator = _createForOfIteratorHelper(outputs);
 
-                try {
-                  for (_iterator.s(); !(_step = _iterator.n()).done;) {
-                    _step$value = _step.value, key = _step$value.key, value = _step$value.value;
-                    this.output(key, value.map(function (v) {
-                      return new _core_Feature__WEBPACK_IMPORTED_MODULE_3__.default(v);
-                    }));
-                  }
-                } catch (err) {
-                  _iterator.e(err);
-                } finally {
-                  _iterator.f();
+                for (_i2 = 0, _Object$entries2 = Object.entries(outputs); _i2 < _Object$entries2.length; _i2++) {
+                  _Object$entries2$_i = _slicedToArray(_Object$entries2[_i2], 2), key = _Object$entries2$_i[0], value = _Object$entries2$_i[1];
+                  this.output(value.map(function (v) {
+                    return new _core_Feature__WEBPACK_IMPORTED_MODULE_3__.default(v);
+                  }), key);
                 }
 
-              case 3:
+              case 2:
               case "end":
                 return _context.stop();
             }
@@ -14377,10 +14378,10 @@ var OutputProvider = /*#__PURE__*/function (_ServerNode) {
   }, {
     key: "getParameters",
     value: function getParameters() {
-      return [].concat(_toConsumableArray(_get(_getPrototypeOf(OutputProvider.prototype), "getParameters", this).call(this)), [_core_NodeParameter__WEBPACK_IMPORTED_MODULE_2__.default.json('outputs').withValue(JSON.stringify({
+      return [].concat(_toConsumableArray(_get(_getPrototypeOf(OutputProvider.prototype), "getParameters", this).call(this)), [_core_NodeParameter__WEBPACK_IMPORTED_MODULE_2__.default.js('outputs').withValue({
         o1: [1, 2, 3],
         o2: [4, 5, 6]
-      }, null, 4))]);
+      })]);
     }
   }]);
 

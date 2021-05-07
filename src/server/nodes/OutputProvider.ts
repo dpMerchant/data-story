@@ -9,29 +9,37 @@ export default class OutputProvider extends ServerNode {
 			name: 'OutputProvider',
 			summary: 'Provides output ports from JSON',
 			category: 'Workflow',
-			defaultInPorts: [],
-			defaultOutPorts: [],
 			editableOutPorts: true,
 			// Explicitly configured
 			...options,
 		})
+
+		// Reset the ports
+		this.ports = []
+		const outputs = [];
+
+		for(const [key, value] of Object.entries(outputs)) {
+			this.ports.push({
+				name: key,
+				in: false
+			})
+		}
 	}
 
     async run() {
         const outputs = this.getParameterValue('outputs')
-
-		for(const {key, value} of outputs) {
-			this.output(key, value.map(v => new Feature(v)))
+		for(const [key, value] of Object.entries(outputs)) {
+			this.output((value as any[]).map(v => new Feature(v)), key)
 		}
     }
 	
 	getParameters() {
 		return [
 			...super.getParameters(),
-            NodeParameter.json('outputs').withValue(JSON.stringify({
+            NodeParameter.js('outputs').withValue({
 				o1: [1,2,3],
 				o2: [4,5,6],
-			}, null, 4)),
+			}),
 		]
-	}		
+	}
 }
