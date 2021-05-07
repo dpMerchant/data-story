@@ -29,11 +29,12 @@ export class ServerNodeTester {
 		return this	
 	}
 
-	hasDefaultParameters() {
+	hasParameters(parameterKeyValues) {
+		this.parameterKeyValues = parameterKeyValues
 		return this
 	}
 
-	parameters(obj) {
+	hasDefaultParameters() {
 		return this
 	}
 
@@ -100,6 +101,7 @@ export class ServerNodeTester {
 			this.runResult = result.data.diagram
 			this.ranSuccessfully = true
 		}).catch(f => {
+			console.log(f)
 			this.ranSuccessfully = false
 		})
 
