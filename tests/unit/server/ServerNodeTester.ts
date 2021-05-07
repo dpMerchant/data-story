@@ -1,6 +1,7 @@
 import DiagramModel from "../../../src/core/DiagramModel"
 import { DiagramModelBuilder } from "../../../src/core/DiagramModelBuilder"
 import Feature from "../../../src/core/Feature"
+import OutputProvider from "../../../src/server/nodes/OutputProvider"
 import Server from "../../../src/server/Server"
 import ServerDiagram from "../../../src/server/ServerDiagram"
 import ServerNode from "../../../src/server/ServerNode"
@@ -14,6 +15,7 @@ export class ServerNodeTester {
 	shouldDoAssertCanRun = false
 	shouldDoAssertOutputs = false
 	outputMap = {}
+	inputMap = {}
 	hasRun = false
 	ranSuccessfully: boolean
 
@@ -25,13 +27,32 @@ export class ServerNodeTester {
 		return this
 	}
 
-	has() {
-		return this	
+	parameters(parameterKeyValues) {
+		this.parameterKeyValues = parameterKeyValues
+		return this
 	}
 
 	hasParameters(parameterKeyValues) {
-		this.parameterKeyValues = parameterKeyValues
+		return this.parameters(parameterKeyValues)
+	}
+
+	and() {
 		return this
+	}
+
+	has() {
+		return this
+	}
+
+	hasInputs(inputMap) {
+		this.inputMap = inputMap
+		return this
+	}
+
+	hasInput(features) {
+		return this.hasInputs({
+			Input: features
+		})
 	}
 
 	hasDefaultParameters() {
@@ -63,6 +84,7 @@ export class ServerNodeTester {
 
 	protected setupDiagram() {
 		this.diagram = DiagramModelBuilder.begin()
+			//.add(OutputProvider, {outputs: this.inputMap})
 			.add(this.nodeClass, this.parameterKeyValues)
 			.finish()
 	}
