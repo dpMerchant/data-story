@@ -45,7 +45,7 @@ export default class Create extends ServerNode {
 		return [
 			...super.getParameters(),
 			NodeParameter.select('feature_type').withOptions(['null', 'object', 'float', 'integer', 'string']).withValue('object'),
-			NodeParameter.json('contents'),
+			NodeParameter.json('contents').withValue('{}'),
 		]
 	}	
 }

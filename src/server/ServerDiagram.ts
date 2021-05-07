@@ -48,6 +48,14 @@ export default class ServerDiagram {
         return searchables.find(entity => entity.id == id)
     }
 
+	findByName(name: string) {
+        let searchables = this.nodes
+            .concat(this.nodes.map(node => node.ports).flat())
+            .concat(this.links)
+
+        return searchables.find(entity => entity.name == name)		
+	}
+
     addNode(node) {
         this.nodes.push(node)
 

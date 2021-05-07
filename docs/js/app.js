@@ -11298,6 +11298,16 @@ var ServerDiagram = /*#__PURE__*/function () {
       });
     }
   }, {
+    key: "findByName",
+    value: function findByName(name) {
+      var searchables = this.nodes.concat(this.nodes.map(function (node) {
+        return node.ports;
+      }).flat()).concat(this.links);
+      return searchables.find(function (entity) {
+        return entity.name == name;
+      });
+    }
+  }, {
     key: "addNode",
     value: function addNode(node) {
       this.nodes.push(node);
@@ -12164,7 +12174,7 @@ var Create = /*#__PURE__*/function (_ServerNode) {
   }, {
     key: "getParameters",
     value: function getParameters() {
-      return [].concat(_toConsumableArray(_get(_getPrototypeOf(Create.prototype), "getParameters", this).call(this)), [_core_NodeParameter__WEBPACK_IMPORTED_MODULE_3__.default.select('feature_type').withOptions(['null', 'object', 'float', 'integer', 'string']).withValue('object'), _core_NodeParameter__WEBPACK_IMPORTED_MODULE_3__.default.json('contents')]);
+      return [].concat(_toConsumableArray(_get(_getPrototypeOf(Create.prototype), "getParameters", this).call(this)), [_core_NodeParameter__WEBPACK_IMPORTED_MODULE_3__.default.select('feature_type').withOptions(['null', 'object', 'float', 'integer', 'string']).withValue('object'), _core_NodeParameter__WEBPACK_IMPORTED_MODULE_3__.default.json('contents').withValue('{}')]);
     }
   }]);
 
