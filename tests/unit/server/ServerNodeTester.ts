@@ -92,9 +92,9 @@ export class ServerNodeTester {
 
 	async finish() {
 		this.setupDiagram()
-		this.shouldDoAssertCanRun && this.doAssertCanRun()
-		this.shouldDoAssertOutputs && this.doAssertOutputs()
-		this.shouldDoAssertOutputCounts && this.doAssertOutputCounts()
+		if(this.shouldDoAssertCanRun) await this.doAssertCanRun();
+		if(this.shouldDoAssertOutputs) await this.doAssertOutputs()
+		if(this.shouldDoAssertOutputCounts) await this.doAssertOutputCounts()
 	}
 
 	protected setupDiagram() {
@@ -144,6 +144,7 @@ export class ServerNodeTester {
 		let ports = serverDiagram.findByName(this.nodeClass.name).ports
 		let outputingPorts = ports.filter(p => p.features && p.features.length).map(p => p.name)
 		const msg = 'There was a port outputting features that was not listed!'
+		
 		expect({msg, keys: Object.keys(this.outputCountMap)}).toEqual({msg, keys: outputingPorts})
 	}
 
