@@ -3,6 +3,7 @@ import { when } from "../ServerNodeTester";
 
 it.skip('makes ten clones by default', async () => {
     await when(Clone_).hasInput(['a feature'])
+		.assertCanRun()
 		.assertOutputCount(11)
 		.finish()
 });

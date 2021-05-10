@@ -143,10 +143,17 @@ export default abstract class ServerNode {
 
     protected getDataAtPortNamed(name: string = 'Input')
     {
+
+		console.log(this.name, name)
+
        let port = this.portNamed(name);
 
         let features = port.links.map(linkId => {
             let link = this.diagram.find(linkId)
+			console.log(
+				link.sourcePort,
+				this.diagram.nodes[0]
+			)
             let source = this.diagram.find(link.sourcePort)
             return source.features ?? []
         }).flat()

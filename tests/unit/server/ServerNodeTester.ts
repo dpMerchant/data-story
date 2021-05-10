@@ -99,7 +99,7 @@ export class ServerNodeTester {
 
 	protected setupDiagram() {
 		this.diagram = DiagramModelBuilder.begin()
-			//.add(OutputProvider, {outputs: this.inputMap})
+			.add(OutputProvider, {outputs: this.inputMap})
 			.add(this.nodeClass, this.parameterKeyValues)
 			.finish()
 	}

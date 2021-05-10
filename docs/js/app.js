@@ -11510,11 +11510,14 @@ var ServerNode = /*#__PURE__*/function () {
       var _this = this;
 
       var name = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'Input';
+      console.log(this.name, name);
       var port = this.portNamed(name);
       var features = port.links.map(function (linkId) {
         var _a;
 
         var link = _this.diagram.find(linkId);
+
+        console.log(link.sourcePort, _this.diagram.nodes[0]);
 
         var source = _this.diagram.find(link.sourcePort);
 
@@ -14332,19 +14335,23 @@ var OutputProvider = /*#__PURE__*/function (_ServerNode) {
       editableOutPorts: true
     }, options));
     _this.ports = [];
-    var outputs = [];
+
+    var outputs = _this.getParameters().find(function (p) {
+      return p.name == 'outputs';
+    }).value;
 
     for (var _i = 0, _Object$entries = Object.entries(outputs); _i < _Object$entries.length; _i++) {
       var _Object$entries$_i = _slicedToArray(_Object$entries[_i], 2),
-          key = _Object$entries$_i[0],
+          name = _Object$entries$_i[0],
           value = _Object$entries$_i[1];
 
       _this.ports.push({
-        name: key,
+        name: name,
         "in": false
       });
     }
 
+    console.log(_this.ports);
     return _this;
   }
 
@@ -14379,7 +14386,7 @@ var OutputProvider = /*#__PURE__*/function (_ServerNode) {
     key: "getParameters",
     value: function getParameters() {
       return [].concat(_toConsumableArray(_get(_getPrototypeOf(OutputProvider.prototype), "getParameters", this).call(this)), [_core_NodeParameter__WEBPACK_IMPORTED_MODULE_2__.default.js('outputs').withValue({
-        o1: [1, 2, 3],
+        Input: [1, 2, 3],
         o2: [4, 5, 6]
       })]);
     }
