@@ -28,6 +28,7 @@ export default class NodeModel extends DefaultNodeModel {
 	constructor(options) {
 		// Make id easier on humans
 		const id = options.id ?? `Node_${options.name}_${options.serial}_${UID()}`
+
 		super({
 			...options,
             type: 'NodeModel',            

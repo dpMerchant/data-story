@@ -9,11 +9,14 @@ export class DiagramModelBuilder {
 		return new this
 	}
 
-	add(nodeClass, parameterKeyValues = {}) {
+	add(nodeClass, parameterKeyValues = {}, config = {}) {
 		let diagram = this.getDiagram()
 
 		let node = new NodeModel(
-			(new nodeClass).serialize()
+			{
+				...(new nodeClass).serialize(),
+				...config
+			}
 		)
 
 		diagram.addNode(node)
@@ -34,24 +37,8 @@ export class DiagramModelBuilder {
 		return this
 	}
 
-	then() {
-		this.commitNode()
-		return this
-	}
-
-	connectNode() {
-		return this
-	}
-
 	finish() {
 		return this.getDiagram()
-	}
-
-	protected commitNode() {
-		if(this.currentNode === null) return
-		
-		this.diagram.addNode(this.currentNode)
-		this.currentNode = null;
 	}
 
 	protected getDiagram() {

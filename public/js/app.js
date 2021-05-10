@@ -9815,8 +9815,9 @@ var DiagramModelBuilder = /*#__PURE__*/function () {
     key: "add",
     value: function add(nodeClass) {
       var parameterKeyValues = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+      var config = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
       var diagram = this.getDiagram();
-      var node = new _NodeModel__WEBPACK_IMPORTED_MODULE_1__.default(new nodeClass().serialize());
+      var node = new _NodeModel__WEBPACK_IMPORTED_MODULE_1__.default(Object.assign(Object.assign({}, new nodeClass().serialize()), config));
       diagram.addNode(node);
       this.diagram = diagram;
       this.currentNode = node;
@@ -9846,27 +9847,9 @@ var DiagramModelBuilder = /*#__PURE__*/function () {
       return this;
     }
   }, {
-    key: "then",
-    value: function then() {
-      this.commitNode();
-      return this;
-    }
-  }, {
-    key: "connectNode",
-    value: function connectNode() {
-      return this;
-    }
-  }, {
     key: "finish",
     value: function finish() {
       return this.getDiagram();
-    }
-  }, {
-    key: "commitNode",
-    value: function commitNode() {
-      if (this.currentNode === null) return;
-      this.diagram.addNode(this.currentNode);
-      this.currentNode = null;
     }
   }, {
     key: "getDiagram",
@@ -11510,14 +11493,11 @@ var ServerNode = /*#__PURE__*/function () {
       var _this = this;
 
       var name = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'Input';
-      console.log(this.name, name);
       var port = this.portNamed(name);
       var features = port.links.map(function (linkId) {
         var _a;
 
         var link = _this.diagram.find(linkId);
-
-        console.log(link.sourcePort, _this.diagram.nodes[0]);
 
         var source = _this.diagram.find(link.sourcePort);
 
@@ -13380,12 +13360,11 @@ var FilterDuplicates = /*#__PURE__*/function (_ServerNode) {
                     return traversed[part];
                   }, feature.original);
                 });
-                console.log();
                 this.output(this.unique(compareValues).map(function (u) {
                   return new _core_Feature__WEBPACK_IMPORTED_MODULE_3__.default(u);
                 }));
 
-              case 4:
+              case 3:
               case "end":
                 return _context.stop();
             }
@@ -14322,44 +14301,23 @@ var OutputProvider = /*#__PURE__*/function (_ServerNode) {
   var _super = _createSuper(OutputProvider);
 
   function OutputProvider() {
-    var _this;
-
     var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
 
     _classCallCheck(this, OutputProvider);
 
-    _this = _super.call(this, Object.assign({
+    return _super.call(this, Object.assign({
       name: 'OutputProvider',
       summary: 'Provides output ports from JSON',
       category: 'Workflow',
       editableOutPorts: true
     }, options));
-    _this.ports = [];
-
-    var outputs = _this.getParameters().find(function (p) {
-      return p.name == 'outputs';
-    }).value;
-
-    for (var _i = 0, _Object$entries = Object.entries(outputs); _i < _Object$entries.length; _i++) {
-      var _Object$entries$_i = _slicedToArray(_Object$entries[_i], 2),
-          name = _Object$entries$_i[0],
-          value = _Object$entries$_i[1];
-
-      _this.ports.push({
-        name: name,
-        "in": false
-      });
-    }
-
-    console.log(_this.ports);
-    return _this;
   }
 
   _createClass(OutputProvider, [{
     key: "run",
     value: function run() {
       return __awaiter(this, void 0, void 0, /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
-        var outputs, _i2, _Object$entries2, _Object$entries2$_i, key, value;
+        var outputs, _i, _Object$entries, _Object$entries$_i, key, value;
 
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
           while (1) {
@@ -14367,8 +14325,8 @@ var OutputProvider = /*#__PURE__*/function (_ServerNode) {
               case 0:
                 outputs = this.getParameterValue('outputs');
 
-                for (_i2 = 0, _Object$entries2 = Object.entries(outputs); _i2 < _Object$entries2.length; _i2++) {
-                  _Object$entries2$_i = _slicedToArray(_Object$entries2[_i2], 2), key = _Object$entries2$_i[0], value = _Object$entries2$_i[1];
+                for (_i = 0, _Object$entries = Object.entries(outputs); _i < _Object$entries.length; _i++) {
+                  _Object$entries$_i = _slicedToArray(_Object$entries[_i], 2), key = _Object$entries$_i[0], value = _Object$entries$_i[1];
                   this.output(value.map(function (v) {
                     return new _core_Feature__WEBPACK_IMPORTED_MODULE_3__.default(v);
                   }), key);
@@ -14386,8 +14344,7 @@ var OutputProvider = /*#__PURE__*/function (_ServerNode) {
     key: "getParameters",
     value: function getParameters() {
       return [].concat(_toConsumableArray(_get(_getPrototypeOf(OutputProvider.prototype), "getParameters", this).call(this)), [_core_NodeParameter__WEBPACK_IMPORTED_MODULE_2__.default.js('outputs').withValue({
-        Input: [1, 2, 3],
-        o2: [4, 5, 6]
+        Input: [1337]
       })]);
     }
   }]);

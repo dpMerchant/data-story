@@ -99,7 +99,14 @@ export class ServerNodeTester {
 
 	protected setupDiagram() {
 		this.diagram = DiagramModelBuilder.begin()
-			.add(OutputProvider, {outputs: this.inputMap})
+			.add(OutputProvider, {}, {
+				ports: Object.keys(this.inputMap).map(p => {
+					return {
+						name: p,
+						in: false,
+					}
+				})
+			})
 			.add(this.nodeClass, this.parameterKeyValues)
 			.finish()
 	}
@@ -157,7 +164,7 @@ export class ServerNodeTester {
 			this.runResult = result.data.diagram
 			this.ranSuccessfully = true
 		}).catch(f => {
-			console.log(f)
+			console.warn(f)
 			this.ranSuccessfully = false
 		})
 

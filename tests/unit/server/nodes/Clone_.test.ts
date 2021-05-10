@@ -1,7 +1,7 @@
 import Clone_ from '../../../../src/server/nodes/Clone_'
 import { when } from "../ServerNodeTester";
 
-it.skip('makes ten clones by default', async () => {
+it('makes ten clones by default', async () => {
     await when(Clone_).hasInput(['a feature'])
 		.assertCanRun()
 		.assertOutputCount(11)

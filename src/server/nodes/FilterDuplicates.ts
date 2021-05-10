@@ -25,8 +25,6 @@ export default class FilterDuplicates extends ServerNode {
 			}, feature.original)
 		})
 
-		console.log()
-
 		this.output(
 			this.unique(compareValues).map(u => new Feature(u))
 		);

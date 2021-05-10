@@ -13,19 +13,6 @@ export default class OutputProvider extends ServerNode {
 			// Explicitly configured
 			...options,
 		})
-
-		// Reset the ports
-		this.ports = []
-		const outputs = this.getParameters().find(p => p.name == 'outputs').value
-
-		for(const [name, value] of Object.entries(outputs)) {
-			this.ports.push({
-				name,
-				in: false
-			})
-		}
-
-		console.log(this.ports)
 	}
 
     async run() {
@@ -39,8 +26,7 @@ export default class OutputProvider extends ServerNode {
 		return [
 			...super.getParameters(),
             NodeParameter.js('outputs').withValue({
-				Input: [1,2,3],
-				o2: [4,5,6],
+				Input: [1337],
 			}),
 		]
 	}
