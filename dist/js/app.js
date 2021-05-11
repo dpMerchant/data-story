@@ -13719,7 +13719,7 @@ var HTTPRequest = /*#__PURE__*/function (_ServerNode) {
                     var features_path = _this2.getParameterValue('features_path');
 
                     var raw = features_path.split('.').reduce(function (traversed, part) {
-                      return traversed[part];
+                      return part ? traversed[part] : traversed;
                     }, result);
                     var wrapped = [raw].flat();
 
@@ -14011,17 +14011,21 @@ var Log = /*#__PURE__*/function (_ServerNode) {
   var _super = _createSuper(Log);
 
   function Log() {
+    var _this;
+
     var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
 
     _classCallCheck(this, Log);
 
-    return _super.call(this, Object.assign({
+    _this = _super.call(this, Object.assign({
       name: 'Log',
       summary: 'log inputs to console',
       category: 'Workflow',
       defaultInPorts: ['Input'],
       defaultOutPorts: []
     }, options));
+    _this.logger = console;
+    return _this;
   }
 
   _createClass(Log, [{
@@ -14034,14 +14038,14 @@ var Log = /*#__PURE__*/function (_ServerNode) {
             switch (_context.prev = _context.next) {
               case 0:
                 method = 'log';
-                console.group('DataStory Log Node: ' + this.id);
-                console[method](this.input().map(function (f) {
+                this.logger.group('DataStory Log Node: ' + this.id);
+                this.logger[method](this.input().map(function (f) {
                   return f.original;
                 }));
                 console[method](JSON.stringify(this.input().map(function (f) {
                   return f.original;
                 })));
-                console.groupEnd();
+                this.logger.groupEnd();
 
               case 5:
               case "end":
@@ -14484,17 +14488,9 @@ var RegExpFilter = /*#__PURE__*/function (_ServerNode) {
   }
 
   _createClass(RegExpFilter, [{
-    key: "serialize",
-    value: function serialize() {
-      var description = _get(_getPrototypeOf(RegExpFilter.prototype), "serialize", this).call(this);
-
-      description.parameters.push(_core_NodeParameter__WEBPACK_IMPORTED_MODULE_3__.default.string('attribute').withValue('name'), _core_NodeParameter__WEBPACK_IMPORTED_MODULE_3__.default.string('expression').withValue('/test|draft|dummy/'));
-      return description;
-    }
-  }, {
     key: "getParameters",
     value: function getParameters() {
-      return [].concat(_toConsumableArray(_get(_getPrototypeOf(RegExpFilter.prototype), "getParameters", this).call(this)), [_core_NodeParameter__WEBPACK_IMPORTED_MODULE_3__.default.string('attribute').withValue('name'), _core_NodeParameter__WEBPACK_IMPORTED_MODULE_3__.default.string('expression').withValue('/test|draft|dummy/')]);
+      return [].concat(_toConsumableArray(_get(_getPrototypeOf(RegExpFilter.prototype), "getParameters", this).call(this)), [_core_NodeParameter__WEBPACK_IMPORTED_MODULE_3__.default.string('attribute').withValue(''), _core_NodeParameter__WEBPACK_IMPORTED_MODULE_3__.default.string('expression').withValue('/test|draft|dummy/')]);
     }
   }, {
     key: "run",
@@ -14534,9 +14530,12 @@ var RegExpFilter = /*#__PURE__*/function (_ServerNode) {
       return features.filter(function (feature) {
         var expression = _this.getExpression();
 
-        var column = _this.getParameterValue('attribute');
+        var attribute = _this.getParameterValue('attribute');
 
-        return returnFailed ? !expression.test(feature.original[column]) : expression.test(feature.original[column]);
+        var comparable = attribute.split('.').reduce(function (traversed, part) {
+          return part ? traversed[part] : traversed;
+        }, feature.original);
+        return returnFailed ? !expression.test(comparable) : expression.test(comparable);
       });
     }
   }, {

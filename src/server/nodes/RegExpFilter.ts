@@ -17,21 +17,10 @@ export default class RegExpFilter extends ServerNode {
 		})
 	}
 
-    serialize() {
-        let description = super.serialize()
-
-        description.parameters.push(
-            NodeParameter.string('attribute').withValue('name'),
-            NodeParameter.string('expression').withValue('/test|draft|dummy/'),            
-        )
-
-        return description
-    }
-
 	getParameters() {
 		return [
 			...super.getParameters(),
-            NodeParameter.string('attribute').withValue('name'),
+            NodeParameter.string('attribute').withValue(''),
             NodeParameter.string('expression').withValue('/test|draft|dummy/'),            
 		]
 	}	
@@ -52,11 +41,14 @@ export default class RegExpFilter extends ServerNode {
     protected filterByRegExp(features, returnFailed = false) {
         return features.filter(feature => {
             let expression = this.getExpression()
-            let column = this.getParameterValue('attribute')
+            let attribute = this.getParameterValue('attribute')
+			let comparable = attribute.split('.').reduce((traversed, part) => {
+				return part ? traversed[part] : traversed
+			}, feature.original)
 
             return returnFailed
-                ? !expression.test(feature.original[column])
-                : expression.test(feature.original[column])
+                ? !expression.test(comparable)
+                : expression.test(comparable)
         })
     }
 

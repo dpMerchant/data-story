@@ -28,7 +28,7 @@ export default class HTTPRequest extends ServerNode {
 					if(this.getParameterValue('features_path')) {
 						const features_path = this.getParameterValue('features_path')
 						const raw = features_path.split('.').reduce((traversed, part) => {
-							return traversed[part]
+							return part ? traversed[part] : traversed
 						}, result)
 
 						const wrapped = [raw].flat();

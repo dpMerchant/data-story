@@ -13,6 +13,7 @@ export class ServerNodeTester {
 	nodeClass
 	parameterKeyValues: {}
 	shouldDoAssertCanRun = false
+	shouldDoAssertCantRun = false
 	shouldDoAssertOutputs = false
 	shouldDoAssertOutputCounts = false
 	outputMap = {}
@@ -66,6 +67,11 @@ export class ServerNodeTester {
 		return this
 	}
 
+	assertCantRun() {
+		this.shouldDoAssertCantRun = true
+		return this
+	}	
+
 	assertOutput(features: any) {
 		return this.assertOutputs({
 			Output: [features].flat()
@@ -93,6 +99,7 @@ export class ServerNodeTester {
 	async finish() {
 		this.setupDiagram()
 		if(this.shouldDoAssertCanRun) await this.doAssertCanRun();
+		if(this.shouldDoAssertCantRun) await this.doAssertCantRun();
 		if(this.shouldDoAssertOutputs) await this.doAssertOutputs()
 		if(this.shouldDoAssertOutputCounts) await this.doAssertOutputCounts()
 	}
@@ -122,6 +129,12 @@ export class ServerNodeTester {
 
 		expect(this.ranSuccessfully).toBe(true)
 	}
+
+	protected async doAssertCantRun() {
+		await this.runOnce()
+
+		expect(this.ranSuccessfully).toBe(false)
+	}	
 
 	protected async doAssertOutputs() {
 		await this.runOnce()
