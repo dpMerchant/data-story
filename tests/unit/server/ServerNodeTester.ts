@@ -53,7 +53,7 @@ export class ServerNodeTester {
 
 	hasInput(features) {
 		return this.hasInputs({
-			Input: features
+			Input: [features].flat()
 		})
 	}
 
@@ -66,9 +66,9 @@ export class ServerNodeTester {
 		return this
 	}
 
-	assertOutput(features: any[]) {
+	assertOutput(features: any) {
 		return this.assertOutputs({
-			Output: features
+			Output: [features].flat()
 		})
 	}
 
@@ -100,7 +100,7 @@ export class ServerNodeTester {
 	protected setupDiagram() {
 
 		this.diagram = DiagramModelBuilder.begin()
-		
+
 			.add(OutputProvider, {
 				// Used by the ServerNode run method to fan out data
 				outputs: this.inputMap

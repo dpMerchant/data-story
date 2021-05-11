@@ -17,16 +17,8 @@ export default class FilterDuplicates extends ServerNode {
 	}
 
     async run() {
-        const attribute = this.getParameterValue('attribute');
-
-		const compareValues = this.input().map(feature => {
-			return attribute.split('.').reduce((traversed, part) => {
-				return traversed[part]
-			}, feature.original)
-		})
-
 		this.output(
-			this.unique(compareValues).map(u => new Feature(u))
+			this.uniqueFeatures(this.input())
 		);
     }
 	
@@ -37,15 +29,38 @@ export default class FilterDuplicates extends ServerNode {
 		]
 	}
 
-	unique(a) {
+	uniqueFeatures(all) {
+		const attribute = this.getParameterValue('attribute');
 		var prims = {"boolean":{}, "number":{}, "string":{}}, objs = [];
+		var uniqueFeatures = []
 	
-		return a.filter(function(item) {
-			var type = typeof item;
-			if(type in prims)
-				return prims[type].hasOwnProperty(item) ? false : (prims[type][item] = true);
-			else
-				return objs.indexOf(item) >= 0 ? false : objs.push(item);
+		all.forEach(function(feature) {
+			let comparable = attribute.split('.').reduce((traversed, part) => {
+				return part ? traversed[part] : traversed
+			}, feature.original)
+			var type = typeof comparable;
+
+			if((type in prims)) {
+				if(!prims[type].hasOwnProperty(comparable)) {
+					uniqueFeatures.push(feature)
+					prims[type][comparable] = true
+				}
+			} else {
+				// // Strict does not work
+				// if(objs.indexOf(comparable) == -1) {
+				// 	uniqueFeatures.push(feature)
+				// 	objs.push(comparable);
+				// }
+
+				// Cheat by comparing JSON
+				comparable = JSON.stringify(comparable)
+				if(objs.indexOf(comparable) == -1) {
+					uniqueFeatures.push(feature)
+					objs.push(comparable);
+				}
+			}
 		});
+
+		return uniqueFeatures
 	}	
 }

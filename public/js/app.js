@@ -13033,17 +13033,21 @@ var DownloadJSON = /*#__PURE__*/function (_ServerNode) {
   var _super = _createSuper(DownloadJSON);
 
   function DownloadJSON() {
+    var _this;
+
     var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
 
     _classCallCheck(this, DownloadJSON);
 
-    return _super.call(this, Object.assign({
+    _this = _super.call(this, Object.assign({
       name: 'DownloadJSON',
       summary: 'Download features as JSON',
       category: 'Workflow',
       defaultInPorts: ['Input'],
       defaultOutPorts: []
     }, options));
+    _this.save = file_saver__WEBPACK_IMPORTED_MODULE_2__.saveAs;
+    return _this;
   }
 
   _createClass(DownloadJSON, [{
@@ -13063,7 +13067,7 @@ var DownloadJSON = /*#__PURE__*/function (_ServerNode) {
                 blob = new Blob([json], {
                   type: "text/plain;charset=utf-8"
                 });
-                (0,file_saver__WEBPACK_IMPORTED_MODULE_2__.saveAs)(blob, filename);
+                this.save(blob, filename);
 
               case 5:
               case "end":
@@ -13249,7 +13253,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _ServerNode__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../ServerNode */ "./src/server/ServerNode.ts");
 /* harmony import */ var _core_NodeParameter__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../core/NodeParameter */ "./src/core/NodeParameter.ts");
-/* harmony import */ var _core_Feature__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../core/Feature */ "./src/core/Feature.ts");
 
 
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
@@ -13325,7 +13328,6 @@ var __awaiter = undefined && undefined.__awaiter || function (thisArg, _argument
 
 
 
-
 var FilterDuplicates = /*#__PURE__*/function (_ServerNode) {
   _inherits(FilterDuplicates, _ServerNode);
 
@@ -13349,22 +13351,13 @@ var FilterDuplicates = /*#__PURE__*/function (_ServerNode) {
     key: "run",
     value: function run() {
       return __awaiter(this, void 0, void 0, /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
-        var attribute, compareValues;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                attribute = this.getParameterValue('attribute');
-                compareValues = this.input().map(function (feature) {
-                  return attribute.split('.').reduce(function (traversed, part) {
-                    return traversed[part];
-                  }, feature.original);
-                });
-                this.output(this.unique(compareValues).map(function (u) {
-                  return new _core_Feature__WEBPACK_IMPORTED_MODULE_3__.default(u);
-                }));
+                this.output(this.uniqueFeatures(this.input()));
 
-              case 3:
+              case 1:
               case "end":
                 return _context.stop();
             }
@@ -13378,19 +13371,38 @@ var FilterDuplicates = /*#__PURE__*/function (_ServerNode) {
       return [].concat(_toConsumableArray(_get(_getPrototypeOf(FilterDuplicates.prototype), "getParameters", this).call(this)), [_core_NodeParameter__WEBPACK_IMPORTED_MODULE_2__.default.string('attribute').withDescription("attribute to filter on, may use dot notation")]);
     }
   }, {
-    key: "unique",
-    value: function unique(a) {
+    key: "uniqueFeatures",
+    value: function uniqueFeatures(all) {
+      var attribute = this.getParameterValue('attribute');
       var prims = {
         "boolean": {},
         "number": {},
         "string": {}
       },
           objs = [];
-      return a.filter(function (item) {
-        var type = _typeof(item);
+      var uniqueFeatures = [];
+      all.forEach(function (feature) {
+        var comparable = attribute.split('.').reduce(function (traversed, part) {
+          return part ? traversed[part] : traversed;
+        }, feature.original);
 
-        if (type in prims) return prims[type].hasOwnProperty(item) ? false : prims[type][item] = true;else return objs.indexOf(item) >= 0 ? false : objs.push(item);
+        var type = _typeof(comparable);
+
+        if (type in prims) {
+          if (!prims[type].hasOwnProperty(comparable)) {
+            uniqueFeatures.push(feature);
+            prims[type][comparable] = true;
+          }
+        } else {
+          comparable = JSON.stringify(comparable);
+
+          if (objs.indexOf(comparable) == -1) {
+            uniqueFeatures.push(feature);
+            objs.push(comparable);
+          }
+        }
       });
+      return uniqueFeatures;
     }
   }]);
 
@@ -13652,17 +13664,21 @@ var HTTPRequest = /*#__PURE__*/function (_ServerNode) {
   var _super = _createSuper(HTTPRequest);
 
   function HTTPRequest() {
+    var _this;
+
     var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
 
     _classCallCheck(this, HTTPRequest);
 
-    return _super.call(this, Object.assign({
+    _this = _super.call(this, Object.assign({
       name: 'HTTPRequest',
       summary: 'Make a HTTP request',
       category: 'Workflow',
       defaultInPorts: ['Input'],
       defaultOutPorts: ['Features', 'Response', 'Failed']
     }, options));
+    _this.client = (axios__WEBPACK_IMPORTED_MODULE_2___default());
+    return _this;
   }
 
   _createClass(HTTPRequest, [{
@@ -13671,7 +13687,7 @@ var HTTPRequest = /*#__PURE__*/function (_ServerNode) {
       var e_1, _a;
 
       return __awaiter(this, void 0, void 0, /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
-        var _this = this;
+        var _this2 = this;
 
         var _b, _c, feature;
 
@@ -13697,23 +13713,23 @@ var HTTPRequest = /*#__PURE__*/function (_ServerNode) {
                 feature = _c.value;
                 _context.next = 9;
                 return this.request(feature).then(function (result) {
-                  _this.output([new _core_Feature__WEBPACK_IMPORTED_MODULE_3__.default(result)], 'Response');
+                  _this2.output([new _core_Feature__WEBPACK_IMPORTED_MODULE_3__.default(result)], 'Response');
 
-                  if (_this.getParameterValue('features_path')) {
-                    var features_path = _this.getParameterValue('features_path');
+                  if (_this2.getParameterValue('features_path')) {
+                    var features_path = _this2.getParameterValue('features_path');
 
                     var raw = features_path.split('.').reduce(function (traversed, part) {
                       return traversed[part];
                     }, result);
                     var wrapped = [raw].flat();
 
-                    _this.output(wrapped.map(function (r) {
+                    _this2.output(wrapped.map(function (r) {
                       return new _core_Feature__WEBPACK_IMPORTED_MODULE_3__.default(r);
                     }), 'Features');
                   }
                 })["catch"](function (reason) {
                   if (reason) {
-                    _this.output([new _core_Feature__WEBPACK_IMPORTED_MODULE_3__.default(JSON.parse(JSON.stringify(reason)))], 'Failed');
+                    _this2.output([new _core_Feature__WEBPACK_IMPORTED_MODULE_3__.default(JSON.parse(JSON.stringify(reason)))], 'Failed');
                   }
                 });
 
@@ -13779,15 +13795,15 @@ var HTTPRequest = /*#__PURE__*/function (_ServerNode) {
       console.info("Running HTTPRequest");
 
       if (this.getParameterValue('verb', feature) == 'GET') {
-        return axios__WEBPACK_IMPORTED_MODULE_2___default().get(this.getParameterValue('url', feature), this.getParameterValue('config'));
+        return this.client.get(this.getParameterValue('url', feature), this.getParameterValue('config'));
       }
 
       if (this.getParameterValue('verb') == 'POST') {
-        return axios__WEBPACK_IMPORTED_MODULE_2___default().post(this.getParameterValue('url', feature), this.getParameterValue('data'), this.getParameterValue('config'));
+        return this.client.post(this.getParameterValue('url', feature), this.getParameterValue('data'), this.getParameterValue('config'));
       }
 
       if (this.getParameterValue('verb') == 'DELETE') {
-        return axios__WEBPACK_IMPORTED_MODULE_2___default().delete(this.getParameterValue('url', feature), JSON.parse(this.getParameterValue('config')));
+        return this.client["delete"](this.getParameterValue('url', feature), JSON.parse(this.getParameterValue('config')));
       }
     }
   }]);
