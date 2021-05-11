@@ -16,7 +16,11 @@ export default class OutputProvider extends ServerNode {
 	}
 
     async run() {
-        const outputs = this.getParameterValue('outputs')
+        let outputs = this.getParameterValue('outputs') ? this.getParameterValue('outputs') : {}
+
+		// It can accept json string or object
+		if(typeof outputs == 'string') outputs = JSON.parse(outputs);
+
 		for(const [key, value] of Object.entries(outputs)) {
 			this.output((value as any[]).map(v => new Feature(v)), key)
 		}
@@ -25,9 +29,7 @@ export default class OutputProvider extends ServerNode {
 	getParameters() {
 		return [
 			...super.getParameters(),
-            NodeParameter.js('outputs').withValue({
-				Input: [1337],
-			}),
+            NodeParameter.js('outputs').withValue(''),
 		]
 	}
 }

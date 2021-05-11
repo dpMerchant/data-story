@@ -98,8 +98,11 @@ export class ServerNodeTester {
 	}
 
 	protected setupDiagram() {
+
 		this.diagram = DiagramModelBuilder.begin()
-			.add(OutputProvider, {}, {
+			.add(OutputProvider, {
+				outputs: this.inputMap
+			}, {
 				ports: Object.keys(this.inputMap).map(p => {
 					return {
 						name: p,

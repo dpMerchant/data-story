@@ -14323,7 +14323,8 @@ var OutputProvider = /*#__PURE__*/function (_ServerNode) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                outputs = this.getParameterValue('outputs');
+                outputs = this.getParameterValue('outputs') ? this.getParameterValue('outputs') : {};
+                if (typeof outputs == 'string') outputs = JSON.parse(outputs);
 
                 for (_i = 0, _Object$entries = Object.entries(outputs); _i < _Object$entries.length; _i++) {
                   _Object$entries$_i = _slicedToArray(_Object$entries[_i], 2), key = _Object$entries$_i[0], value = _Object$entries$_i[1];
@@ -14332,7 +14333,7 @@ var OutputProvider = /*#__PURE__*/function (_ServerNode) {
                   }), key);
                 }
 
-              case 2:
+              case 3:
               case "end":
                 return _context.stop();
             }
@@ -14343,9 +14344,7 @@ var OutputProvider = /*#__PURE__*/function (_ServerNode) {
   }, {
     key: "getParameters",
     value: function getParameters() {
-      return [].concat(_toConsumableArray(_get(_getPrototypeOf(OutputProvider.prototype), "getParameters", this).call(this)), [_core_NodeParameter__WEBPACK_IMPORTED_MODULE_2__.default.js('outputs').withValue({
-        Input: [1337]
-      })]);
+      return [].concat(_toConsumableArray(_get(_getPrototypeOf(OutputProvider.prototype), "getParameters", this).call(this)), [_core_NodeParameter__WEBPACK_IMPORTED_MODULE_2__.default.js('outputs').withValue('')]);
     }
   }]);
 
