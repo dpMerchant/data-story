@@ -100,9 +100,12 @@ export class ServerNodeTester {
 	protected setupDiagram() {
 
 		this.diagram = DiagramModelBuilder.begin()
+		
 			.add(OutputProvider, {
+				// Used by the ServerNode run method to fan out data
 				outputs: this.inputMap
 			}, {
+				// used by the ServerNode constructor to override default input/outputs
 				ports: Object.keys(this.inputMap).map(p => {
 					return {
 						name: p,
