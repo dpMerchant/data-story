@@ -4,6 +4,8 @@ import Feature from "../../core/Feature";
 import NodeParameter from "../../core/NodeParameter";
 
 export default class HTTPRequest extends ServerNode {
+	client = axios
+
 	constructor(options = {}) {
 		super({
 			// Defaults
@@ -58,14 +60,14 @@ export default class HTTPRequest extends ServerNode {
     protected request(feature: Feature) {
 		console.info("Running HTTPRequest")
         if(this.getParameterValue('verb', feature) == 'GET') {
-            return axios.get(
+            return this.client.get(
                 this.getParameterValue('url', feature),
                 this.getParameterValue('config')
             )
         }
 
         if(this.getParameterValue('verb') == 'POST') {
-            return axios.post(
+            return this.client.post(
                 this.getParameterValue('url', feature),
                 this.getParameterValue('data'),
                 this.getParameterValue('config')
@@ -73,7 +75,7 @@ export default class HTTPRequest extends ServerNode {
         }
 
         if(this.getParameterValue('verb') == 'DELETE') {
-            return axios.delete(
+            return this.client.delete(
                 this.getParameterValue('url', feature),
                 JSON.parse(this.getParameterValue('config'))
             )   
