@@ -10470,7 +10470,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 var APIClient = /*#__PURE__*/function () {
   function APIClient() {
-    var root = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '/datastory/api';
+    var root = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'https://data-story-server.herokuapp.com';
 
     _classCallCheck(this, APIClient);
 
@@ -15134,6 +15134,8 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
         _this2.props.store.setEngine(_core_EngineFactory__WEBPACK_IMPORTED_MODULE_6__.default.loadOrCreate((_response$data$serial = response.data.serializedModel) !== null && _response$data$serial !== void 0 ? _response$data$serial : null));
 
         _this2.bootDemos();
+
+        console.log(response);
 
         _this2.props.store.setAvailableNodes(response.data.availableNodes);
 

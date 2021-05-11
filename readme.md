@@ -19,15 +19,18 @@ DataStory provides a workbench for designing data flow diagrams.
 
 ## Available default nodes
 ```
+Clone_,
 Comment,
 Create,
 CreateAttribute,
 CreateGrid,
-CreateSequence,
 CreateJSON,
+CreateSequence,
 DeleteRepositories,
 DownloadJSON,
+DownloadGeoJSON,
 Evaluate,
+FilterDuplicates,
 Flatten,
 HTTPRequest,
 Inspect,
@@ -37,6 +40,7 @@ OutputProvider,
 RegExpFilter,
 Repositories,
 Sleep,
+ThrowError,
 ```
 
 ## Add node
@@ -51,6 +55,10 @@ Run tests with
 ```
 yarn test --watch
 ```
+
+## Nodejs server [WIP]
+Repository: [ajthinking/ds-server](https://github.com/ajthinking/ds-server)
+Deployed at [heroku](https://data-story-server.herokuapp.com/)
 
 ## Hotkeys (MAC)
 

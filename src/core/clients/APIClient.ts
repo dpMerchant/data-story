@@ -4,7 +4,7 @@ import ClientInterface from './ClientInterface'
 
 export default class APIClient implements ClientInterface {
     constructor(
-        public root: string = '/datastory/api'
+        public root: string = 'https://data-story-server.herokuapp.com' //'http://localhost:3000'
     ) {}
 
     boot(options: object) : Promise<any>{
