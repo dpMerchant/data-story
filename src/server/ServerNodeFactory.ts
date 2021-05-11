@@ -1,4 +1,3 @@
-// import Alert from './nodes/Alert'
 import Clone_ from './nodes/Clone_'
 import Comment from './nodes/Comment'
 import Create from './nodes/Create'
@@ -26,7 +25,6 @@ import { SerializedNodeModel } from '../core/types/SerializedNodeModel'
 
 export default class ServerNodeFactory {
     protected static nodes = {
-		// Alert,
 		Clone_,
         Comment,
         Create,
