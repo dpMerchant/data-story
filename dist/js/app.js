@@ -15135,8 +15135,6 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 
         _this2.bootDemos();
 
-        console.log(response);
-
         _this2.props.store.setAvailableNodes(response.data.availableNodes);
 
         _this2.props.store.setStories(_utils_Cookie__WEBPACK_IMPORTED_MODULE_8__.default.keys());
