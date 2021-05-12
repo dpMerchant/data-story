@@ -13790,10 +13790,13 @@ var HTTPRequest = /*#__PURE__*/function (_ServerNode) {
       return [].concat(_toConsumableArray(_get(_getPrototypeOf(HTTPRequest.prototype), "getParameters", this).call(this)), [_core_NodeParameter__WEBPACK_IMPORTED_MODULE_4__.default.string('url').withValue('https://jsonplaceholder.cypress.io/{{ feature.resource }}'), _core_NodeParameter__WEBPACK_IMPORTED_MODULE_4__.default.string('verb').withValue('GET'), _core_NodeParameter__WEBPACK_IMPORTED_MODULE_4__.default.json('data').withValue('{}'), _core_NodeParameter__WEBPACK_IMPORTED_MODULE_4__.default.json('config').withValue('{}'), _core_NodeParameter__WEBPACK_IMPORTED_MODULE_4__.default.string('features_path').withValue('data').withDescription('optional dot.notated.path to feature(s)')]);
     }
   }, {
+    key: "getClient",
+    value: function getClient() {
+      this.getParameterValue('client') == 'axios' ? (axios__WEBPACK_IMPORTED_MODULE_2___default()) : (axios__WEBPACK_IMPORTED_MODULE_2___default());
+    }
+  }, {
     key: "request",
     value: function request(feature) {
-      console.info("Running HTTPRequest");
-
       if (this.getParameterValue('verb', feature) == 'GET') {
         return this.client.get(this.getParameterValue('url', feature), this.getParameterValue('config'));
       }

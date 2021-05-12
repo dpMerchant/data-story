@@ -49,16 +49,21 @@ export default class HTTPRequest extends ServerNode {
 	getParameters() {
 		return [
 			...super.getParameters(),
+			//NodeParameter.select('client').withOptions(['axios', 'mock']).withValue('axios'),
             NodeParameter.string('url').withValue('https://jsonplaceholder.cypress.io/{{ feature.resource }}'),
             NodeParameter.string('verb').withValue('GET'),
             NodeParameter.json('data').withValue('{}'),
             NodeParameter.json('config').withValue('{}'),
 			NodeParameter.string('features_path').withValue('data').withDescription('optional dot.notated.path to feature(s)'),
 		]
-	}	
+	}
+	
+	protected getClient() {
+		this.getParameterValue('client') == 'axios' ? axios : axios
+	}
 
     protected request(feature: Feature) {
-		console.info("Running HTTPRequest")
+		// console.info("Running HTTPRequest")
         if(this.getParameterValue('verb', feature) == 'GET') {
             return this.client.get(
                 this.getParameterValue('url', feature),

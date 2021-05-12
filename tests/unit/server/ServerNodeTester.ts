@@ -12,6 +12,7 @@ export class ServerNodeTester {
 	runResult: ServerDiagram
 	nodeClass
 	parameterKeyValues: {}
+	configurations = {}
 	shouldDoAssertCanRun = false
 	shouldDoAssertCantRun = false
 	shouldDoAssertOutputs = false
@@ -27,6 +28,11 @@ export class ServerNodeTester {
 	}
 
 	begin() {
+		return this
+	}
+
+	configuration(configurations) {
+		this.configurations = configurations
 		return this
 	}
 
@@ -120,7 +126,7 @@ export class ServerNodeTester {
 					}
 				})
 			})
-			.add(this.nodeClass, this.parameterKeyValues)
+			.add(this.nodeClass, this.parameterKeyValues, this.configurations)
 			.finish()
 	}
 
