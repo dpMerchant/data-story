@@ -15874,10 +15874,18 @@ var NodeWidget = /*#__PURE__*/function (_React$Component) {
         return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
           className: "flex w-full",
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_projectstorm_react_diagrams__WEBPACK_IMPORTED_MODULE_2__.PortWidget, {
-            className: "pb-0.5 -mr-1 z-10 flex items-center text-lg justify-center text-malibu-700 hover:text-malibu-500",
+            className: "-mr-1 z-10 flex items-center text-lg justify-center fill-current text-malibu-700 hover:text-malibu-500",
             engine: _this2.props.engine,
             port: port,
-            children: "\u25B6"
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("svg", {
+              width: "12px",
+              height: "12px",
+              fill: "",
+              className: "m-auto",
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("polygon", {
+                points: "0,0 12,6 0,12"
+              })
+            })
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
             className: "flex w-full items-center text-gray-200 py-1 border border-gray-900 rounded-lg bg-gray-500",
             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
@@ -15930,10 +15938,18 @@ var NodeWidget = /*#__PURE__*/function (_React$Component) {
               })
             })
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_projectstorm_react_diagrams__WEBPACK_IMPORTED_MODULE_2__.PortWidget, {
-            className: "pb-0.5 -ml-1 z-10 flex items-center text-lg justify-center text-malibu-700 hover:text-malibu-500",
+            className: "-ml-1 z-10 flex items-center text-lg justify-center fill-current text-malibu-700 hover:text-malibu-500",
             engine: _this4.props.engine,
             port: port,
-            children: "\u25B6"
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("svg", {
+              width: "12px",
+              height: "12px",
+              fill: "",
+              className: "m-auto",
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("polygon", {
+                points: "0,0 12,6 0,12"
+              })
+            })
           })]
         }, port.options.name);
       });

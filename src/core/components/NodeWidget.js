@@ -51,7 +51,11 @@ export default class NodeWidget extends React.Component {
         return Object.values(this.props.node.getInPorts()).map((port) => {
             return (
                 <div className="flex w-full" key={port.options.name}>
-                    <PortWidget className="pb-0.5 -mr-1 z-10 flex items-center text-lg justify-center text-malibu-700 hover:text-malibu-500" engine={this.props.engine} port={port}>&#9654;</PortWidget>
+                    <PortWidget className="-mr-1 z-10 flex items-center text-lg justify-center fill-current text-malibu-700 hover:text-malibu-500" engine={this.props.engine} port={port}>
+						<svg width="12px" height="12px" fill="" className="m-auto">
+							<polygon points="0,0 12,6 0,12"/>
+						</svg>						
+					</PortWidget>
                     <div className="flex w-full items-center text-gray-200 py-1 border border-gray-900 rounded-lg bg-gray-500">
                         <div className="flex items-center justify-between w-full">
                             <span className="flex px-4 flex-1">{port.options.label}</span>
@@ -81,7 +85,11 @@ export default class NodeWidget extends React.Component {
                             <span className="flex px-4 flex-1">{port.options.label}</span>
                         </div>
                     </div>
-                    <PortWidget className="pb-0.5 -ml-1 z-10 flex items-center text-lg justify-center text-malibu-700 hover:text-malibu-500" engine={this.props.engine} port={port}>&#9654;</PortWidget>
+                    <PortWidget className="-ml-1 z-10 flex items-center text-lg justify-center fill-current text-malibu-700 hover:text-malibu-500" engine={this.props.engine} port={port}>
+						<svg width="12px" height="12px" fill="" className="m-auto">
+							<polygon points="0,0 12,6 0,12"/>
+						</svg>
+					</PortWidget>
                 </div>                
             )
         })
