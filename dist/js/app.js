@@ -9627,7 +9627,6 @@ var DiagramModel = /*#__PURE__*/function (_DefaultDiagramModel) {
 
     _this = _super.apply(this, arguments);
     _this.latestNodes = [];
-    _this.cachedNodeDependencyMap = {};
     return _this;
   }
 
@@ -9640,29 +9639,9 @@ var DiagramModel = /*#__PURE__*/function (_DefaultDiagramModel) {
       return _get(_getPrototypeOf(DiagramModel.prototype), "addNode", this).call(this, node);
     }
   }, {
-    key: "getCachedNodeDependencies",
-    value: function getCachedNodeDependencies(id) {
-      var _a;
-
-      return (_a = this.cachedNodeDependencyMap[id]) !== null && _a !== void 0 ? _a : null;
-    }
-  }, {
-    key: "setCachedNodeDependencies",
-    value: function setCachedNodeDependencies(id, dependencies) {
-      this.cachedNodeDependencyMap[id] = dependencies;
-    }
-  }, {
-    key: "clearCachedNodeDependencies",
-    value: function clearCachedNodeDependencies() {
-      this.cachedNodeDependencyMap = {};
-    }
-  }, {
     key: "serialize",
     value: function serialize() {
       return Object.assign(Object.assign({}, _get(_getPrototypeOf(DiagramModel.prototype), "serialize", this).call(this)), {
-        executionOrder: this.executionOrder().map(function (node) {
-          return node.getOptions().id;
-        }),
         version: _utils_version__WEBPACK_IMPORTED_MODULE_1__.default
       });
     }
@@ -9670,22 +9649,6 @@ var DiagramModel = /*#__PURE__*/function (_DefaultDiagramModel) {
     key: "hasNode",
     value: function hasNode(node) {
       return Boolean(node.id && this.getNode(node.id));
-    }
-  }, {
-    key: "executionOrder",
-    value: function executionOrder() {
-      this.clearCachedNodeDependencies();
-      return this.getNodes().sort(function (n1, n2) {
-        if (n2.dependsOn(n1)) {
-          return -1;
-        }
-
-        if (n1.dependsOn(n2)) {
-          return 1;
-        }
-
-        return 0;
-      });
     }
   }, {
     key: "attemptLinkToLatest",
@@ -10164,7 +10127,7 @@ var NodeModel = /*#__PURE__*/function (_DefaultNodeModel) {
     value: function dependsOn(n2) {
       return this.dependencies().map(function (d) {
         return d.options.id;
-      }).includes(n2.options.id);
+      }).includes(n2.id);
     }
   }, {
     key: "isInspectable",
@@ -11172,9 +11135,9 @@ var ServerDiagram = /*#__PURE__*/function () {
   function ServerDiagram() {
     _classCallCheck(this, ServerDiagram);
 
-    this.executionOrder = [];
     this.links = [];
     this.nodes = [];
+    this.cachedNodeDependencyMap = {};
   }
 
   _createClass(ServerDiagram, [{
@@ -11185,14 +11148,14 @@ var ServerDiagram = /*#__PURE__*/function () {
       return __awaiter(this, void 0, void 0, /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
         var _this = this;
 
-        var _b, _c, nodeId;
+        var _b, _c, node;
 
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
                 _context.prev = 0;
-                _b = __asyncValues(this.executionOrder);
+                _b = __asyncValues(this.executionOrder());
 
               case 2:
                 _context.next = 4;
@@ -11206,9 +11169,9 @@ var ServerDiagram = /*#__PURE__*/function () {
                   break;
                 }
 
-                nodeId = _c.value;
+                node = _c.value;
                 _context.next = 9;
-                return this.find(nodeId).run();
+                return node.run();
 
               case 9:
                 _context.next = 2;
@@ -11295,6 +11258,40 @@ var ServerDiagram = /*#__PURE__*/function () {
     value: function addNode(node) {
       this.nodes.push(node);
       return this;
+    }
+  }, {
+    key: "executionOrder",
+    value: function executionOrder() {
+      this.clearCachedNodeDependencies();
+      var r = this.nodes.sort(function (n1, n2) {
+        if (n2.dependsOn(n1)) {
+          return -1;
+        }
+
+        if (n1.dependsOn(n2)) {
+          return 1;
+        }
+
+        return 0;
+      });
+      return r;
+    }
+  }, {
+    key: "getCachedNodeDependencies",
+    value: function getCachedNodeDependencies(id) {
+      var _a;
+
+      return (_a = this.cachedNodeDependencyMap[id]) !== null && _a !== void 0 ? _a : null;
+    }
+  }, {
+    key: "setCachedNodeDependencies",
+    value: function setCachedNodeDependencies(id, dependencies) {
+      this.cachedNodeDependencyMap[id] = dependencies;
+    }
+  }, {
+    key: "clearCachedNodeDependencies",
+    value: function clearCachedNodeDependencies() {
+      this.cachedNodeDependencyMap = {};
     }
   }], [{
     key: "hydrate",
@@ -11517,6 +11514,47 @@ var ServerNode = /*#__PURE__*/function () {
       return this.ports.find(function (port) {
         return port.name == name;
       });
+    }
+  }, {
+    key: "dependencies",
+    value: function dependencies() {
+      var _this2 = this;
+
+      var cached = this.diagram.getCachedNodeDependencies(this.id);
+
+      if (cached !== null) {
+        return cached;
+      }
+
+      var inPorts = Object.values(this.ports.filter(function (p) {
+        return p["in"] == true;
+      }));
+      var linkLists = inPorts.map(function (port) {
+        return port.links;
+      });
+      var links = linkLists.map(function (linkList) {
+        return Object.values(linkList);
+      }).flat();
+      var dependencies = links.map(function (link) {
+        var sourcePort = _this2.diagram.find(link).sourcePort;
+
+        var sourceNode = _this2.diagram.find(sourcePort).parentNode;
+
+        return _this2.diagram.find(sourceNode).id;
+      });
+      var deepDependencies = dependencies.map(function (d) {
+        return _this2.diagram.find(d).dependencies();
+      });
+      var result = dependencies.concat(deepDependencies.flat());
+      this.diagram.setCachedNodeDependencies(this.id, result);
+      return result;
+    }
+  }, {
+    key: "dependsOn",
+    value: function dependsOn(n2) {
+      return this.dependencies().map(function (d) {
+        return d.id;
+      }).includes(n2.id);
     }
   }]);
 

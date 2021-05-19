@@ -1,9 +1,8 @@
 import NODE_NAME from '../../../../src/server/nodes/NODE_NAME'
-import Diagram from '../../TestableServerDiagram';
+import { when } from "../ServerNodeTester";
 
-test.skip('something something', async () => {
-    let node = Diagram.test().node(NODE_NAME)
-        .parameters({})
-
-    await node.assertCanRun()
+it('DESCRIPTION', async () => {
+    await when(NODE_NAME).hasDefaultParameters()
+		.assertCanRun()
+		.finish()
 });

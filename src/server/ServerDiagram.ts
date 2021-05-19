@@ -1,9 +1,11 @@
 import { SerializedDiagramModel } from "../core/types/SerializedDiagramModel"
 
 export default class ServerDiagram {
-    executionOrder: any[] = []
     links: any[] = []
     nodes: any[] = []
+    cachedNodeDependencyMap: {[T:string]: string[];} = {
+        // id1: [d1, d2, ...]
+    }	
  
     static hydrate(data: SerializedDiagramModel, factory) {
         let instance = new this()
@@ -27,8 +29,8 @@ export default class ServerDiagram {
     }
 
     async run() {
-        for await (let nodeId of this.executionOrder) {
-            await this.find(nodeId).run()
+        for await (let node of this.executionOrder()) {
+            await node.run()
         }
         
         return new Promise((callback) => {
@@ -62,20 +64,34 @@ export default class ServerDiagram {
         return this
     }
 
-    // executionOrder() {
-    //     this.clearCachedNodeDependencies();
+    executionOrder() {
+        this.clearCachedNodeDependencies();
 
-    //     return this.getNodes().sort(function(n1: NodeModel, n2: NodeModel) {
+        let r = this.nodes.sort(function(n1, n2) {
 
-    //         if (n2.dependsOn(n1)) {
-    //             return -1;
-    //         }
+            if (n2.dependsOn(n1)) {
+                return -1;
+            }
 
-    //         if (n1.dependsOn(n2)) {
-    //           return 1;
-    //         }
+            if (n1.dependsOn(n2)) {
+              return 1;
+            }
 
-    //         return 0;
-    //       });
-    // }	
+            return 0;
+          });
+
+		  return r
+    }
+
+    getCachedNodeDependencies(id) {
+        return this.cachedNodeDependencyMap[id] ?? null
+    }
+
+    setCachedNodeDependencies(id, dependencies) {
+        this.cachedNodeDependencyMap[id] = dependencies
+    }
+
+    clearCachedNodeDependencies() {
+        this.cachedNodeDependencyMap = {}
+    }	
 }

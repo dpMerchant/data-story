@@ -118,7 +118,7 @@ export default class NodeModel extends DefaultNodeModel {
     }
 
     dependsOn(n2) {
-        return this.dependencies().map(d => d.options.id).includes(n2.options.id)
+        return this.dependencies().map(d => d.options.id).includes(n2.id)
     }
 
     isInspectable() {

@@ -4,7 +4,6 @@ export type SerializedDiagramModel = {
 	offsetY: number,
 	zoom: number,
 	gridSize: number,
-	executionOrder: string[],
 	layers: any[],
 	locked: boolean,
 	version: string

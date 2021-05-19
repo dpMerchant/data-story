@@ -17,49 +17,15 @@ export default class DiagramModel extends DefaultDiagramModel {
 		return super.addNode(node)
 	}
 
-    cachedNodeDependencyMap: {[T:string]: string[];} = {
-        // id1: [d1, d2, ...]
-    }
-
-    getCachedNodeDependencies(id) {
-        return this.cachedNodeDependencyMap[id] ?? null
-    }
-
-    setCachedNodeDependencies(id, dependencies) {
-        this.cachedNodeDependencyMap[id] = dependencies
-    }
-
-    clearCachedNodeDependencies() {
-        this.cachedNodeDependencyMap = {}
-    }
-
     serialize() : SerializedDiagramModel {
 		return {
 			...super.serialize(),
-			executionOrder: this.executionOrder().map(node => node.getOptions().id),
 			version: VERSION
 		}
     }
 
     hasNode(node) {
         return Boolean(node.id && this.getNode(node.id))        
-    }
-
-    executionOrder() {
-        this.clearCachedNodeDependencies();
-
-        return this.getNodes().sort(function(n1: NodeModel, n2: NodeModel) {
-
-            if (n2.dependsOn(n1)) {
-                return -1;
-            }
-
-            if (n1.dependsOn(n2)) {
-              return 1;
-            }
-
-            return 0;
-          });
     }
 
     attemptLinkToLatest(node)

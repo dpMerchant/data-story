@@ -160,7 +160,40 @@ export default abstract class ServerNode {
     }
 
     protected portNamed(name: string) {
-		// console.log("looking for ", name, "in", this.ports)
         return this.ports.find(port => port.name == name)
     }
+
+    dependencies() {
+        let cached = this.diagram.getCachedNodeDependencies(this.id)
+        if(cached !== null) {
+            return cached;
+        }
+
+        let inPorts = Object.values(this.ports.filter(p => p.in == true))
+
+        let linkLists = inPorts.map((port: any) => port.links)
+
+        let links = linkLists.map(linkList => Object.values(linkList)).flat()
+        let dependencies = links.map((link: any) => {
+			let sourcePort = this.diagram.find(link).sourcePort
+			let sourceNode = this.diagram.find(sourcePort).parentNode
+			return this.diagram.find(sourceNode).id
+		})
+
+        let deepDependencies = dependencies.map(d => {
+			return this.diagram.find(d).dependencies()
+		})
+
+        let result = dependencies.concat(deepDependencies.flat())
+
+        this.diagram.setCachedNodeDependencies(this.id, result)
+
+        return result
+    }
+
+    dependsOn(n2) {
+        return this.dependencies().map(d => {
+			return d.id
+		}).includes(n2.id)
+    }	
 }
