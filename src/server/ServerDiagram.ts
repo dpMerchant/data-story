@@ -60,5 +60,22 @@ export default class ServerDiagram {
         this.nodes.push(node)
 
         return this
-    }     
+    }
+
+    // executionOrder() {
+    //     this.clearCachedNodeDependencies();
+
+    //     return this.getNodes().sort(function(n1: NodeModel, n2: NodeModel) {
+
+    //         if (n2.dependsOn(n1)) {
+    //             return -1;
+    //         }
+
+    //         if (n1.dependsOn(n2)) {
+    //           return 1;
+    //         }
+
+    //         return 0;
+    //       });
+    // }	
 }
