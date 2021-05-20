@@ -3,7 +3,6 @@ import * as _ from "lodash";
 import Feature from "../core/Feature";
 import UID from "../core/utils/UID";
 import NodeParameter from "../core/NodeParameter";
-//import { ServerPort } from "./ServerPort";
 
 type ServerNodeOptions = {
 	diagram?: ServerDiagram,
@@ -25,8 +24,6 @@ export default abstract class ServerNode {
     public category: string = 'Custom'
     public editableInPorts: boolean = false
     public editableOutPorts: boolean = false
-    // public defaultInPorts = ['Input']
-    // public defaultOutPorts = ['Output']
     public key: string = 'test-key'
     public name: string
     public serverNodeType: string
