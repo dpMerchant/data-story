@@ -67,13 +67,13 @@ export default class ServerDiagram {
     executionOrder() {
         this.clearCachedNodeDependencies();
 
-        let r = this.nodes.sort(function(n1, n2) {
+        let r = this.nodes.sort((n1, n2) => {
 
-            if (n2.dependsOn(n1)) {
+            if (this.dependsOn(n2, n1)) {
                 return -1;
             }
 
-            if (n1.dependsOn(n2)) {
+            if (this.dependsOn(n1, n2)) {
               return 1;
             }
 
@@ -93,5 +93,41 @@ export default class ServerDiagram {
 
     clearCachedNodeDependencies() {
         this.cachedNodeDependencyMap = {}
+    }
+
+    dependencies(node) {
+        let cached = this.getCachedNodeDependencies(node.id)
+        if(cached !== null) {
+            return cached;
+        }
+
+        let inPorts = Object.values(node.ports.filter(p => p.in == true))
+
+        let linkLists = inPorts.map((port: any) => port.links)
+
+        let links = linkLists.map(linkList => Object.values(linkList)).flat()
+        let dependencies = links.map((link: any) => {
+			let sourcePort = this.find(link).sourcePort
+			let sourceNode = this.find(sourcePort).parentNode
+			return this.find(sourceNode).id
+		})
+
+        let deepDependencies = dependencies.map(d => {
+			return this.dependencies(
+				this.find(d)
+			)
+		})
+
+        let result = dependencies.concat(deepDependencies.flat())
+
+        this.setCachedNodeDependencies(node.id, result)
+
+        return result
+    }
+
+    dependsOn(n1, n2) {
+        return this.dependencies(n1).map(d => {
+			return d.id
+		}).includes(n2.id)
     }	
 }

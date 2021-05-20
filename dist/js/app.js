@@ -11262,13 +11262,15 @@ var ServerDiagram = /*#__PURE__*/function () {
   }, {
     key: "executionOrder",
     value: function executionOrder() {
+      var _this2 = this;
+
       this.clearCachedNodeDependencies();
       var r = this.nodes.sort(function (n1, n2) {
-        if (n2.dependsOn(n1)) {
+        if (_this2.dependsOn(n2, n1)) {
           return -1;
         }
 
-        if (n1.dependsOn(n2)) {
+        if (_this2.dependsOn(n1, n2)) {
           return 1;
         }
 
@@ -11292,6 +11294,47 @@ var ServerDiagram = /*#__PURE__*/function () {
     key: "clearCachedNodeDependencies",
     value: function clearCachedNodeDependencies() {
       this.cachedNodeDependencyMap = {};
+    }
+  }, {
+    key: "dependencies",
+    value: function dependencies(node) {
+      var _this3 = this;
+
+      var cached = this.getCachedNodeDependencies(node.id);
+
+      if (cached !== null) {
+        return cached;
+      }
+
+      var inPorts = Object.values(node.ports.filter(function (p) {
+        return p["in"] == true;
+      }));
+      var linkLists = inPorts.map(function (port) {
+        return port.links;
+      });
+      var links = linkLists.map(function (linkList) {
+        return Object.values(linkList);
+      }).flat();
+      var dependencies = links.map(function (link) {
+        var sourcePort = _this3.find(link).sourcePort;
+
+        var sourceNode = _this3.find(sourcePort).parentNode;
+
+        return _this3.find(sourceNode).id;
+      });
+      var deepDependencies = dependencies.map(function (d) {
+        return _this3.dependencies(_this3.find(d));
+      });
+      var result = dependencies.concat(deepDependencies.flat());
+      this.setCachedNodeDependencies(node.id, result);
+      return result;
+    }
+  }, {
+    key: "dependsOn",
+    value: function dependsOn(n1, n2) {
+      return this.dependencies(n1).map(function (d) {
+        return d.id;
+      }).includes(n2.id);
     }
   }], [{
     key: "hydrate",
@@ -11514,47 +11557,6 @@ var ServerNode = /*#__PURE__*/function () {
       return this.ports.find(function (port) {
         return port.name == name;
       });
-    }
-  }, {
-    key: "dependencies",
-    value: function dependencies() {
-      var _this2 = this;
-
-      var cached = this.diagram.getCachedNodeDependencies(this.id);
-
-      if (cached !== null) {
-        return cached;
-      }
-
-      var inPorts = Object.values(this.ports.filter(function (p) {
-        return p["in"] == true;
-      }));
-      var linkLists = inPorts.map(function (port) {
-        return port.links;
-      });
-      var links = linkLists.map(function (linkList) {
-        return Object.values(linkList);
-      }).flat();
-      var dependencies = links.map(function (link) {
-        var sourcePort = _this2.diagram.find(link).sourcePort;
-
-        var sourceNode = _this2.diagram.find(sourcePort).parentNode;
-
-        return _this2.diagram.find(sourceNode).id;
-      });
-      var deepDependencies = dependencies.map(function (d) {
-        return _this2.diagram.find(d).dependencies();
-      });
-      var result = dependencies.concat(deepDependencies.flat());
-      this.diagram.setCachedNodeDependencies(this.id, result);
-      return result;
-    }
-  }, {
-    key: "dependsOn",
-    value: function dependsOn(n2) {
-      return this.dependencies().map(function (d) {
-        return d.id;
-      }).includes(n2.id);
     }
   }]);
 
