@@ -18573,9 +18573,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var _Diagram__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../Diagram */ "./src/core/components/Diagram.js");
-/* harmony import */ var mobx_react__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! mobx-react */ "./node_modules/mobx-react/dist/mobxreact.esm.js");
-/* harmony import */ var _InspectorTable__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../InspectorTable */ "./src/core/components/InspectorTable.js");
+/* harmony import */ var mobx_react__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! mobx-react */ "./node_modules/mobx-react/dist/mobxreact.esm.js");
+/* harmony import */ var _InspectorTable__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../InspectorTable */ "./src/core/components/InspectorTable.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 
@@ -18603,8 +18602,7 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 
 
 
-
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,mobx_react__WEBPACK_IMPORTED_MODULE_4__.observer)( /*#__PURE__*/function (_React$Component) {
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,mobx_react__WEBPACK_IMPORTED_MODULE_3__.observer)( /*#__PURE__*/function (_React$Component) {
   _inherits(Inspector, _React$Component);
 
   var _super = _createSuper(Inspector);
@@ -18621,12 +18619,9 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
       var id = this.props.store.metadata.activeInspector;
       var features = id ? this.props.store.diagram.engine.model.getNode(id).features : [];
       return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
-        className: "",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
-          className: "p-4",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_InspectorTable__WEBPACK_IMPORTED_MODULE_3__.default, {
-            features: features
-          })
+        className: "p-4",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_InspectorTable__WEBPACK_IMPORTED_MODULE_2__.default, {
+          features: features
         })
       });
     }
@@ -18634,6 +18629,47 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 
   return Inspector;
 }(react__WEBPACK_IMPORTED_MODULE_1__.Component)));
+/*
+
+# Possible new approach
+* Make a mockup to see if it is layoutable in a beautiful way
+* Make a window section for results
+* Allow the user to select a renderer
+* Make an interface RendererInterface
+* Adapt InspectorTable to make it conform to interface
+* Make a CanvasRenderer
+* Make a MapRenderer
+* Consider having it placed to the right of the diagram
+* When running the workspace it should animate
+* Implement pagination for +100 features
+* Make the components into TS
+* Unit test the components
+* Consider an intermediate layer between the feature collection and the react renderer. This would make it easy to use TS and also to test it
+
+ ┌──────────────────────────────────────────────────────────────────┐
+ │    DIAGRAM                                                       │
+ │                                                                  │
+ │   ┌────┐                ┌───────┐                                │
+ │   └────┘                │       │                                │
+ │            ┌──────┐     │       │                                │
+ │            └──────┘     │       │                                │
+ │                         │       │                                │
+ │                         └───────┘                                │
+ │                                                                  │
+ ├─────────────┬─────────────┬───────────────────────────┬──────────┤
+ │ Inspector 1 │ Inspector 2 │                           │ Renderer │
+ ├─────────────┴─────────────┴───────────────────────────┴──────────┤
+ │                                                                  │
+ │    TABLE | CANVAS | MAP ...                                      │
+ │                                                                  │
+ │                                                                  │
+ │                                                                  │
+ │                                                                  │
+ │                                                                  │  
+ │                                                                  │
+ └──────────────────────────────────────────────────────────────────┘
+
+*/
 
 /***/ }),
 
