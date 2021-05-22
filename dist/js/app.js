@@ -18879,9 +18879,10 @@ var Workbench = /*#__PURE__*/function (_React$Component) {
   _createClass(Workbench, [{
     key: "render",
     value: function render() {
-      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_Diagram__WEBPACK_IMPORTED_MODULE_2__.default, {
-        store: _store_main__WEBPACK_IMPORTED_MODULE_3__.default,
-        ref: "pppage"
+      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_Diagram__WEBPACK_IMPORTED_MODULE_2__.default, {
+          store: _store_main__WEBPACK_IMPORTED_MODULE_3__.default
+        })
       });
     }
   }]);
