@@ -17,7 +17,7 @@ export default class Group extends ServerNode {
 
     async run() {       
         this.output([
-				new Feature(this.input())
+				new Feature(this.input().map(f => f.original))
 		])
     }
 }

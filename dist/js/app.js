@@ -13865,7 +13865,9 @@ var Group = /*#__PURE__*/function (_ServerNode) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                this.output([new _core_Feature__WEBPACK_IMPORTED_MODULE_1__.default(this.input())]);
+                this.output([new _core_Feature__WEBPACK_IMPORTED_MODULE_1__.default(this.input().map(function (f) {
+                  return f.original;
+                }))]);
 
               case 1:
               case "end":
