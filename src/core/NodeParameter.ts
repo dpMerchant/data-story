@@ -32,6 +32,10 @@ export default class NodeParameter {
 	
 	static js(name: string) {
 		return this.make(name).withFieldType('JS')
+	}
+
+	static textarea(name: string) {
+		return this.make(name).withFieldType('Textarea')
 	}	
 
     withFieldType(type: string) {

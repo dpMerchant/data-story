@@ -2,9 +2,18 @@ import ServerNode from "../ServerNode";
 import NodeParameter from "../../core/NodeParameter";
 
 export default class NODE_NAME extends ServerNode {
-    category: string = 'Workflow'    
-    summary = 'ADD SUMMARY HERE'
-	name = 'NODE_NAME'
+	constructor(options = {}) {
+		super({
+			// Defaults
+			name: 'NODE_NAME',
+			summary: 'SUMMARY HERE',
+			category: 'Workflow',
+			defaultInPorts: ['Input'],
+			defaultOutPorts: ['Output'],			
+			// Explicitly configured
+			...options,
+		})
+	}
 
     async run() {
         const p1 = this.getParameterValue('p1')

@@ -3,6 +3,7 @@ import Comment from './nodes/Comment'
 import Create from './nodes/Create'
 import CreateGrid from './nodes/CreateGrid'
 import CreateAttribute from './nodes/CreateAttribute'
+import CreateCSV from './nodes/CreateCSV'
 import CreateJSON from './nodes/CreateJSON'
 import CreateSequence from './nodes/CreateSequence'
 import DownloadJSON from './nodes/DownloadJSON'
@@ -29,6 +30,7 @@ export default class ServerNodeFactory {
         Comment,
         Create,
         CreateAttribute,
+		CreateCSV,
         CreateGrid,
 		CreateJSON,
         CreateSequence,
