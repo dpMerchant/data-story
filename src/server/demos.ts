@@ -13,6 +13,7 @@ import Inspect from "./nodes/Inspect";
 import Map from "./nodes/Map";
 import Log from "./nodes/Log";
 import FilterDuplicates from "./nodes/FilterDuplicates";
+import CreateSequence from "./nodes/CreateSequence";
 
 export const playing_with_json = DiagramModelBuilder.begin()
 	.add(Create, {feature_type: 'object', contents: '{}'})
@@ -63,3 +64,9 @@ export const scraping_a_map_service = DiagramModelBuilder.begin()
 	// .add(Inspect)
 	// .add(Log)
 	.finish()
+
+// export const grouping = DiagramModelBuilder.begin()
+// 	.add(CreateSequence)
+// 	.add(Clone_)
+// 	.add(Inspect)
+// 	.finish()

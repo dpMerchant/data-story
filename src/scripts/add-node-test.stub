@@ -5,4 +5,6 @@ it('DESCRIPTION', async () => {
     await when(NODE_NAME).hasDefaultParameters()
 		.assertCanRun()
 		.finish()
+	
+	throw 'Please finish tests for node NODE_NAME')
 });
