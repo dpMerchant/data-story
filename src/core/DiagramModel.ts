@@ -67,7 +67,7 @@ export default class DiagramModel extends DefaultDiagramModel {
 		super.setLocked(locked)
 
 		if(locked) {
-			console.log(this.listeners)
+			//console.log(this.listeners)
 			// this.deregisterListener(DiagramListener)
 			//this.deregisterListener('zoom')
 		} else {

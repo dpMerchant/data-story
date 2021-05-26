@@ -9680,9 +9680,7 @@ var DiagramModel = /*#__PURE__*/function (_DefaultDiagramModel) {
 
       _get(_getPrototypeOf(DiagramModel.prototype), "setLocked", this).call(this, locked);
 
-      if (locked) {
-        console.log(this.listeners);
-      } else {}
+      if (locked) {} else {}
     }
   }, {
     key: "smartInspectorNames",
@@ -12515,6 +12513,7 @@ var CreateCSV = /*#__PURE__*/function (_ServerNode) {
   }, {
     key: "parseValue",
     value: function parseValue(value) {
+      if (isNaN(value)) return value;
       if (!Number.isNaN(parseFloat(value))) return parseFloat(value);
       if (!Number.isNaN(parseInt(value))) return parseInt(value);
       return value;

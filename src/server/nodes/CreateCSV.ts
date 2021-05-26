@@ -50,8 +50,13 @@ export default class CreateCSV extends ServerNode {
     }
 
 	protected parseValue(value: string) {
+		// Its just some string
+		if(isNaN(value as any)) return value
+		// Its numeric
 		if(!Number.isNaN(parseFloat(value))) return parseFloat(value);
 		if(!Number.isNaN(parseInt(value))) return parseInt(value);
+
+		// Fallback
 		return value
 	}
 }
