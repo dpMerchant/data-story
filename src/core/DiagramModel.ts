@@ -63,6 +63,19 @@ export default class DiagramModel extends DefaultDiagramModel {
         );
     }
 
+	setLocked(locked: boolean = true) {
+		super.setLocked(locked)
+
+		if(locked) {
+			console.log(this.listeners)
+			// this.deregisterListener(DiagramListener)
+			//this.deregisterListener('zoom')
+		} else {
+			//this.registerListener(DiagramListener)
+			//this.registerListener('zoom')			
+		}
+	}
+
     smartInspectorNames(node)
     {
         if(node.options.name != 'Inspect') return;

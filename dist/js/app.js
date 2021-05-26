@@ -9674,6 +9674,17 @@ var DiagramModel = /*#__PURE__*/function (_DefaultDiagramModel) {
       node.setPosition(((_b = latest === null || latest === void 0 ? void 0 : latest.position) === null || _b === void 0 ? void 0 : _b.x) ? latest.position.x : 100, ((_c = latest === null || latest === void 0 ? void 0 : latest.position) === null || _c === void 0 ? void 0 : _c.y) ? latest.position.y + 75 : 100);
     }
   }, {
+    key: "setLocked",
+    value: function setLocked() {
+      var locked = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : true;
+
+      _get(_getPrototypeOf(DiagramModel.prototype), "setLocked", this).call(this, locked);
+
+      if (locked) {
+        console.log(this.listeners);
+      } else {}
+    }
+  }, {
     key: "smartInspectorNames",
     value: function smartInspectorNames(node) {
       var _a, _b, _c, _d;
@@ -16184,7 +16195,7 @@ var NodeWidget = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "open",
     value: function open() {
-      //this.props.store.diagram.engine.model.setLocked(true);
+      this.props.store.diagram.engine.model.setLocked(true);
       this.setState({
         isOpen: true
       });
@@ -16192,7 +16203,7 @@ var NodeWidget = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "closeModal",
     value: function closeModal() {
-      //this.props.store.diagram.engine.model.setLocked(false);
+      this.props.store.diagram.engine.model.setLocked(false);
       this.setState({
         isOpen: false
       });

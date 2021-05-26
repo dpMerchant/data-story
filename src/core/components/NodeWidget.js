@@ -112,7 +112,7 @@ export default class NodeWidget extends React.Component {
     }    
 
     open() {
-        //this.props.store.diagram.engine.model.setLocked(true);
+		this.props.store.diagram.engine.model.setLocked(true)
 
         this.setState({
             isOpen: true
@@ -120,7 +120,7 @@ export default class NodeWidget extends React.Component {
     }
 
     closeModal() {
-        //this.props.store.diagram.engine.model.setLocked(false);
+		this.props.store.diagram.engine.model.setLocked(false)
 
         this.setState({
             isOpen: false
