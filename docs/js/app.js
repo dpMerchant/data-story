@@ -11890,7 +11890,7 @@ var Clone_ = /*#__PURE__*/function (_ServerNode) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                this.output([this.input()].concat(_toConsumableArray(Array(this.getParameterValue('number_of_clones')).fill(this.input()))).flat());
+                this.output([this.input()].concat(_toConsumableArray(Array(parseInt(this.getParameterValue('number_of_clones'))).fill(this.input()))).flat());
 
               case 1:
               case "end":

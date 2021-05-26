@@ -20,7 +20,7 @@ export default class Clone_ extends ServerNode {
             [
 				this.input(),
 				...Array(
-					this.getParameterValue('number_of_clones')
+					parseInt(this.getParameterValue('number_of_clones'))
 				).fill(this.input())
 			].flat()
         )
