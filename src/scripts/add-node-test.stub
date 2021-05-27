@@ -6,5 +6,5 @@ it('DESCRIPTION', async () => {
 		.assertCanRun()
 		.finish()
 	
-	throw 'Please finish tests for node NODE_NAME')
+	throw 'Please finish tests for node NODE_NAME'
 });

@@ -6,6 +6,7 @@ import CreateAttribute from './nodes/CreateAttribute'
 import CreateCSV from './nodes/CreateCSV'
 import CreateJSON from './nodes/CreateJSON'
 import CreateSequence from './nodes/CreateSequence'
+import DownloadCSV from './nodes/DownloadCSV'
 import DownloadJSON from './nodes/DownloadJSON'
 import DownloadGeoJSON from './nodes/DownloadGeoJSON'
 import Evaluate from './nodes/Evaluate'
@@ -36,6 +37,7 @@ export default class ServerNodeFactory {
 		CreateJSON,
         CreateSequence,
         DeleteRepositories,
+		DownloadCSV,
         DownloadJSON,
 		DownloadGeoJSON,
         Evaluate,

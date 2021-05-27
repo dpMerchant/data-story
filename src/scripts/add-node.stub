@@ -23,13 +23,10 @@ export default class NODE_NAME extends ServerNode {
         )
     }
 
-    serialize() {
-        let description = super.serialize()
-
-        description.parameters.push(
+	getParameters() {
+		return [
+			...super.getParameters(),
             NodeParameter.string('p1'),
-        )
-
-        return description
-    }      
+		]
+	}     
 }
