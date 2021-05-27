@@ -13570,7 +13570,7 @@ var __awaiter = undefined && undefined.__awaiter || function (thisArg, _argument
 
 
 
-var placeholder = "// You may use the feature api here ie,\n// feature.get('some_property')\n// feature.set('some_property', 123)";
+var placeholder = "// PER FEATURE mode lets you use the feature api ie,\n// feature.get('some_property')\n// feature.set('some_property', 123)\n\n// GLOBAL mode gives full control\n// use this.input() and this.output()\n";
 
 var Evaluate = /*#__PURE__*/function (_ServerNode) {
   _inherits(Evaluate, _ServerNode);
@@ -13595,18 +13595,13 @@ var Evaluate = /*#__PURE__*/function (_ServerNode) {
     key: "run",
     value: function run() {
       return __awaiter(this, void 0, void 0, /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
-        var expression;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                expression = this.getParameterValue('expression');
-                this.output(this.input().map(function (feature) {
-                  eval(expression);
-                  return feature;
-                }));
+                return _context.abrupt("return", this.getParameterValue('evaluation_context') == 'per_feature' ? this.runPerFeature() : this.runGlobal());
 
-              case 2:
+              case 1:
               case "end":
                 return _context.stop();
             }
@@ -13615,9 +13610,29 @@ var Evaluate = /*#__PURE__*/function (_ServerNode) {
       }));
     }
   }, {
+    key: "runPerFeature",
+    value: function runPerFeature() {
+      var _this = this;
+
+      this.output(this.input().map(function (feature) {
+        eval(_this.getExpression());
+        return feature;
+      }));
+    }
+  }, {
+    key: "runGlobal",
+    value: function runGlobal() {
+      eval(this.getExpression());
+    }
+  }, {
+    key: "getExpression",
+    value: function getExpression() {
+      return this.getParameterValue('expression');
+    }
+  }, {
     key: "getParameters",
     value: function getParameters() {
-      return [].concat(_toConsumableArray(_get(_getPrototypeOf(Evaluate.prototype), "getParameters", this).call(this)), [_core_NodeParameter__WEBPACK_IMPORTED_MODULE_2__.default.js('expression').withDescription("javascript code to execute on each feature").withValue(placeholder)]);
+      return [].concat(_toConsumableArray(_get(_getPrototypeOf(Evaluate.prototype), "getParameters", this).call(this)), [_core_NodeParameter__WEBPACK_IMPORTED_MODULE_2__.default.select('evaluation_context').withOptions(['per_feature', 'global']).withValue('per_feature'), _core_NodeParameter__WEBPACK_IMPORTED_MODULE_2__.default.js('expression').withDescription("javascript code to execute on each feature").withValue(placeholder)]);
     }
   }]);
 
