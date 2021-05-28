@@ -1,8 +1,10 @@
+import { get } from './utils/Obj'
+
 export default class Feature {
 	constructor(public original: any = null) {}
 
     public get(property: string) {
-        return this.original[property]
+        return get(this.original,property)
     }
 
     public set(property: string, value: any) {

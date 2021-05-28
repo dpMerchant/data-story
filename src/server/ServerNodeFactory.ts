@@ -23,6 +23,7 @@ import RegExpFilter from './nodes/RegExpFilter'
 import DeleteRepositories from './nodes/github/DeleteRepositories'
 import Repositories from './nodes/github/Repositories'
 import Sample from './nodes/Sample'
+import Sort from './nodes/Sort'
 import Sleep from './nodes/Sleep'
 import ThrowError from './nodes/ThrowError'
 
@@ -56,6 +57,7 @@ export default class ServerNodeFactory {
         Repositories,
 		Sample,
         Sleep,
+		Sort,
 		ThrowError,
     }
 
