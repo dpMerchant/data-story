@@ -14,6 +14,7 @@ import Map from "./nodes/Map";
 import Log from "./nodes/Log";
 import FilterDuplicates from "./nodes/FilterDuplicates";
 import CreateSequence from "./nodes/CreateSequence";
+import Aggregate from "./nodes/Aggregate";
 
 export const playing_with_json = DiagramModelBuilder.begin()
 	.add(Create, {feature_type: 'object', contents: '{}'})
@@ -65,8 +66,12 @@ export const scraping_a_map_service = DiagramModelBuilder.begin()
 	// .add(Log)
 	.finish()
 
-// export const grouping = DiagramModelBuilder.begin()
-// 	.add(CreateSequence)
-// 	.add(Clone_)
-// 	.add(Inspect)
-// 	.finish()
+export const grouping = DiagramModelBuilder.begin()
+	.add(Create)
+	.add(HTTPRequest, {
+		url: 'https://api.sheety.co/5daeb7a966361cbf4030212dc3045cd9/fakeData/sheet1',
+		features_path: 'data.sheet1',
+	})
+	.add(Aggregate, {'group_by': 'date'})
+	.add(Inspect)
+	.finish()

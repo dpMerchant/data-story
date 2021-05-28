@@ -1,3 +1,4 @@
+import Aggregate from './nodes/Aggregate'
 import Clone_ from './nodes/Clone_'
 import Comment from './nodes/Comment'
 import Create from './nodes/Create'
@@ -29,6 +30,7 @@ import { SerializedNodeModel } from '../core/types/SerializedNodeModel'
 
 export default class ServerNodeFactory {
     protected static nodes = {
+		Aggregate,
 		Clone_,
         Comment,
         Create,
