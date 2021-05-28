@@ -54,7 +54,7 @@ export default class Evaluate extends ServerNode {
 				.withOptions(['per_feature', 'global'])
 				.withValue('per_feature'),
             NodeParameter.js('expression')
-				.withDescription("javascript code to execute on each feature")
+				.withDescription("javascript code to execute")
 				.withValue(placeholder)
 		]
 	}		

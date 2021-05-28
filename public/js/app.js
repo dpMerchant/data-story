@@ -13863,7 +13863,7 @@ var Evaluate = /*#__PURE__*/function (_ServerNode) {
   }, {
     key: "getParameters",
     value: function getParameters() {
-      return [].concat(_toConsumableArray(_get(_getPrototypeOf(Evaluate.prototype), "getParameters", this).call(this)), [_core_NodeParameter__WEBPACK_IMPORTED_MODULE_2__.default.select('evaluation_context').withOptions(['per_feature', 'global']).withValue('per_feature'), _core_NodeParameter__WEBPACK_IMPORTED_MODULE_2__.default.js('expression').withDescription("javascript code to execute on each feature").withValue(placeholder)]);
+      return [].concat(_toConsumableArray(_get(_getPrototypeOf(Evaluate.prototype), "getParameters", this).call(this)), [_core_NodeParameter__WEBPACK_IMPORTED_MODULE_2__.default.select('evaluation_context').withOptions(['per_feature', 'global']).withValue('per_feature'), _core_NodeParameter__WEBPACK_IMPORTED_MODULE_2__.default.js('expression').withDescription("javascript code to execute").withValue(placeholder)]);
     }
   }]);
 
