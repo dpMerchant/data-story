@@ -10450,7 +10450,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 var APIClient = /*#__PURE__*/function () {
   function APIClient() {
-    var root = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'https://data-story-server.herokuapp.com';
+    var root = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'http://localhost:3000';
 
     _classCallCheck(this, APIClient);
 
