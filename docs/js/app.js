@@ -11987,7 +11987,9 @@ var Aggregate = /*#__PURE__*/function (_ServerNode) {
                 features = [];
 
                 for (value in groups) {
-                  features.push(new _core_Feature__WEBPACK_IMPORTED_MODULE_4__.default((_Feature = {}, _defineProperty(_Feature, groupKey, value), _defineProperty(_Feature, "features", groups[value]), _Feature)));
+                  features.push(new _core_Feature__WEBPACK_IMPORTED_MODULE_4__.default((_Feature = {}, _defineProperty(_Feature, groupKey, value), _defineProperty(_Feature, "features", groups[value].map(function (feature) {
+                    return feature.original;
+                  })), _Feature)));
                 }
 
                 this.output(features);

@@ -15,3 +15,13 @@ test('a Feature can hold attributes', () => {
 
     expect(feature.get('foo')).toBe('bar')
 });
+
+test('it can get dot notated attributes', () => {
+	let feature = new Feature({
+        user: {
+			name: 'ajthinking'
+		}
+    })
+
+    expect(feature.get('user.name')).toBe('ajthinking')
+})
