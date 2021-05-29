@@ -32,7 +32,7 @@ export default class Aggregate extends ServerNode {
 			features.push(
 				new Feature({
 					[groupKey]: value,
-					features: groups[value]
+					features: groups[value].map(feature => feature.original)
 				})
 			)
 		}

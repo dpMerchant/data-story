@@ -23,15 +23,15 @@ it('will keep the grouping key and appended the aggregated features in a feature
 			{
 				date: '2021-05-27',
 				features: [
-					new Feature({date: '2021-05-27', id: 1}),
-					new Feature({date: '2021-05-27', id: 2}),
+					{date: '2021-05-27', id: 1},
+					{date: '2021-05-27', id: 2},
 				]
 			},
 			{
 				date: '2021-05-28',
 				features: [
-					new Feature({date: '2021-05-28', id: 3}),
-					new Feature({date: '2021-05-28', id: 4}),
+					{date: '2021-05-28', id: 3},
+					{date: '2021-05-28', id: 4},
 				]
 			}
 		])		
