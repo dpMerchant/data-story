@@ -2,6 +2,13 @@ import React from 'react';
 
 export default class InspectorTable extends React.Component {
 
+	constructor(props) {
+		super(props)
+		this.state = {
+			truncateAt: 100
+		}
+	}
+
     render() {
         return (
             <div className="flex flex-col">
@@ -12,11 +19,18 @@ export default class InspectorTable extends React.Component {
                         {this.renderTableHead()}
                         {this.renderTableBody()}
                     </table>
-                    {this.props.features.length == 0 && 
+                    {this.getRowCount() == 0 && 
                         <div className="flex w-full justify-center p-24 text-gray-300 font-mono text-xl">
                             No data to show here 😐
                         </div>
                     }
+					{this.getRowCount() > this.state.truncateAt &&
+						<div
+							className="flex cursor-pointer justify-center my-12 px-8 py-2 border text-gray-300 font-mono text-xl"
+							onClick={() => {this.setState({truncateAt: Number.POSITIVE_INFINITY})}}>
+							Load all {this.getRowCount()} rows
+						</div>
+					}
                   </div>
                 </div>
               </div>
@@ -108,7 +122,7 @@ export default class InspectorTable extends React.Component {
 
     getRows() {
 
-        return this.props.features.map(feature => {
+        return this.props.features.slice(0, this.state.truncateAt).map(feature => {
             let content = feature.unbox()
 
             if(typeof content != 'object') return content
@@ -125,5 +139,9 @@ export default class InspectorTable extends React.Component {
             });
         })
     }
+
+	getRowCount() {
+		return this.props.features.length
+	}
 }
 

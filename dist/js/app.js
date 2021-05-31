@@ -16620,15 +16620,23 @@ var InspectorTable = /*#__PURE__*/function (_React$Component) {
 
   var _super = _createSuper(InspectorTable);
 
-  function InspectorTable() {
+  function InspectorTable(props) {
+    var _this;
+
     _classCallCheck(this, InspectorTable);
 
-    return _super.apply(this, arguments);
+    _this = _super.call(this, props);
+    _this.state = {
+      truncateAt: 100
+    };
+    return _this;
   }
 
   _createClass(InspectorTable, [{
     key: "render",
     value: function render() {
+      var _this2 = this;
+
       return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
         className: "flex flex-col",
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
@@ -16640,9 +16648,17 @@ var InspectorTable = /*#__PURE__*/function (_React$Component) {
               children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("table", {
                 className: "min-w-full divide-y divide-gray-200",
                 children: [this.renderTableHead(), this.renderTableBody()]
-              }), this.props.features.length == 0 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
+              }), this.getRowCount() == 0 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
                 className: "flex w-full justify-center p-24 text-gray-300 font-mono text-xl",
                 children: "No data to show here \uD83D\uDE10"
+              }), this.getRowCount() > this.state.truncateAt && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
+                className: "flex cursor-pointer justify-center my-12 px-8 py-2 border text-gray-300 font-mono text-xl",
+                onClick: function onClick() {
+                  _this2.setState({
+                    truncateAt: Number.POSITIVE_INFINITY
+                  });
+                },
+                children: ["Load all ", this.getRowCount(), " rows"]
               })]
             })
           })
@@ -16732,18 +16748,23 @@ var InspectorTable = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "getRows",
     value: function getRows() {
-      var _this = this;
+      var _this3 = this;
 
-      return this.props.features.map(function (feature) {
+      return this.props.features.slice(0, this.state.truncateAt).map(function (feature) {
         var content = feature.unbox();
         if (_typeof(content) != 'object') return content;
-        return _this.getHeaders().map(function (header) {
+        return _this3.getHeaders().map(function (header) {
           if (content == null || !content.hasOwnProperty(header)) return 'N/A';
           if (_typeof(content[header]) === 'object') return 'OBJECT';
           if (typeof content[header] === 'array') return 'ARRAY';
           return content[header];
         });
       });
+    }
+  }, {
+    key: "getRowCount",
+    value: function getRowCount() {
+      return this.props.features.length;
     }
   }]);
 
