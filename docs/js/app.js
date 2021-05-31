@@ -9952,8 +9952,19 @@ var Feature = /*#__PURE__*/function () {
     }
   }, {
     key: "set",
-    value: function set(property, value) {
-      this.original[property] = value;
+    value: function set() {
+      for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+        args[_key] = arguments[_key];
+      }
+
+      if (args.length === 2) {
+        this.original[args[0]] = args[1];
+      }
+
+      if (args.length === 1) {
+        this.original = args[0];
+      }
+
       return this;
     }
   }, {
@@ -10873,12 +10884,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "get": () => (/* binding */ get)
 /* harmony export */ });
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
 var get = function get(object) {
   var path = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
   var steps = path ? path.split('.') : [];
   return steps.reduce(function (traversed, part) {
     var _a;
 
+    if (_typeof(traversed) !== 'object' || traversed === null) return null;
     return (_a = traversed[part]) !== null && _a !== void 0 ? _a : null;
   }, object);
 };
@@ -13735,6 +13749,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _ServerNode__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../ServerNode */ "./src/server/ServerNode.ts");
 /* harmony import */ var _core_NodeParameter__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../core/NodeParameter */ "./src/core/NodeParameter.ts");
+/* harmony import */ var _core_Feature__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../core/Feature */ "./src/core/Feature.ts");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 
@@ -13809,7 +13824,8 @@ var __awaiter = undefined && undefined.__awaiter || function (thisArg, _argument
 
 
 
-var placeholder = "// PER FEATURE mode lets you use the feature api ie,\n// feature.get('some_property')\n// feature.set('some_property', 123)\n\n// GLOBAL mode gives full control\n// use this.input() and this.output()\n";
+
+var placeholder = "// PER FEATURE mode gives you access to variables: previous, current and next, ie\n// previous.get('some_property')\n// current.set('some_property', 123)\n\n// GLOBAL mode gives full control\n// use this.input() and this.output()\n";
 
 var Evaluate = /*#__PURE__*/function (_ServerNode) {
   _inherits(Evaluate, _ServerNode);
@@ -13853,9 +13869,14 @@ var Evaluate = /*#__PURE__*/function (_ServerNode) {
     value: function runPerFeature() {
       var _this = this;
 
-      this.output(this.input().map(function (feature) {
+      var inputs = this.input();
+      this.output(inputs.map(function (current, index) {
+        var _a, _b;
+
+        var previous = (_a = inputs[index - 1]) !== null && _a !== void 0 ? _a : new _core_Feature__WEBPACK_IMPORTED_MODULE_3__.default();
+        var next = (_b = inputs[index + 1]) !== null && _b !== void 0 ? _b : new _core_Feature__WEBPACK_IMPORTED_MODULE_3__.default();
         eval(_this.getExpression());
-        return feature;
+        return current;
       }));
     }
   }, {

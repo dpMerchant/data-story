@@ -7,10 +7,17 @@ export default class Feature {
         return get(this.original,property)
     }
 
-    public set(property: string, value: any) {
-        this.original[property] = value
+    public set(...args) {
+		if(args.length === 2) {
+			this.original[args[0]] = args[1]
+		}
+
+		if(args.length === 1) {
+			this.original = args[0]
+		}
+
         return this
-    }    
+    }	
 
     public type() {
         return typeof this.original

@@ -1,10 +1,11 @@
 import ServerNode from "../ServerNode";
 import NodeParameter from "../../core/NodeParameter";
+import Feature from "../../core/Feature";
 
 const placeholder =
-`// PER FEATURE mode lets you use the feature api ie,
-// feature.get('some_property')
-// feature.set('some_property', 123)
+`// PER FEATURE mode gives you access to variables: previous, current and next, ie
+// previous.get('some_property')
+// current.set('some_property', 123)
 
 // GLOBAL mode gives full control
 // use this.input() and this.output()
@@ -31,10 +32,16 @@ export default class Evaluate extends ServerNode {
     }
 
 	runPerFeature() {
+		let inputs = this.input(); // maintain state - no additional feature clones
+
         this.output(
-            this.input().map(feature => {
+            inputs.map((current, index) => {
+				// previous and next have 'null' features as fallback
+				const previous = inputs[index-1] ?? new Feature()
+				const next = inputs[index+1] ?? new Feature()
+
                 eval(this.getExpression())
-                return feature
+                return current
             })
         );
 	}
