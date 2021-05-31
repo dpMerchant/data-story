@@ -96,7 +96,17 @@ export default observer(class NodeSearch extends React.Component {
         Mousetrap.bind(
             'enter',
             this.handleSelect.bind(this)
-        );        
+        );
+
+        // Mousetrap.bind(Array.from('abcdefghijklmnopqrstuvwxyz'),
+        //     (key) => {
+		// 		console.log(key)
+		// 		// this.setState({
+		// 		// 	search: event.target.value
+		// 		// })   
+
+		// 	}
+        // ); 		
     }
 
     componentWillUnmount(){

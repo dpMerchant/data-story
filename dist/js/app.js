@@ -17700,7 +17700,14 @@ var Mousetrap = __webpack_require__(/*! mousetrap */ "./node_modules/mousetrap/m
     key: "componentDidMount",
     value: function componentDidMount() {
       this.nameInput.focus();
-      Mousetrap.bind('enter', this.handleSelect.bind(this));
+      Mousetrap.bind('enter', this.handleSelect.bind(this)); // Mousetrap.bind(Array.from('abcdefghijklmnopqrstuvwxyz'),
+      //     (key) => {
+      // 		console.log(key)
+      // 		// this.setState({
+      // 		// 	search: event.target.value
+      // 		// })   
+      // 	}
+      // ); 		
     }
   }, {
     key: "componentWillUnmount",
