@@ -17647,8 +17647,8 @@ var Mousetrap = __webpack_require__(/*! mousetrap */ "./node_modules/mousetrap/m
       var elementDataProperties = {
         'id': node.name,
         'data-node-model-variation-name': node.name
-      }; // FAILED TO STOP EVENT PROPAGATION ON <li> DOUBLE CLICK
-      // REPEAT THE EVENT + DATA FOR ALL CHILDREN FOR NOW
+      }; // HOW TO ONLY ALLOW CLICK EVENT FROM PARENT?
+      // REPEAT THE EVENTDATA FOR ALL CHILDREN FOR NOW
 
       return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("li", _objectSpread(_objectSpread({
         onDoubleClick: this.handleSelect.bind(this)
@@ -17657,24 +17657,21 @@ var Mousetrap = __webpack_require__(/*! mousetrap */ "./node_modules/mousetrap/m
         tabIndex: 2,
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
           className: "ml-3",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("p", _objectSpread(_objectSpread({
-            className: "text-sm mb-2 font-medium text-gray-900 text-bold",
-            onDoubleClick: this.handleSelect.bind(this)
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", _objectSpread(_objectSpread({
+            className: "flex text-sm mb-2 font-medium text-gray-900 text-bold"
           }, elementDataProperties), {}, {
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", _objectSpread(_objectSpread({}, elementDataProperties), {}, {
               className: "text-indigo-500",
               children: node.category
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("span", {
+            })), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", _objectSpread(_objectSpread({}, elementDataProperties), {}, {
               className: "",
               children: ["::", node.name]
-            })]
-          })), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("p", _objectSpread(_objectSpread({
-            className: "text-xs text-gray-500",
-            onDoubleClick: this.handleSelect.bind(this)
+            }))]
+          })), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", _objectSpread(_objectSpread({
+            className: "text-xs text-gray-500"
           }, elementDataProperties), {}, {
             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", _objectSpread(_objectSpread({
-              className: "ml-2",
-              onDoubleClick: this.handleSelect.bind(this)
+              className: "ml-2"
             }, elementDataProperties), {}, {
               children: node.summary
             }))
@@ -17714,8 +17711,6 @@ var Mousetrap = __webpack_require__(/*! mousetrap */ "./node_modules/mousetrap/m
     key: "handleSelect",
     value: function handleSelect(event) {
       event.preventDefault();
-      event.stopPropagation(); // NOT WORKING!
-
       var name = event.target.getAttribute('data-node-model-variation-name');
       var nodeData = this.props.store.diagram.availableNodes.find(function (node) {
         return node.name == name;

@@ -39,8 +39,8 @@ export default observer(class NodeSearch extends React.Component {
             'data-node-model-variation-name': node.name,
         }
 
-        // FAILED TO STOP EVENT PROPAGATION ON <li> DOUBLE CLICK
-        // REPEAT THE EVENT + DATA FOR ALL CHILDREN FOR NOW
+        // HOW TO ONLY ALLOW CLICK EVENT FROM PARENT?
+        // REPEAT THE EVENTDATA FOR ALL CHILDREN FOR NOW
         return (
             <li 
                 key={node.category + node.name}
@@ -51,27 +51,24 @@ export default observer(class NodeSearch extends React.Component {
                 className="py-3 flex"
                 tabIndex={2}
             >
-                <div className="ml-3">
-                    <p 
-                        className="text-sm mb-2 font-medium text-gray-900 text-bold"
-                        onDoubleClick={this.handleSelect.bind(this)}
+                <div className="ml-3"> 
+                    <div 
+                        className="flex text-sm mb-2 font-medium text-gray-900 text-bold"
                         {...elementDataProperties}
                     >
-                        <span className="text-indigo-500">{node.category}</span>
-                        <span className="">::{node.name}</span>
+                        <div {...elementDataProperties} className="text-indigo-500">{node.category}</div>
+                        <div {...elementDataProperties} className="">::{node.name}</div>
                         
-                    </p>
-                    <p  
+                    </div>
+                    <div  
                         className="text-xs text-gray-500"
-                        onDoubleClick={this.handleSelect.bind(this)}
                         {...elementDataProperties}
                     >
                         <span 
                             className="ml-2"
-                            onDoubleClick={this.handleSelect.bind(this)}
                             {...elementDataProperties}
                         >{node.summary}</span>
-                    </p>
+                    </div>
                 </div>
             </li>             
         )
@@ -109,7 +106,6 @@ export default observer(class NodeSearch extends React.Component {
     
     handleSelect(event) {
         event.preventDefault()
-        event.stopPropagation() // NOT WORKING!
 
         let name = event.target.getAttribute('data-node-model-variation-name')
         let nodeData = this.props.store.diagram.availableNodes.find(node => node.name == name)

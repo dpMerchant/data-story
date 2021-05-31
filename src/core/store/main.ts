@@ -1,5 +1,4 @@
 import { action, observable, makeObservable } from "mobx"
-import { DefaultLinkModel } from '@projectstorm/react-diagrams'
 import NodeModel from '../../core/NodeModel'
 import _ from 'lodash'
 import clientFactory from '../clients/ClientFactory';
